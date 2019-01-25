@@ -1,0 +1,57 @@
+Code for Error output in script task in ssis:
+Row.ErrorDescription=componentMetadata.geterrorDescription(Row.ErrorCode);
+---------------------
+
+ public override void Input0_ProcessInputRow(Input0Buffer Row)
+    {
+        Output0Buffer.AddRow();
+        Output0Buffer.ErrorDescription = ComponentMetaData.GetErrorDescription(Row.ErrorCode);
+    }
+
+    public override void CreateNewOutputRows()
+    {
+        /*
+          Add rows by calling the AddRow method on the member variable named "<Output Name>Buffer".
+          For example, call MyOutputBuffer.AddRow() if your output was named "MyOutput".
+        */
+    }
+
+Row.ErrorDescription=componentMetadata.geterrorDescription(Row.ErrorCode);
+
+RazorSQL
+---------
+I had analyzed the data 
+created table for first child saving which was assigned to me.
+i need to resolve some more connection issues.
+can't able to login into jogger.
+today at some time i will complete the test.
+----------------------------------
+Changing julian date to date:
+declare @jdateB int = 2000317 
+select format(dateadd(dd, (@jdateB -  convert(bigint, (@jdateB/1000) * 1000)) - 1, dateadd(yy, @jdateB/1000 - 1900, 0)),'MM/dd/yy') 
+
+SELECT ( @jdateB - CONVERT(BIGINT, ( @jdateB / 1000 ) * 1000) 
+                          ) - 1, 
+						  Dateadd(yy, @jdateB / 1000 - 1900, 0),
+						  Format(Dateadd(dd, ( @jdateB - CONVERT(BIGINT, ( @jdateB / 1000 ) * 1000) 
+                          ) - 1, 
+                            Dateadd(yy, @jdateB / 1000 - 1900, 0)), 'MM/dd/yy') 
+declare @mydate date = '2000-01-01'
+select DATEADD(dd,316,@mydate)
+---------------------
+concatinating '0' to account no:
+=-==================
+SELECT FORMAT (caccno, '0000000000') FROM childAccount;
+
+create view outputaccount(accno,accname,amount)
+as
+select format(maccno,'0000000000'),maccname,amount 
+from masterAccount m
+join
+childAccount c
+ON maccno = 
+caccno
+
+select * from outputaccount
+
+select left(convert(varchar,@jdateB) ,4),right(convert(varchar,@jdateB),3)
