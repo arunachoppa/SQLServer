@@ -55,3 +55,38 @@ caccno
 select * from outputaccount
 
 select left(convert(varchar,@jdateB) ,4),right(convert(varchar,@jdateB),3)
+=================================
+1/25/19
+
+USE [DWReporting]
+GO
+
+/****** Object:  View [dbo].[vwMinorFlag]    Script Date: 1/25/2019 12:44:42 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE  view [dbo].[vwMinorFlag]
+as
+with mainData (CUNBR,
+CUNA1,
+cupref,CUJBDT)
+as
+(
+select CUNBR,
+CUNA1,
+cupref,
+case when CUJBDT !=0 then 
+format(dateadd(dd, (convert(bigint,CUJBDT) - ((convert(bigint,CUJBDT)/1000) * 1000)) - 1, dateadd(yy, convert(bigint,CUJBDT)/1000 - 1900, 0)),'MM/dd/yyyy') 
+else
+GETDATE()
+end 
+
+from [SNLBanker_DW].[SourceData].[CUP003]
+)
+select [customer number] = RIGHT('0000000000' + CONVERT(VARCHAR,CUNBR), 10),
+[Name Address Line1]=CUNA1,
+[Preffered Customer Code]=cupref ,[Date Birth]=CUJBDT, FORMAT(CUJBDT,'MM/dd/yy') dob, DATEDIFF(Month,FORMAT(CUJBDT,'MM/dd/yyyy'),GETDATE()) /12  age from mainData where cupref in ('A-minor','minor') 
+GO
