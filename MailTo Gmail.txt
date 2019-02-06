@@ -99,6 +99,7 @@ CUP003.CUPERS
 
 
 
+
  TAP002.DMTYPE to CUP90001.XRTYP and TAP002.DMACCT to CUP90001.XRACCT and then CUP90001.CUX1CS to CUP003.CUNBR.
 
 from [SNLBanker_DW].[SourceData].[CUP003]
@@ -109,3 +110,50 @@ select [customer number] = RIGHT('0000000000' + CONVERT(VARCHAR,CUNBR), 10),
 GO
 2/6/19
 if(Bal_Current > Transaction_Amt) {Bal_Current - Transaction_Amt} else {0}
+
+=======================================================
+WITH TA_HISTORY_MONETARY_TRANS1
+AS
+
+(select
+  ACCOUNT_NUMBER=[SNLBanker_DW].dbo.[fn_PadZeroToCertainDigit](Dhacct,10)
+,DATE_POSTING=DHDATE
+,TRANSACTION_CODE_INTERNAL=DHITC
+,TRANSACTION_AMT=DHAMT
+
+
+from [SNLBanker_DW].[SourceData].[TAP00503] 
+UNION ALL
+select
+  ACCOUNT_NUMBER=[SNLBanker_DW].dbo.[fn_PadZeroToCertainDigit](Dhacct,10)
+,DATE_POSTING=DHDATE
+,TRANSACTION_CODE_INTERNAL=DHITC
+,TRANSACTION_AMT=DHAMT
+
+  FROM [SNLBanker_DW].[SourceData].[TAP00501] 
+ UNION ALL
+ select
+  ACCOUNT_NUMBER=[SNLBanker_DW].dbo.[fn_PadZeroToCertainDigit](Dhacct,10)
+,DATE_POSTING=DHDATE
+,TRANSACTION_CODE_INTERNAL=DHITC
+,TRANSACTION_AMT=DHAMT
+
+
+  FROM [SNLBanker_DW].[SourceData].[TAP00502] TAP2 ) TAP
+ 
+  AS(
+  SELECT TRANSACTION_DESCRIPTION_1= [DHDSC1] FROM [SNLBanker_DW].[SourceData].[TAP00503]
+  UNION ALL
+  SELECT TRANSACTION_DESCRIPTION_1= [DHDSC1] FROM [SNLBanker_DW].[SourceData].[TAP00502]
+  )TPA1
+
+  AS(
+  SELECT 
+  TRANSACTION_DESCRIPTION_1= [DHDSC2]
+  TRANSACTION_DESCRIPTION_1= [DHDSC3]
+  FROM [SNLBanker_DW].[SourceData].[TAP00503] 
+  )TAP2
+  
+  LEFT JOIN TAP1 ON TAP2.Dhacct=TAP1.Dhacct
+  LEFT JOIN TAP ON TAP1.Dhacct=TAP.Dhacct)
+
