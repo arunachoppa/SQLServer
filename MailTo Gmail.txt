@@ -107,3 +107,5 @@ select [customer number] = RIGHT('0000000000' + CONVERT(VARCHAR,CUNBR), 10),
 [Name Address Line1]=CUNA1,
 [Preffered Customer Code]=cupref ,[Date Birth]=CUJBDT, FORMAT(CUJBDT,'MM/dd/yy') dob, DATEDIFF(Month,FORMAT(CUJBDT,'MM/dd/yyyy'),GETDATE()) /12  age from mainData where cupref in ('A-minor','minor') 
 GO
+2/6/19
+if(Bal_Current > Transaction_Amt) {Bal_Current - Transaction_Amt} else {0}
