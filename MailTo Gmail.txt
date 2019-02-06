@@ -156,4 +156,8 @@ select
   
   LEFT JOIN TAP1 ON TAP2.Dhacct=TAP1.Dhacct
   LEFT JOIN TAP ON TAP1.Dhacct=TAP.Dhacct)
+  =============================
+     TA.DMOPNJ > convert(date, last_day(dateadd(month, -2, getdate())))
+    AND 
+  TA.DMOPNJ> convert(date, last_day(dateadd(month, -1, getdate()))) 
 
