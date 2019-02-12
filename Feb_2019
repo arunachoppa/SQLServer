@@ -21,3 +21,5 @@ This is new file created for code for the future review.
 110413
 42116
 
+ if (Date_Expiration == Calc_Date_Expiration ) {'yes' }  else { 'no'} 
+ Abs(Date_Expiration-Calc_Date_Expiration)
