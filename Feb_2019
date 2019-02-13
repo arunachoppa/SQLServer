@@ -10,3 +10,77 @@ select format(convert(date,right('0'+SUBSTRING(convert(varchar,cal_date),1,len(c
 ------------------------------------------------------
 select iif(cal_date=50511,'Yes','No'),
 case when  cal_date = 50511 then 'Yes' else 'No' end from testdate
+----------------------------------------------------------------
+Loans_live:
+
+TaxIdFlag:
+Decode(Cupers, 'N', 'B', 'P')
+
+Modified Cur Bal:
+
+if(Lnbal < 0) {Lnbal} else{if(Modified_Lndoe='No') {Lnbal} else {0}}
+
+if(Cussnr ==156402658) {0} 
+if(Cussnr ==38263703) {0}
+if(Cussnr ==509607104) {0}
+if(Cussnr ==511568125) {0}
+if(Cussnr ==511601676) {0}
+
+-------------------------------
+Mod Lnntdt:
+
+if(Length(Lnntdt) == 8) {(ToChar(Substr(Lnntdt, 1, 4),0) + ToChar(Substr(Lnntdt, 7,2),0))*1}
+
+if(Length(Lnntdt) == 7) {(ToChar(Substr(Lnntdt, 1, 3),0) + ToChar(Substr(Lnntdt, 6,2),0))*1}
+
+if(Length(Lnntdt) <7) {0}
+
+---------------------------------------------
+Mod Lnnxmt:
+if(Length(Lnnxmt) == 8) {(ToChar(Substr(Lnnxmt, 1, 4),0) + ToChar(Substr(Lnnxmt, 7,2),0))*1}
+
+if(Length(Lnnxmt) == 7) {(ToChar(Substr(Lnnxmt, 1, 3),0) + ToChar(Substr(Lnnxmt, 6,2),0))*1}
+
+if(Length(Lnnxmt) <7) {0}
+-------------------------------
+Mod Lnexpd:
+if(Length(Lnexpd) == 8) {(ToChar(Substr(Lnexpd, 1, 4),0) + ToChar(Substr(Lnexpd, 7,2),0))*1}
+
+if(Length(Lnexpd) == 7) {(ToChar(Substr(Lnexpd, 1, 3),0) + ToChar(Substr(Lnexpd, 6,2),0))*1}
+
+if(Length(Lnexpd) <7) {0}
+-------------------------------------
+Modified Face Amt:
+
+if(Lnface < 0) {Lnface} else{if(Modified_Lndoe='No') {Lnface} else {0}}
+
+if(Cussnr ==156402658) {0} 
+if(Cussnr ==38263703) {0}
+if(Cussnr ==509607104) {0}
+if(Cussnr ==511568125) {0}
+if(Cussnr ==511601676) {0}
+if(Cussnr ==512442056) {0}
+if(Cussnr ==513506259) {0}
+if(Cussnr ==514523601) {0}
+if(Cussnr ==515460692) {0}
+if(Cussnr ==515460728) {0}
+if(Cussnr ==515460739) {0}
+if(Cussnr ==515460757) {0}
+if(Cussnr ==515460777) {0}
+if(Cussnr ==515460790) {0}
+if(Cussnr ==515501034) {0}
+if(Cussnr ==524567898) {0}
+
+----------------------------------------
+Rate:
+Trunc(Lnrate*100,2)
+----------------------------------
+First:
+if(Lnnote == Prior(Lnnote) && Rel_Sort == 1) {'Bad'} else {'First'}
+---------------------------------------
+Unique:
+ToChar(Lnnote, "0") + ToChar(Rel_Sort, "0")
+--------------------------------------------------
+Dup:
+if(Count(Unique, Unique) >1 && Rel_Sort == 1) {'DUPS'} else {'Ok'}
+---------------------------------------------------------
