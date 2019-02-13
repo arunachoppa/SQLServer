@@ -1,25 +1,12 @@
 New File 
 
 
-select format(Convert(Date,concat(format( 60316 , 'MM/dd' ) , '/2045')),'MM/dd/yyyy')
-
-This is new file created for code for the future review. 
-
-61396
-60316
-61396
-61396
-50511
-80114
-110812
-61396
-70109
-12215
-30315
-33115
-110812
-110413
-42116
-
  if (Date_Expiration == Calc_Date_Expiration ) {'yes' }  else { 'no'} 
  Abs(Date_Expiration-Calc_Date_Expiration)
+---------------------------------------------
+select format(convert(date,right('0'+SUBSTRING(convert(varchar,cal_date),1,len(cal_date)-4),2) + '/' + LEFT(right(cal_date,4),2)
++ '/2045'),'MM/dd/yyyy') 
+, cal_date from testdate
+------------------------------------------------------
+select iif(cal_date=50511,'Yes','No'),
+case when  cal_date = 50511 then 'Yes' else 'No' end from testdate
