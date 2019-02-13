@@ -83,4 +83,7 @@ ToChar(Lnnote, "0") + ToChar(Rel_Sort, "0")
 --------------------------------------------------
 Dup:
 if(Count(Unique, Unique) >1 && Rel_Sort == 1) {'DUPS'} else {'Ok'}
+
 ---------------------------------------------------------
+
+SELECT format(convert(date,right('0'+SUBSTRING(convert(varchar,DSEDT),1,len(DSEDT)-4),2) + '/' + LEFT(right(DSEDT,4),2)+'/'+RIGHT(DSEDT,2),'MM/dd/yyyy' FROM [SourceData].[TAP003]
