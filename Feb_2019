@@ -119,3 +119,18 @@ return @OutputValue
  select [ModLnntdt]=   iif(len(Lnntdt)=8,substring(convert(varchar,lnntdt),1,4)+substring(convert(varchar,lnntdt),7,2),
                        iif(len(Lnntdt)=7,substring(convert(varchar,lnntdt),1,3)+substring(convert(varchar,lnntdt),6,2),
 					   iif(len(lnntdt)< 7, 0,0)))
+--------
+
+out put of modified column:
+112,001
+92,810
+101,102
+--------
+6211996
+8011994
+11021994
+12021994
+6221995
+7161994
+10161995
+12121995
