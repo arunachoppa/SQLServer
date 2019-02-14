@@ -114,3 +114,8 @@ case when  cal_date = 50511 then 'Yes' else 'No' end from testdate
    declare @OutputValue varchar(200)
 set @OutputValue = left(RIGHT('0' + CONVERT(VARCHAR,111116), 6),2) + '/' + substring(RIGHT('0' + CONVERT(VARCHAR,111116), 6),3,2) + '/' + right(RIGHT('0' + CONVERT(VARCHAR,111116), 6),2)
 return @OutputValue
+------------------------------
+
+ select [ModLnntdt]=   iif(len(Lnntdt)=8,substring(convert(varchar,lnntdt),1,4)+substring(convert(varchar,lnntdt),7,2),
+                       iif(len(Lnntdt)=7,substring(convert(varchar,lnntdt),1,3)+substring(convert(varchar,lnntdt),6,2),
+					   iif(len(lnntdt)< 7, 0,0)))
