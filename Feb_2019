@@ -109,4 +109,8 @@ case when  cal_date = 50511 then 'Yes' else 'No' end from testdate
  
    SELECT format(convert(date,right('0'+SUBSTRING(convert(varchar,cal_date),1,len(cal_date)-4),2) 
   + '/' + LEFT(right(cal_date,4),2)+'/'+RIGHT(cal_date,2)),'MM/dd/yyyy')
-   FROM testdate
+   FROM testdate================================
+   
+   declare @OutputValue varchar(200)
+set @OutputValue = left(RIGHT('0' + CONVERT(VARCHAR,111116), 6),2) + '/' + substring(RIGHT('0' + CONVERT(VARCHAR,111116), 6),3,2) + '/' + right(RIGHT('0' + CONVERT(VARCHAR,111116), 6),2)
+return @OutputValue
