@@ -89,7 +89,7 @@ if(Count(Unique, Unique) >1 && Rel_Sort == 1) {'DUPS'} else {'Ok'}
 SELECT format(convert(date,right('0'+SUBSTRING(convert(varchar,DSEDT),1,len(DSEDT)-4),2) + '/' + LEFT(right(DSEDT,4),2)+'/'+RIGHT(DSEDT,2),'MM/dd/yyyy' FROM [SourceData].[TAP003]
 ===============
 
-
+select IIF(Cupers='N', 'B', 'P')  From xxxx
 declare @lnntdt varchar(8)='6131996'
   select
   iif(len(@Lnntdt)=8,convert(varchar,substring(@lnntdt,1,4))+convert(varchar,substring(@lnntdt,7,2)),
@@ -102,7 +102,9 @@ declare @lnntdt varchar(8)='6131996'
 	when Modified_Lndoe='No'then Lnface
 	when Cussnr in(402658,38263703,09607104,11568125,11601676,12442056,13506259,14523601,15460692,15460728,15460739,15460757,15460777,15460790,15501034,24567898)then 0
 	else 0
- 
+ -----------------------
+ select iif(cal_date=50511,'Yes','No'),
+case when  cal_date = 50511 then 'Yes' else 'No' end from testdate
  --------
  
    SELECT format(convert(date,right('0'+SUBSTRING(convert(varchar,cal_date),1,len(cal_date)-4),2) 
