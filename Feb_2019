@@ -134,3 +134,10 @@ out put of modified column:
 7161994
 10161995
 12121995
+===============
+
+AccountDetails
+'Revenue $' + Round(Total_Revenue_Due,2) + ' with ' + Total_Item_Count + ' items last month'
+ColMin(Open_Date_Format, Account_Number)
+Sum(Current_Revenue_Due, Account_Number)
+if(Account_Number == Next(Account_Number)) {'Bad'} else {'Last'}
