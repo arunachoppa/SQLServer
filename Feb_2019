@@ -141,3 +141,37 @@ AccountDetails
 ColMin(Open_Date_Format, Account_Number)
 Sum(Current_Revenue_Due, Account_Number)
 if(Account_Number == Next(Account_Number)) {'Bad'} else {'Last'}
+=========================
+2/15/19
+
+with cteTaDormantCnt as
+(select distinct CUSTOMER_NUMBER=CUNBR,[TaDormantCnt]=count(DMACCT)
+ from 
+ [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+
+group by cu.CUNBR,cup009.CUXREL,ta.DMSTAT,ta.DMDLA,ta.DMMAIL,ta.DMTYPE
+
+having
+ CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+ AND ta.DMSTAT='5'
+  AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
+  AND  DMTYPE not BETWEEN '300' AND '399'
+  AND Ta.DMMAIL='X')
+
+ 
+select 
+[CUSTOMER_NUMBER],
+[TaDormantCnt] from cteTaDormantCnt
+join [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+ where
+ ta.DMSTAT  in(4,5,8)
+ and [dbo].[fn_MDDYY_To_Date](DMDLA)>= (dateadd(month,-60,getdate()))
+ and Ta.DMMAIL<>'X'
+ and CUP009.CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+  and DMTYPE not BETWEEN '300' AND '399'
