@@ -236,3 +236,287 @@ where
  and Ta.DMMAIL<>'X'
  and CUP009.CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') ),
  /*  LnActive Cnt    */
+/****** Script for SelectTopNRows command from SSMS  ******/
+SELECT  [ACCOUNT_NUMBER]=DSACCT
+      ,[ACCOUNT_TYPE]=DSHDSV
+      ,[AMOUNT_OF_STOP_HOLD]=DSAMT
+      ,[DATE_ENTERED]=DSEDT
+      ,[DATE_EXPIRATION]=convert(varchar(10),SNLBanker_DW.[SourceData].[fn_JulianDate_SQL](DSEXDT),101)
+      ,[CALC_DATE_EXPIRATION]=format(convert(date,right('0'+SUBSTRING(convert(varchar,DSEDT),1,len(DSEDT)-4),2) + '/' + LEFT(right(DSEDT,4),2)
++ '/2045'),'MM/dd/yyyy') 
+      ,[LOW_EXACT_CHECK_NUMBER]=DSSER
+      ,[PAYABLE_TO]=DSPAYE
+      ,[REASON_FOR_STOP]=DSRESN
+      ,[VARIANCE_AMOUNT]=DSVAR
+	  ,[DateMatchTest]=   iif((convert(varchar(10),SNLBanker_DW.[SourceData].[fn_JulianDate_SQL](DSEXDT),101)=format(convert(date,right('0'+SUBSTRING(convert(varchar,DSEDT),1,len(DSEDT)-4),2) + '/' + LEFT(right(DSEDT,4),2)
++ '/2045'),'MM/dd/yyyy') ),'yes','no') 
+    ,[DaysBetween]=Abs(Date_Expiration-Calc_Date_Expiration)
+
+   From [SourceData].TAP003 Ta3 --Ta_Stop_Hold_File
+  join [SourceData].[TAP002]Ta2--Ta_Master_File
+ on Ta3.[DSACCT]=Ta2.[DMACCT]
+  AND Ta3.DSHDSV=Ta2.[DMTYP]
+ where -- Ta3.DSTYPE='1'
+
+--	Ta2.DMTYPE='050'
+     Ta3.[DSACCT] IN ('0109399150', '0109400043')
+	 and
+	
+   iif((convert(varchar(10),SNLBanker_DW.[SourceData].[fn_JulianDate_SQL](DSEXDT),101)=format(convert(date,right('0'+SUBSTRING(convert(varchar,DSEDT),1,len(DSEDT)-4),2) + '/' + LEFT(right(DSEDT,4),2)
++ '/2045'),'MM/dd/yyyy') ),'yes','no') ='no'
+GO
+========================================================
+ USE [SNLBanker_DW]
+GO
+
+/****** Object:  View [report].[BI_EscheatmentDormantAccounts]  Script Date: 2/13/2019 4:46:07 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+IF OBJECT_ID('[report].[BI_EscheatmentDormantAccounts]') IS NOT NULL
+ DROP view [report].[BI_EscheatmentDormantAccounts]
+ go
+
+
+CREATE  view [report].[BI_EscheatmentDormantAccounts]
+/******************************************************************************************
+Escheatment Dormant Accounts
+Description: 
+
+****************
+Change History
+****************                                                                 
+Date			Author				Description 
+--------		-------------		------------------------------------
+02/14/2019		Aruna jyothi		Initial Version
+
+*******************************************************************************************/
+   --    ################### CTE-1 #########################
+
+
+       	/* Query2 DWC      */
+
+
+with cteTaDormantCnt as
+(select distinct CUSTOMER_NUMBER=CUNBR,[TaDormantCnt]=count(DMACCT)
+ from 
+ [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+
+group by cu.CUNBR,cup009.CUXREL,ta.DMSTAT,ta.DMDLA,ta.DMMAIL,ta.DMTYPE
+
+having
+ CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+ AND ta.DMSTAT='5'
+  AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
+  AND  DMTYPE not BETWEEN '300' AND '399'
+  AND Ta.DMMAIL='X'),
+--select * from cteTaDormantCnt
+   /*  TaActive Cnt    */
+
+
+ TaActiveCnt as
+ (
+select 
+CustomerNumber=[CUSTOMER_NUMBER],
+TaActiveCnt=Count (ta.DMACCT)
+ from cteTaDormantCnt
+join [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+on cu.CUNBR= cteTaDormantCnt.CUSTOMER_NUMBER 
+group by cu.CUNBR ,cup009.CUXREL,ta.DMSTAT,ta.DMDLA,ta.DMMAIL,ta.DMTYPE,cup009.cux1cs,[CUSTOMER_NUMBER],[TaDormantCnt]
+
+having
+ ta.DMSTAT  in(4,5,8)
+ and [dbo].[fn_MDDYY_To_Date](DMDLA)>= (dateadd(month,-60,getdate()))
+ and Ta.DMMAIL<>'X'
+ and CUP009.CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+  and DMTYPE not BETWEEN '300' AND '399'),
+ --   select * from TaActiveCnt
+
+
+    --     ##############  CTE-2 ##############################
+
+	                          /* Query3 DWC           */
+	                         /*     cteTaDormantCnt   */
+
+
+	 cteTaDormantCnt1 as
+(select distinct CUSTOMER_NUMBER=CUNBR,[TaDormantCnt]=count(DMACCT)
+ from 
+ [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+
+group by cu.CUNBR,cup009.CUXREL,ta.DMSTAT,ta.DMDLA,ta.DMMAIL,ta.DMTYPE,cup009.cux1cs
+
+having
+ CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+ AND ta.DMSTAT='5'
+  AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
+  AND  DMTYPE not BETWEEN '300' AND '399'
+  AND Ta.DMMAIL='X'),
+
+
+   /*  TmActive Cnt    */
+
+ 
+
+TmActiveCnt as
+ 
+(select 
+CustomerNumber=cu9.CUX1CS,
+[TmActiveCnt]=Count (tm.[TMACCT])
+from [SNLBanker_DW].[SourceData].[TMP003] tm 
+join [SNLBanker_DW].[SourceData].[CUP009]cu9 on  tm.TMACCT = cu9.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cu9.cux1cs) = cu.CUNBR
+join cteTaDormantCnt1 
+on cu.CUNBR= cteTaDormantCnt1.CUSTOMER_NUMBER
+group by cu.CUNBR,cu9.CUXREL,tm.TMSTAT,tm.TMDLA,tm.TMMAIL,CUXREL,cu9.cux1cs
+having
+tm.TMSTAT not in(4,5,8)
+ and [dbo].[fn_MDDYY_To_Date](tm.TMDLA)>= (dateadd(month,-60,getdate()))
+ and tm.TMMAIL<>'X'
+ and cu9.CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') ),
+
+-- select * from TmActiveCnt
+
+
+
+     --     ##############  CTE-3 ##############################
+
+
+	                         /* Query4 DWC           */
+	                         /*     cteTaDormantCnt   */
+ cteTaDormantCnt2 as
+(select distinct CUSTOMER_NUMBER=CUNBR,[TaDormantCnt]=count(DMACCT)
+ from 
+ [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+
+group by cu.CUNBR,cup009.CUXREL,ta.DMSTAT,ta.DMDLA,ta.DMMAIL,ta.DMTYPE,cup009.cux1cs
+
+having
+ CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+ AND ta.DMSTAT='5'
+  AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
+  AND  DMTYPE not BETWEEN '300' AND '399'
+  AND Ta.DMMAIL='X'),
+
+
+   /*  LnActive Cnt    */
+
+ 
+
+LnActiveCnt as
+ 
+(select 
+CustomerNumber=cu9.CUX1CS,
+[LnActiveCnt]=Count (ln.lnnote)
+from [SNLBanker_DW].[SourceData].[LNP003]ln
+join [SNLBanker_DW].[SourceData].[CUP009]cu9 on  ln.lnnote = cu9.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cu9.cux1cs) = cu.CUNBR
+join cteTaDormantCnt2
+on cu.CUNBR= cteTaDormantCnt2.CUSTOMER_NUMBER
+group by cu.CUNBR,cu9.CUXREL,ln.LNSTAT,ln.LNCHGF,cu9.CUXREL,cu9.cux1cs
+having
+ln.LNSTAT <> 'c'
+ and LNCHGF in ('B','C','I','P')
+ AND  CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') ),
+
+-- select * from LnActiveCnt
+
+  --     ##############  CTE-3 ##############################
+
+
+	                         /* Query5 DWC           */
+	                         /*     cteTaDormantCnt   */
+ cteTaDormantCnt3 as
+(select distinct CUSTOMER_NUMBER=CUNBR,[TaDormantCnt]=count(DMACCT)
+ from 
+ [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] on  ta.DMTYP * 10000000000 + ta.DMACCT = CUP009.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cup009.cux1cs) = cu.CUNBR
+
+group by cu.CUNBR,cup009.CUXREL,ta.DMSTAT,ta.DMDLA,ta.DMMAIL,ta.DMTYPE,cup009.cux1cs
+
+having
+ CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+ AND ta.DMSTAT='5'
+  AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
+  AND  DMTYPE not BETWEEN '300' AND '399'
+  AND Ta.DMMAIL='X'),
+
+
+   /*  SD Box Cnt    */
+
+ 
+SdBoxCnt as
+ 
+(select 
+CustomerNumber=sd.SDCIF,
+[SdBoxCount]=(Count (sd.SDBOX))
+from [SNLBanker_DW].[SourceData].SDP001 sd
+
+join cteTaDormantCnt3
+on sd.SDCIF= cteTaDormantCnt3.CUSTOMER_NUMBER
+group by sd.SDSTAT,sd.SDCIF
+having
+sd.SDSTAT in (1,2,4))
+
+
+-- select * from SdBoxCnt
+--    End Of Cte's ------
+
+select 
+Date_Activity_Last=ta.DMDLA,
+Mail_Code=ta.DMMAIL,
+Date_Open=ta.DMOPNJ,
+Branch_Primary_Id=ta.DMBRCH,
+Product_Code=ta.DMTYPE,
+Account_Number=ta.DMACCT,
+Short_Name=ta.DMSHRT,
+Relationship=cur.CUXREL,
+Name_Address_Line_1=cu.CUNA1,
+Customer_Number=cur.CUX1CS,
+Social_Security_Number=cu.CUSSNR,
+Bal_Current=ta.DMCBAL,
+Date_Entered=tsh.DSEDT, 
+Date_Expiration=tsh.DSEXDT,
+Reason_For_Stop=tsh.DSRESN,
+Payable_To=tsh.DSPAYE,
+TaActiveCnt
+TmActiveCnt,
+LnActiveCnt,
+SdBoxCnt.[SdBoxCount]
+from 
+ [SNLBanker_DW].[SourceData].[TAP002] ta 
+join [SNLBanker_DW].[SourceData].[CUP009] cur on  ta.DMTYP * 10000000000 + ta.DMACCT = cur.CUX1AC 
+join  [SNLBanker_DW].[SourceData].[CUP003] cu
+on convert(varchar(100),cur.cux1cs) = cu.CUNBR
+join  [SNLBanker_DW].[SourceData].[TAP003] tsh 
+on ta.DMACCT =tsh.DSACCT and ta.DMTYP=tsh.DSHDSV
+join TaActiveCnt on cu.CUNBR = TaActiveCnt. CustomerNumber
+join TmActiveCnt on cu.CUNBR = TmActiveCnt.CustomerNumber
+join LnActiveCnt on cu.CUNBR = LnActiveCnt.CustomerNumber
+join SdBoxCnt on cu.CUNBR = SdBoxCnt.CustomerNumber
+
+where
+ CUXREL IN ('JAF', 'JOF', 'OWN', 'SOW') 
+  AND ta.DMSTAT='5'
+    AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
+	  AND Ta.DMMAIL='X'
