@@ -520,3 +520,8 @@ where
   AND ta.DMSTAT='5'
     AND [dbo].[fn_MDDYY_To_Date](DMDLA) <   (dateadd(month,-60,getdate()))
 	  AND Ta.DMMAIL='X'
+	  ----------------------------
+	  
+	  -- what is active account?
+-- why shoud we use two date conditions, < 5 years and > 5 years
+-- what is MMMail = 'x' and <> 'x'
