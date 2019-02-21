@@ -967,3 +967,66 @@ Begin
 END
 GO
 
+----------------------------
+USE [SNLBanker_DW]
+GO
+
+/****** Object:  StoredProcedure [dbo].[Budgetfill]    Script Date: 2/21/2019 12:32:06 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE procedure [dbo].[Budgetfill]
+AS
+
+declare @buddate table (buddate datetime, fname nvarchar(128), minyear int)
+
+INSERT INTO @buddate (buddate, fname)
+select min(fulldate), ForecastName from factbudget fb join dimdate dd on dd.datekey = fb.ProcessingDateKey
+where forecastname not in (select forecastname from factbudget where systemflag = 2) 
+group by forecastname
+
+update @buddate set minyear = year(buddate) - 1
+
+declare @insdates table (datekey int, fname nvarchar(128), fulldate datetime) 
+insert into @insdates (datekey, fname, fulldate)
+select datekey , fname, fulldate from @buddate bd join  dimdate dd on dd.DateYear = bd.minyear and datemonth = 12 and dd.isMonthEnd = 1
+
+insert into @insdates (datekey, fname)
+select dd.datekey , bd.fname from @buddate bd join @insdates idt on bd.fname = idt.fname join  dimdate dd on dd.FullDate > idt.fulldate and dd.fulldate < bd.buddate 
+where dd.isMonthEnd = 1
+ 
+--select * from @insdates
+
+declare @budgetinfo table
+(fname nvarchar(128), acctkey int, orgkey int, publishnbr int ) 
+insert into @budgetinfo
+select distinct forecastname, glaccountkey, OrganizationKey, publishnbr from factBudget sb 
+
+INSERT INTO [dbo].[factBudget]
+           ([ProcessingDateKey]
+           ,[GLAccountKey]
+           ,[GLCostCenterKey]
+           ,[OrganizationKey]
+           ,[Budget]
+           ,[PublishNbr]
+           ,[ForecastName]
+           ,[DailyMonthlyFlag]
+           ,[InsertedDate]
+           ,[InsertedBy]
+           ,[PeriodTypeKey]
+           ,[SystemFlag])
+select idt.datekey, GLAccountKey, GLCostCenterKey, OrganizationKey, CurrentBalance, Publishnbr, idt.fname, 'M', getdate(), suser_sname(), fg.PeriodTypeKey, 2
+ from factGeneralLedger fg join @budgetinfo bi on bi.acctkey = fg.GLAccountKey
+and bi.orgkey = fg.OrganizationKey
+join @insdates idt on idt.datekey = fg.ProcessingDateKey and idt.fname = bi.fname
+ 
+
+
+
+
+
+GO
