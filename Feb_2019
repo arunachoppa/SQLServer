@@ -690,3 +690,280 @@ CREATE TABLE [SourceData].[CUP003](
 	[BankName] [varchar](50) NULL
 ) ON [PRIMARY]
 ============================
+Functions
+******converting date column 61675 like-------06/161/75********
+create function [dbo].[fn_MDDYY_To_Date] (@InputStr varchar(10))
+returns varchar(10)
+as
+
+begin
+
+declare @OutputValue varchar(200)
+set @OutputValue = left(RIGHT('0' + CONVERT(VARCHAR,@InputStr), 6),2) + '/' + substring(RIGHT('0' + CONVERT(VARCHAR,@InputStr), 6),3,2) + '/' + right(RIGHT('0' + CONVERT(VARCHAR,@InputStr), 6),2)
+return @OutputValue
+end
+go
+
+----------------
+**********************adding 0's to accountnumber*******************
+create function [dbo].[fn_PadZeroToCertainDigit] (@InputStr varchar(200), @PadLength int)
+returns varchar(200)
+as
+
+begin
+
+declare @OutputValue varchar(200)
+set @OutputValue = RIGHT(replicate ('0',@PadLength) + @InputStr, @PadLength)
+return @OutputValue
+
+end
+GO
+
+-----------------------------------
+CREATE Function [dbo].[GetAddressLine](@AddressNumber Int)
+Returns varchar(100)
+AS
+Begin
+	Declare @str varchar(100)
+	
+	select @str=LEFT(COALESCE(@str+',','')+ ad.TEXT,100)
+	from SourceData.ADDRLINE ad where ad.ADDRNBR = @AddressNumber
+	order by ad.LINENBR
+	Return @str
+end
+go
+-----------------------------------
+CREATE  Function [dbo].[GetDataDateType](@Date DateTime)
+
+Returns varchar(10)
+
+AS
+
+Begin
+
+
+Declare @DateType varchar(10)
+
+IF  convert(date,@Date)=convert(date,dbo.GetMonthEnd(@Date))
+BEGIN
+--SET @BusinessDate= dbo.GetMonthEnd(@Date-1)
+SET @DateType= 'M'
+END
+
+
+
+ELSE IF 
+(Datename(weekday,@Date) = 'Friday' --The data is as of Friday and Either Fri,Sat,Sun is last day of month
+and ( convert(date,@Date+2)=convert(date,dbo.GetMonthEnd(@Date)) 
+or convert(date,@Date+1)=convert(date,dbo.GetMonthEnd(@Date)) 
+or convert(date,@Date)=convert(date,dbo.GetMonthEnd(@Date)) ) 
+)
+OR
+
+(Datename(weekday,@Date) = 'Saturday' -- The data is as of Saturday and Either Sat,Sun is last day of month
+and ( convert(date,@Date+1)=convert(date,dbo.GetMonthEnd(@Date)) or convert(date,@Date)=convert(date,dbo.GetMonthEnd(@Date)) ) 
+)
+
+OR ( Datename(weekday,@Date) ='Sunday'  -- The data is as of Sunday and it is the last day of the month
+and convert(date,@Date)=convert(date,dbo.GetMonthEnd(@Date))  )
+
+
+
+BEGIN
+--SET @BusinessDate= dbo.GetMonthEnd(@Date)
+SET @DateType= 'M'
+
+END
+
+
+ELSE
+BEGIN
+SET @DateType= 'D'
+END
+
+RETURN  @DateType
+
+END
+GO
+
+-------------------------------------------
+CREATE Function [dbo].[GetMonthEnd](@Date DateTime)
+Returns DateTime
+AS
+Begin
+	Set @Date = DateAdd(Month,1,@Date)
+	Set @Date = Cast(Cast(Month(@Date)As varchar(2))+'-1-'+Cast(Year(@Date)As varchar(4)) As DateTime)
+	Return DateAdd(Day,-1,@Date)
+End
+GO
+------------------------------------------
+CREATE FUNCTION [dbo].[ufn_GetFirstDayOfQuarter] ( @pInputDate DATETIME )
+RETURNS DATETIME
+BEGIN
+DECLARE @vOutputDate DATETIME
+SET @vOutputDate = CAST(YEAR(@pInputDate) AS VARCHAR(4)) +
+CASE WHEN MONTH(@pInputDate) IN ( 1, 2, 3) THEN '/01/01'
+WHEN MONTH(@pInputDate) IN ( 4, 5, 6) THEN '/04/01'
+WHEN MONTH(@pInputDate) IN ( 7, 8, 9) THEN '/07/01'
+WHEN MONTH(@pInputDate) IN (10, 11, 12) THEN '/10/01'
+END
+RETURN @vOutputDate
+END
+GO
+--------------------------------------------
+create FUNCTION [SourceData].[fn_ISODate_SQL]
+	( @UNIX_TIME VARCHAR(10) )
+RETURNS  DATETIME
+AS
+BEGIN
+
+	IF LEN(@UNIX_TIME) >= 5
+	BEGIN
+	DECLARE @bad_date	VARCHAR(6)
+	DECLARE @month		VARCHAR(2)
+	DECLARE @day		VARCHAR(2)
+	DECLARE @year		VARCHAR(4)
+	DECLARE @outputvalue DATETIME
+	DECLARE @sql_date	VARCHAR(20)
+
+	SET  @bad_date = @UNIX_TIME
+
+	--format the date parts and let SQL covert to date using 2049 rule
+	SET @bad_date = RIGHT('000000' + @bad_date, 6)
+	SET @month = SUBSTRING(@bad_date, 1, 2)
+	SET @day = SUBSTRING(@bad_date, 3, 2)
+	SET @year = SUBSTRING(@bad_date, 5, 2)
+	SET @sql_date = @month + '/' + @day + '/' + @year
+
+	-- validate the date value
+	  IF (ISDATE(@sql_date) =1)
+	  BEGIN
+			SET @outputvalue =  cast(@sql_date AS DATETIME)
+	  END
+	  ELSE
+	  BEGIN
+			SET @outputvalue = NULL
+	  END
+	
+	END
+	ELSE 
+	BEGIN
+		SET @outputvalue = NULL
+	END
+
+	RETURN  @outputvalue	
+
+END
+
+
+
+
+GO
+
+------------------------------
+/****** Object:  UserDefinedFunction [SourceData].[fn_JulianDate_SQL]    Script Date: 2/21/2019 11:47:28 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+/***************************
+File Name  : fn_JulianDate_SQL.sql
+Created by : 
+Created Date:
+Description :   Date conversion function converting Julian Date. Use for most dates from DB2
+
+****************************/
+
+
+CREATE  FUNCTION [SourceData].[fn_JulianDate_SQL]( @JulianDate INT )
+RETURNS  DATETIME
+AS
+
+BEGIN
+	DECLARE @OUTPUTVALUE DATETIME
+
+	IF @JulianDate = 0
+	BEGIN 
+		SET @outputvalue = NULL
+	END
+	ELSE
+	BEGIN
+		IF LEFT(@JulianDate,4) < 1800
+		BEGIN
+			SET @outputvalue = NULL
+		END
+		ELSE
+		BEGIN
+			SET @OUTPUTVALUE = (SELECT CONVERT(DATE,DATEADD(day, CAST(RIGHT(@JulianDate,3) AS int) - 1, 
+            CONVERT(datetime, LEFT(@JulianDate,4) + '0101', 112))))
+		END
+	END
+
+	RETURN  @outputvalue	
+
+END
+------------------------------------------------
+/****** Object:  UserDefinedFunction [SourceData].[fn_MDDYYYYDate_SQL]    Script Date: 2/21/2019 11:48:12 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+/***************************
+File Name  : fn_JulianDate_SQL.sql
+Created by : 
+Created Date:
+Description :   Date conversion function converting Julian Date. Use for most dates from DB2
+
+****************************/
+
+
+CREATE  FUNCTION [SourceData].[fn_MDDYYYYDate_SQL]( @MDDYYYYDate INT )
+RETURNS  DATETIME
+AS
+
+BEGIN
+DECLARE @outputvalue DATETIME
+
+	IF @MDDYYYYDate = 0
+	BEGIN 
+		SET @outputvalue = NULL
+	END
+	ELSE
+	BEGIN
+		DECLARE @MMDDYYYY varchar(8)
+		SELECT @MMDDYYYY = RIGHT('0' + CAST(@MDDYYYYDate as varchar(255)),8)  
+		SET @outputvalue = CAST(SUBSTRING(@MMDDYYYY,1,2) + '/'+SUBSTRING(@MMDDYYYY,3,2) + '/'+SUBSTRING(@MMDDYYYY,5,4) as date)	
+	END
+	
+	RETURN  @outputvalue
+
+END
+----------------------------------------------
+/****** Object:  UserDefinedFunction [SourceData].[GetAddressLine]    Script Date: 2/21/2019 11:48:46 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+create Function [SourceData].[GetAddressLine](@AddressNumber Int)
+Returns varchar(100)
+AS
+Begin
+	Declare @str varchar(100)
+	
+	select @str=LEFT(COALESCE(@str+',','')+ ad.TEXT,100)
+	from SourceData.ADDRLINE ad where ad.ADDRNBR = @AddressNumber
+	order by ad.LINENBR
+	Return @str
+
+
+
+END
+GO
+
