@@ -1190,3 +1190,4 @@ GO
 
 ------------------------------------------
 if(ID_Issue_Date_1_J >0) {ToDate('01/01/' + Substr(ID_Issue_Date_1_J,1,4))+ Substr(ID_Issue_Date_1_J, 5, 3)*1 -1}
+if(ID_Exp_Date_1_J >0) {ToDate('01/01/' + Substr(ID_Exp_Date_1_J,1,4))+ Substr(ID_Exp_Date_1_J, 5, 3)*1 -1}
