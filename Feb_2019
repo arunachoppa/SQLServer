@@ -1212,3 +1212,9 @@ AND    ta3.dshdsv=ta2.[DMTYP]
 error
 Conversion failed when converting date and/or time from character string.
 
+select  Datediff(dd,(substring(convert(varchar,dbo.fn_MDDYY_To_Date(dsedt)),1,6)+'2045') ,CONVERT(VARCHAR(10),snlbanker_dw.[SourceData].[Fn_juliandate_sql](dsexdt),101))
+FROM   [SourceData].[TAP003]Ta3 --Ta_Stop_Hold_File 
+JOIN   [SourceData].[TAP002]Ta2 --Ta_Master_File 
+ON     ta3.[DSACCT]=ta2.[DMACCT] 
+AND    ta3.dshdsv=ta2.[DMTYP] 
+where cast(Datediff(dd,substring(convert(varchar,dbo.fn_MDDYY_To_Date(dsedt)),1,6)+'2045' ,CONVERT(VARCHAR(10),snlbanker_dw.[SourceData].[Fn_juliandate_sql](dsexdt),101) )as int)>5
