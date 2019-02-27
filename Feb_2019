@@ -1208,4 +1208,7 @@ select format(convert(date( right (convert(date,dbo.fn_MDDYY_To_Date(dsedt)),5)+
 JOIN   [SourceData].[TAP002]Ta2 --Ta_Master_File 
 ON     ta3.[DSACCT]=ta2.[DMACCT] 
 AND    ta3.dshdsv=ta2.[DMTYP] 
+----------------------------
+error
+Conversion failed when converting date and/or time from character string.
 
