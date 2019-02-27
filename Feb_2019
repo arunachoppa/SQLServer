@@ -1191,3 +1191,21 @@ GO
 ------------------------------------------
 if(ID_Issue_Date_1_J >0) {ToDate('01/01/' + Substr(ID_Issue_Date_1_J,1,4))+ Substr(ID_Issue_Date_1_J, 5, 3)*1 -1}
 if(ID_Exp_Date_1_J >0) {ToDate('01/01/' + Substr(ID_Exp_Date_1_J,1,4))+ Substr(ID_Exp_Date_1_J, 5, 3)*1 -1}
+
+--------------------------------------
+2/27
+
+select (CONVERT(VARCHAR(10),snlbanker_dw.[SourceData].[Fn_juliandate_sql](dsexdt),101) =
+( CONVERT(VARCHAR,
+('2045-' + right (convert(date,dbo.fn_MDDYY_To_Date(dsedt)),5))))
+ from  [SourceData].[TAP003]Ta3 --Ta_Stop_Hold_File 
+JOIN   [SourceData].[TAP002]Ta2 --Ta_Master_File 
+ON     ta3.[DSACCT]=ta2.[DMACCT] 
+AND    ta3.dshdsv=ta2.[DMTYP] 
+
+select format(convert(date( right (convert(date,dbo.fn_MDDYY_To_Date(dsedt)),5)+'-'+'2045','MM/dd/yyyy')))
+ from  [SourceData].[TAP003]Ta3 --Ta_Stop_Hold_File 
+JOIN   [SourceData].[TAP002]Ta2 --Ta_Master_File 
+ON     ta3.[DSACCT]=ta2.[DMACCT] 
+AND    ta3.dshdsv=ta2.[DMTYP] 
+
