@@ -1218,3 +1218,34 @@ JOIN   [SourceData].[TAP002]Ta2 --Ta_Master_File
 ON     ta3.[DSACCT]=ta2.[DMACCT] 
 AND    ta3.dshdsv=ta2.[DMTYP] 
 where cast(Datediff(dd,substring(convert(varchar,dbo.fn_MDDYY_To_Date(dsedt)),1,6)+'2045' ,CONVERT(VARCHAR(10),snlbanker_dw.[SourceData].[Fn_juliandate_sql](dsexdt),101) )as int)>5
+======================================
+
+3/1/19
+
+CREATE  FUNCTION [SourceData].[fn_JulianDate_SQL]( @JulianDate INT )
+RETURNS  DATETIME
+AS
+
+BEGIN
+	DECLARE @OUTPUTVALUE DATETIME
+
+	IF @JulianDate = 0
+	BEGIN 
+		SET @outputvalue = NULL
+	END
+	ELSE
+	BEGIN
+		IF LEFT(@JulianDate,4) < 1800
+		BEGIN
+			SET @outputvalue = NULL
+		END
+		ELSE
+		BEGIN
+			SET @OUTPUTVALUE = (SELECT CONVERT(DATE,DATEADD(day, CAST(RIGHT(@JulianDate,3) AS int) - 1, 
+            CONVERT(datetime, LEFT(@JulianDate,4) + '0101', 112))))
+		END
+	END
+
+	RETURN  @outputvalue	
+
+END
