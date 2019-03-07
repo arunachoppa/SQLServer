@@ -1249,3 +1249,40 @@ BEGIN
 	RETURN  @outputvalue	
 
 END
+
+--======================================
+3/7/
+*******************************************************************************************/
+with [DWC COMPARE TO 1 ] AS
+(select
+USER_KEY_FIELD=cu.CUUSR1
+,NAME_ADDRESS_LINE_2=CUNA2
+,CUSTOMER_NUMBER=[SNLBanker_DW].dbo.[fn_PadZeroToCertainDigit](cunbr,10)
+,NAME_ADDRESS_LINE_3=CUNA3
+,NAME_ADDRESS_LINE_4=CUNA4
+,user_key_18=Substring ( cu.CUUSR1, 1, 18 )
+,[Ok or Not]=  iif ((Substring ( cu.CUUSR1, 1, 18 )  =  Substring ( CUNA2, 1,len( Substring ( CUUSR1, 1, 18 ) ) )),'OK', 'NOT OK') 
+,[CharNameLine2_18]= Substring ( CUNA2, 1,len( Substring ( CUUSR1, 1, 18 ) ) )
+,[CharNameLine3_18]=Substring( CUNA3, 1, Len (Substring ( cu.CUUSR1, 1, 18 ) ) )
+,[CharnameLine4_18]=Substring ( CUNA4, 1, Len (Substring ( cu.CUUSR1, 1, 18 ) ) )
+,[NEW NAME LINE 2]=Substring ( CUNA2, 1, 18 )
+,[NEW NAME LINE 3]=Substring ( CUNA3, 1, 18 )
+,[NEW NAME LINE 4]=Substring( CUNA4, 1, 18 )
+from SourceData.CUP003 cu
+
+where  cu.CUUSR1<>' '  
+AND  iif (Substring ( cu.CUUSR1, 1, 18 )  =  Substring ( CUNA2, 1,len( Substring ( CUUSR1, 1, 18 ) ) ),'OK', 'NOT OK') ='NOT OK' 
+  ) ,      
+
+
+select
+[NEW USER FIELD]=Substring( NAME_ADDRESS_LINE_2, 1, 18 )
+,[NEW NAME 3 18]=SubstrING ( NAME_ADDRESS_LINE_3, 1, 18 )
+,[OK NOT OK]= iIf (user_key_18   = [CharNameLine3_18],'OK',   'NOT OK') 
+FROM  [DWC COMPARE TO 1 ] WHERE iIf (user_key_18   = [CharNameLine3_18],'OK',   'NOT OK') <> 'OK')
+--[DWC COMPARE 2TO 4 ] AS
+SELECT * FROM [DWC COMPARE TO 1 ]
+
+WHERE
+iIf (user_key_18   =  [CharnameLine4_18],'OK', 'NOT OK' )<>'OK')
+
