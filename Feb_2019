@@ -1285,4 +1285,22 @@ SELECT * FROM [DWC COMPARE TO 1 ]
 
 WHERE
 iIf (user_key_18   =  [CharnameLine4_18],'OK', 'NOT OK' )<>'OK')
+--===========================================================
+3/8/19
+*********************converting column nvarchar to float and adding thousand seperators***************************
+select
+ ACCOUNT_NUMBER=[SNLBanker_DW].dbo.[fn_PadZeroToCertainDigit](ta.DMACCT,10)
+ ,Changeoff_Amt2=DMTEN04
+ ,ChangeOff_Date=DMTEN05
+ ,[Date of Last Pay]=DMDLD
+ ,computed=FORMAT(ta.DMACCT,'#,0')
+ ,Changeoff_Amt=format(ROUND(ABS(TRY_CONVERT(float, DMTEN04,1)),0) ,'#,0.00')
 
+ 
+ from 
+  [SNLBanker_DW].[SourceData].[TAP002] ta
+  left outer join  [SNLBanker_DW].[SourceData].TAP029 
+  on ta.DMACCT=TAP029.[DMACCT]
+  and ta.dmtyp=    TAP029.[DMTYP]
+   
+   WHERE (ta.DMTYPE IN ('710', '715', '720', '725', '730', '740'))
