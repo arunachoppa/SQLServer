@@ -1304,3 +1304,1422 @@ select
   and ta.dmtyp=    TAP029.[DMTYP]
    
    WHERE (ta.DMTYPE IN ('710', '715', '720', '725', '730', '740'))
+   --=============================================================================
+   ods3/12/
+   
+   Column Name                       Type       Size    Primary Key    Foreign Key    Nullable    Scale
+ACCOUNT_NUMBER                    CHAR       30                                    N                
+BANK_NUMBER                       CHAR       5                                     N                
+SUB_NOTE_SEQUENCE_NBR             DECIMAL    5                                     N                
+A_H_PAID_CTD                      DECIMAL    22                                    N           5    
+ACCOUNT_STATUS_CODE               CHAR       5                                     Y                
+ACCR_BALANCE_CODE                 CHAR       5                                     Y                
+ACCRUAL_BASE                      CHAR       1                                     N                
+ACCT_STATUS_CHNG_TODAY_IND        CHAR       1                                     Y                
+ACH_FOREIGN_ACCOUNT_NUMBER        CHAR       17                                    N                
+ACQUISITION_FEE_AMOUNT_ILD        DECIMAL    15                                    N           2    
+ACTIVITY_ON_SOLD_LOAN_FLAG        CHAR       1                                     N                
+ACTUARIAL_FTR_DENOMINATOR         DECIMAL    15                                    N           9    
+ADJ_AVAILABLE_TO_DISB             CHAR       1                                     N                
+ADVANCE_CNT_YTD                   INTEGER    4                                     Y                
+ADVANCES_THIS_CYCLE               DECIMAL    17                                    N           2    
+AGGREGATE_BAL_THIS_BILLING        DECIMAL    19                                    N           2    
+AGGREGATE_DAY_CNT_MTD             INTEGER    4                                     Y                
+AGGREGATE_DAY_CNT_YTD             INTEGER    4                                     Y                
+AGGREGATE_DAYS_THIS_BILLING       DECIMAL    3                                     N                
+AGGREGATE_DAYS_THIS_CYCLE         NUMERIC    4                                     N                
+ALTERNATE_NAME_ADDRESS_FLAG       CHAR       1                                     N                
+AMORTIZATION_OPTION               CHAR       1                                     N                
+AMOUNT_OF_LAST_PMT_RECEIVED       DECIMAL    17                                    N           2    
+AMT_PAST_DUE_COMPTR_OF_CURR       DECIMAL    17                                    N           2    
+APPL_ID                           CHAR       3                                     N                
+APPLICATION_NUMBER                CHAR       2                                     N                
+APPROVAL_CODE_USER_DEFINED        CHAR       1                                     N                
+ASSUMPTION_FEE_PAID               DECIMAL    13                                    N           2    
+ASSUMPTION_FLAG                   CHAR       1                                     N                
+ATM_STATUS                        CHAR       1                                     N                
+AUTO_DEBIT_BILL_FINAL_PYMT        CHAR       1                                     N                
+AUTO_NON_ACCRUAL_DAYS             DECIMAL    3                                     N                
+AUTO_PMT_DRAFT_DELAY_DAYS         DECIMAL    3                                     N                
+AUTO_PMT_ROUTING_TRANSIT_NBR      DECIMAL    9                                     N                
+AUTO_SPREAD_ADV_PARTIC_CODE       CHAR       1                                     N                
+AUTO_SPREAD_PARTIC_FLAG           CHAR       1                                     N                
+AUTOMATIC_CHARGE_APPL_ACCT        DECIMAL    15                                    N                
+AUTOMATIC_FEE_FLAGS               CHAR       5                                     N                
+AVERAGE_BALANCE_CYCLE             DECIMAL    23                                    N           6    
+BAL_AGG_MTD                       DECIMAL    22                                    Y           5    
+BAL_AGG_YTD                       DECIMAL    22                                    Y           5    
+BAL_PRIN_AMT                      DECIMAL    22                                    Y           5    
+BAL_PRIN_SOLD_AMT                 DECIMAL    22                                    Y           5    
+BALLOON_IND                       CHAR       1                                     Y                
+BANK_EARNINGS_RATE                DECIMAL    10                                    N           7    
+BANKRUPTCY_CEASE_STMT_REASON      NUMERIC    2                                     N                
+BANKRUPTCY_TRUSTEE_CODE           CHAR       1                                     N                
+BEGIN_PRINCIPAL_BAL_LAST_YR       DECIMAL    22                                    N           5    
+BILL_COUPON_CODE                  CHAR       2                                     N                
+BILL_LEAD_DAY_CNT                 INTEGER    4                                     Y                
+BILLED_PROJECTED_FLAG             CHAR       1                                     N                
+BOUGHT_SOLD_CODE                  CHAR       1                                     N                
+BRANCH_PRIMARY_ID                 CHAR       5                                     Y                
+BUYDOWN_CODE                      DECIMAL    2                                     N                
+CACS_COLL_CONTROL_IND             CHAR       1                                     Y                
+CACS_LOCATION_CODE                CHAR       6                                     N                
+CAPITALIZED_INTEREST_CYCLE        DECIMAL    22                                    N           5    
+CENSUS_TRACT                      DECIMAL    7                                     N           2    
+CHARGE_OFF_AMT_MTD                DECIMAL    22                                    Y           5    
+CHARGE_OFF_CODE                   CHAR       1                                     N                
+CHARGE_OFF_PRINCIPAL_AMT          DECIMAL    22                                    Y           5    
+CHARGE_OFF_YTD_CALL_REPORT        DECIMAL    13                                    N           2    
+CHARGEBACK_AMOUNT                 DECIMAL    22                                    N           5    
+CHARGEBACK_FREQUENCY              DECIMAL    3                                     N                
+CHARGEBACK_PERIOD                 CHAR       1                                     N                
+CHARGEOFF_REPO_CONTROLS           DECIMAL    1                                     N                
+CHARGEOFF_REPO_FREQUENCY          DECIMAL    3                                     N                
+CHARGEOFF_REPO_PERIOD             CHAR       1                                     N                
+CHG_OFF_RECOVRY_YTD_CALL_RPT      DECIMAL    13                                    N           2    
+CL_IL_ML_FLAG                     CHAR       2                                     N                
+CLASSIFICATION_CODE               CHAR       5                                     Y                
+COLLATERAL_BALANCE_CODE           CHAR       1                                     N                
+COLLATERAL_CODE                   CHAR       5                                     Y                
+COLLECTION_OFFICER                CHAR       5                                     N                
+COMMITMENT_AMT_PRIOR_QTR          DECIMAL    22                                    N           5    
+COMPLIANCE_CONDITION_CODE         CHAR       2                                     N                
+CORRESP_POOL_ACCR_YESTERDAY       DECIMAL    17                                    N           2    
+CORRESP_POOL_ACCRUED_MTD          DECIMAL    19                                    N           2    
+CORRESP_POOL_ACCRUED_TD           DECIMAL    21                                    N           6    
+CORRESP_POOL_ACCRUED_YTD          DECIMAL    19                                    N           2    
+CORRESP_POOL_INDEX_NBR            DECIMAL    4                                     N                
+CORRESP_POOL_RATE                 DECIMAL    10                                    N           7    
+CORRESP_POOL_VARIANCE             DECIMAL    10                                    N           7    
+COUNTY_CODE_HMDA                  DECIMAL    3                                     N                
+COUPON_CNT_TO_PRODUCE             CHAR       2                                     N                
+CR_LIFE_PAID_CTD                  DECIMAL    22                                    N           5    
+CREDIT_BUREAU_TYPE_CODE           CHAR       2                                     N                
+CREDIT_LINE_AVAIL_FLAG            CHAR       1                                     N                
+CREDIT_LINE_2_CD                  CHAR       1                                     N                
+CREDIT_REPORTING_CYCLE            CHAR       2                                     N                
+CREDIT_STATUS                     CHAR       2                                     N                
+CREDIT_STATUS_OVERRIDE            CHAR       1                                     N                
+CREDIT_SVC_ACCOUNT_TYPE           CHAR       2                                     N                
+CURR_PROJ_NOTE_BILL_A_H_INS       DECIMAL    13                                    N           2    
+CURR_PROJ_NOTE_BILL_CL_INS        DECIMAL    13                                    N           2    
+CURR_PROJ_NOTE_BILL_OT_INS        DECIMAL    13                                    N           2    
+CURRENT_ACTIVE_MEMO_NUMBER        DECIMAL    2                                     N                
+CURRENT_PRJ_BILLING_PRINCIPA      DECIMAL    17                                    N           2    
+CURRENT_PROJ_BILLING_FEE_1        DECIMAL    15                                    N           2    
+CURRENT_PROJ_BILLING_FEE_2        DECIMAL    15                                    N           2    
+CURRENT_PROJ_BILLING_INTERES      DECIMAL    17                                    N           2    
+CURRENT_PROJ_NOTE_BILL_ESC1       DECIMAL    15                                    N           2    
+CURRENT_PROJ_NOTE_BILL_ESC2       DECIMAL    15                                    N           2    
+CURRENT_PROJ_PMT_CODE             CHAR       1                                     N                
+CURRENT_UNEARNED_FASB_FEES        DECIMAL    13                                    N           2    
+CURTAILMENTS_PAID_TO_DATE         DECIMAL    13                                    N           2    
+CUSTOMER_CREDIT_LINE_NUMBER       DECIMAL    11                                    N                
+DAILY_ACCRUAL_FACTOR              DECIMAL    20                                    N           6    
+DATE_AGGREGATE                    DATE       4                                     Y                
+DATE_BANKRUPTCY                   DATE       4                                     Y                
+DATE_BILLING_CURRENT_PROJ         DATE       4                                     Y                
+DATE_CHARGE_OFF                   DATE       4                                     Y                
+DATE_CHARGE_OFF_ORIGINAL          DATE       4                                     Y                
+DATE_CLOSE                        DATE       4                                     Y                
+DATE_CONTACT_VERBAL               DATE       4                                     Y                
+DATE_COUPONS_FIRST                DATE       4                                     Y                
+DATE_COUPONS_THRU                 DATE       4                                     Y                
+DATE_CREDIT_PCT_EXCEEDED          DATE       4                                     Y                
+DATE_EARLY_INTRVEN_NOTICE_LAST    DATE       4                                     Y                
+DATE_EARN_FIRST                   DATE       4                                     Y                
+DATE_ESCROW_ACTION_NEXT           DATE       4                                     Y                
+DATE_ESCROW_INT_ACCRUED           DATE       4                                     Y                
+DATE_ESCROW_INT_PYMT_NEXT         DATE       4                                     Y                
+DATE_EXPECT_PAYOFF                DATE       4                                     Y                
+DATE_FEE_CHARGE_1                 DATE       4                                     Y                
+DATE_FEE_CHARGE_2                 DATE       4                                     Y                
+DATE_FEE_CHARGE_3                 DATE       4                                     Y                
+DATE_FEE_CHARGE_4                 DATE       4                                     Y                
+DATE_FEE_CHARGE_5                 DATE       4                                     Y                
+DATE_FIXED_RATE_CONVERSION        DATE       4                                     Y                
+DATE_HUD_NOTICE_LAST              DATE       4                                     Y                
+DATE_INITIAL_ARM_NOTICE           DATE       4                                     Y                
+DATE_INT_ONLY_PMT_NEXT            DATE       4                                     Y                
+DATE_INT_ONLY_PYMT_LAST           DATE       4                                     Y                
+DATE_INTEREST_ACCR                DATE       4                                     Y                
+DATE_INTEREST_EARNED_TO           DATE       4                                     Y                
+DATE_INTEREST_PAID_TO             DATE       4                                     Y                
+DATE_LAST_DEFERMENT               DATE       4                                     Y                
+DATE_LAST_DUE_DATE_CHANGE         DATE       4                                     Y                
+DATE_LAST_EXTENSION               DATE       4                                     Y                
+DATE_LAST_SKIP_PYMT               DATE       4                                     Y                
+DATE_LAST_WORKOUT_RENWL           DATE       4                                     Y                
+DATE_LATE_FEE_FLAG_DELAY          DATE       4                                     Y                
+DATE_MAINTENANCE_LAST             DATE       4                                     Y                
+DATE_MATURITY_NEXT                DATE       4                                     Y                
+DATE_MATURITY_ORIGINAL            DATE       4                                     Y                
+DATE_MATURITY_PRIOR_QTR           DATE       4                                     Y                
+DATE_NON_ACCR_ORIGINAL            DATE       4                                     Y                
+DATE_NON_ACCR_START               DATE       4                                     Y                
+DATE_OPEN                         DATE       4                                     Y                
+DATE_OPEN_ORIGINAL                DATE       4                                     Y                
+DATE_OTHER_REBATES_NEXT_CHG       DATE       4                                     Y                
+DATE_PAID_LAST                    DATE       4                                     Y                
+DATE_PAST_DUE_1                   DATE       4                                     Y                
+DATE_PAST_DUE_2                   DATE       4                                     Y                
+DATE_PAST_DUE_3                   DATE       4                                     Y                
+DATE_PAST_DUE_4                   DATE       4                                     Y                
+DATE_PAST_DUE_5                   DATE       4                                     Y                
+DATE_PI_PMT_TERM_CHG_PENDING      DATE       4                                     Y                
+DATE_PRIN_REDUCTION               DATE       4                                     Y                
+DATE_PRODUCT_CHNG                 DATE       4                                     Y                
+DATE_PYMT_POST_LAST               DATE       4                                     Y                
+DATE_PYMT_RECVD_LAST              DATE       4                                     Y                
+DATE_PYMT_REVIEW_END              DATE       4                                     Y                
+DATE_PYMT_TERM_REVIEW_CHG_NXT     DATE       4                                     Y                
+DATE_RATE_EFFECTIVE               DATE       4                                     Y                
+DATE_RATE_EFFECTIVE_PENDING       DATE       4                                     Y                
+DATE_RATE_REVIEW_CHG_NEXT         DATE       4                                     Y                
+DATE_RENEWAL_LAST                 DATE       4                                     Y                
+DATE_REOPENED                     DATE       4                                     Y                
+DATE_REPRICING_PRIOR_QTR          DATE       4                                     Y                
+DATE_RESOLUTION_ACTION            DATE       4                                     Y                
+DATE_SCHEDULE_NEXT_PMT            DATE       4                                     Y                
+DATE_SCHEDULED_DELIVERY           DATE       4                                     Y                
+DATE_STATEMENT_PREVIOUS           DATE       4                                     Y                
+DATE_TEASER                       DATE       4                                     Y                
+DATE_TRANS_LAST                   DATE       4                                     Y                
+DATE_VARIABLE_TERM_EXPIRY         DATE       4                                     Y                
+DATE_WAREHOUSE                    DATE       4                                     Y                
+DATE_1ST_DELINQ_THIS_CYCLE        DATE       4                                     Y                
+DAYS_PAST_DUE                     DECIMAL    5                                     N                
+DAYS_TO_ASSESS_LATE_FEE           DECIMAL    3                                     N                
+DEALER_EARNINGS_METHOD            CHAR       1                                     N                
+DEALER_NUMBER                     DECIMAL    9                                     N                
+DEALER_PROCESSING_FLAG            CHAR       1                                     N                
+DEALER_RESERVE_ACCR_TD_YEST       DECIMAL    13                                    N           2    
+DEALER_RESERVE_ACCR_TO_DATE       DECIMAL    17                                    N           6    
+DEALER_RESERVE_ACCRUED_MTD        DECIMAL    15                                    N           2    
+DEALER_RESERVE_ACCRUED_YTD        DECIMAL    15                                    N           2    
+DEALER_RESERVE_FACTOR             DECIMAL    9                                     N           8    
+DEALER_RESERVE_METHOD             DECIMAL    1                                     N                
+DEALER_RESERVE_TYPE               CHAR       8                                     N                
+DEALER_SINCE_NON_ACCURAL          DECIMAL    13                                    N           6    
+DEALER_STATE_CODE                 CHAR       2                                     N                
+DEDUCTION_CR_AMT_YTD              DECIMAL    22                                    N           5    
+DEDUCTION_DR_AMT_YTD              DECIMAL    22                                    N           5    
+DEFERMENT_CNT_MTD                 DECIMAL    3                                     N                
+DEFERMENT_CNT_TD                  DECIMAL    3                                     N                
+DEFERMENT_CNT_YTD                 DECIMAL    3                                     N                
+DELINQUENT_MTG_NOTICE_FLAG        CHAR       1                                     N                
+DIRECTOR_OFFICER_EMPLOYEE_CD      CHAR       1                                     N                
+DISCOUNT_PREV_EARNED              DECIMAL    17                                    N           2    
+DLR_RESRV_EARNED_CYC_TO_DT        DECIMAL    22                                    N           5    
+DUE_DATE_CHANGE_CNT_MTD           DECIMAL    3                                     N                
+DUE_DATE_CHANGE_CNT_TD            DECIMAL    3                                     N                
+DUE_DATE_CHANGE_CNT_YTD           DECIMAL    3                                     N                
+DWELLING_CODE                     CHAR       2                                     N                
+EARLY_INTERVENT_NOTICES_SENT      DECIMAL    3                                     N                
+EARLY_INTERVENTION_NOTICE_NBR     DECIMAL    3                                     N                
+EARLY_PAYOFF_CONTROLS             DECIMAL    1                                     N                
+ENDING_BALANCE_CYCLE              DECIMAL    17                                    N           2    
+ESCROW_BALANCE_1                  DECIMAL    19                                    N           2    
+ESCROW_BALANCE_2                  DECIMAL    19                                    N           2    
+ESCROW_INT_ACCRUAL_METHOD         CHAR       1                                     N                
+ESCROW_INT_DISPOSITION_CODE       CHAR       1                                     N                
+ESCROW_INT_EARNED_NOT_PAID        DECIMAL    18                                    N           6    
+ESCROW_INT_EARNED_NOT_PD_YES      DECIMAL    15                                    N           2    
+ESCROW_INT_PAID_LAST_YEAR         DECIMAL    15                                    N           2    
+ESCROW_INT_PAID_YTD               DECIMAL    15                                    N           2    
+ESCROW_INT_PAYMENT_PERIOD         CHAR       1                                     N                
+ESCROW_INT_PAYOFF_OPTION          CHAR       1                                     N                
+ESCROW_INTEREST_MONTH_BASE        CHAR       1                                     N                
+ESCROW_INTEREST_RATE              DECIMAL    7                                     N           6    
+ESCROW_INTEREST_YEAR_BASE         CHAR       1                                     N                
+ESCROW_PAID_CTD                   DECIMAL    22                                    N           5    
+ESCROW_PAID_YTD                   DECIMAL    22                                    N           5    
+ESCROW_PAYMENT_FREQUENCY          DECIMAL    3                                     N                
+ESCROW_PMT_SPECIFIC_DAY           DECIMAL    2                                     N                
+EXTENSION_CNT_MTD                 DECIMAL    3                                     N                
+EXTENSION_CNT_TD                  DECIMAL    3                                     N                
+EXTENSION_CNT_YTD                 DECIMAL    3                                     N                
+EXTENSION_FEES_LAST_YEAR          DECIMAL    15                                    N           2    
+EXTENSION_FEES_TO_DATE            DECIMAL    15                                    N           2    
+EXTENSION_FEES_YTD                DECIMAL    15                                    N           2    
+EXTENSION_MONTH_CNT               INTEGER    4                                     Y                
+EXTENSION_PROCESSING_OPTION       CHAR       1                                     N                
+EXTRA_STMT_COPIES_CNT             DECIMAL    1                                     N                
+FACE_AMOUNT_OF_NOTE               DECIMAL    17                                    N           2    
+FASB_CARRYING_BALANCE             DECIMAL    13                                    N           2    
+FASB_COLLECTED_PAID_AT_RENWL      DECIMAL    22                                    N           5    
+FASB_CURRENT_TERM                 DECIMAL    3                                     N                
+FASB_DAILY_YIELD_AMOUNT           DECIMAL    14                                    N           6    
+FASB_EARNED_NON_ACCR_PREV         DECIMAL    17                                    N           6    
+FASB_EARNING_CODE                 CHAR       1                                     N                
+FASB_EARNING_CODE_PREV            CHAR       1                                     N                
+FASB_FEES_COLLECTED_PAID          DECIMAL    13                                    N           2    
+FASB_FEES_COLLECTED_PREV          DECIMAL    22                                    N           5    
+FASB_FEES_EARNED_MTD              DECIMAL    13                                    N           2    
+FASB_FEES_EARNED_NON_ACCR         DECIMAL    17                                    N           6    
+FASB_FEES_EARNED_PREV             DECIMAL    17                                    N           6    
+FASB_FEES_EARNED_THRU_YEST        DECIMAL    13                                    N           2    
+FASB_FEES_EARNED_TO_DATE          DECIMAL    17                                    N           6    
+FASB_FEES_EARNED_YTD              DECIMAL    13                                    N           2    
+FASB_FEES_PAID_LAST_YEAR          DECIMAL    13                                    N           2    
+FASB_FEES_PAID_YTD                DECIMAL    13                                    N           2    
+FASB_FEES_UNEARNED_PREV           DECIMAL    22                                    N           5    
+FASB_ORIGINAL_COSTS               DECIMAL    13                                    N           2    
+FASB_ORIGINAL_FEES                DECIMAL    13                                    N           2    
+FASB_ORIGINAL_TERM                DECIMAL    3                                     N                
+FASB_PAID_CR_AMT_YTD              DECIMAL    22                                    N           5    
+FASB_PAID_DR_AMT_YTD              DECIMAL    22                                    N           5    
+FASB_TERM_PREV                    DECIMAL    3                                     N                
+FASB_TRANSACTION_OCCURRED         CHAR       1                                     N                
+FASB_YIELD                        DECIMAL    10                                    N           7    
+FASB_YIELD_PREV                   DECIMAL    10                                    N           7    
+FDIC_CALL_REPORT_CODE             DECIMAL    3                                     N                
+FEBRUARY_ADJUST_BILL_FLAG_1       CHAR       1                                     N                
+FEDERAL_CALL_CODE                 CHAR       5                                     Y                
+FEE_AMOUNT_PERCENT_1              DECIMAL    22                                    N           5    
+FEE_AMOUNT_PERCENT_2              DECIMAL    22                                    N           5    
+FEE_AMOUNT_PERCENT_3              DECIMAL    22                                    N           5    
+FEE_AMOUNT_PERCENT_4              DECIMAL    22                                    N           5    
+FEE_AMOUNT_PERCENT_5              DECIMAL    22                                    N           5    
+FEE_BILL_CODE_1                   CHAR       1                                     N                
+FEE_BILL_CODE_2                   CHAR       1                                     N                
+FEE_BILL_CODE_3                   CHAR       1                                     N                
+FEE_BILL_CODE_4                   CHAR       1                                     N                
+FEE_BILL_CODE_5                   CHAR       1                                     N                
+FEE_CHARGE_CODE_1                 CHAR       1                                     N                
+FEE_CHARGE_CODE_2                 CHAR       1                                     N                
+FEE_CHARGE_CODE_3                 CHAR       1                                     N                
+FEE_CHARGE_CODE_4                 CHAR       1                                     N                
+FEE_CHARGE_CODE_5                 CHAR       1                                     N                
+FEE_CHARGE_FREQUENCY_1            DECIMAL    3                                     N                
+FEE_CHARGE_FREQUENCY_2            DECIMAL    3                                     N                
+FEE_CHARGE_FREQUENCY_3            DECIMAL    3                                     N                
+FEE_CHARGE_FREQUENCY_4            DECIMAL    3                                     N                
+FEE_CHARGE_FREQUENCY_5            DECIMAL    3                                     N                
+FEE_CHARGE_PERIOD_1               CHAR       1                                     N                
+FEE_CHARGE_PERIOD_2               CHAR       1                                     N                
+FEE_CHARGE_PERIOD_3               CHAR       1                                     N                
+FEE_CHARGE_PERIOD_4               CHAR       1                                     N                
+FEE_CHARGE_PERIOD_5               CHAR       1                                     N                
+FEE_LATE_ASSESS_AMT_LTD           DECIMAL    22                                    Y           5    
+FEE_LATE_ASSESS_AMT_MTD           DECIMAL    22                                    Y           5    
+FEE_LATE_ASSESS_AMT_YTD           DECIMAL    22                                    Y           5    
+FEE_LATE_ASSESS_MAX_AMT           DECIMAL    22                                    Y           5    
+FEE_LATE_ASSESS_MIN_AMT           DECIMAL    22                                    Y           5    
+FEE_LATE_COLL_AMT_LTD             DECIMAL    22                                    Y           5    
+FEE_LATE_COLL_AMT_MTD             DECIMAL    22                                    Y           5    
+FEE_LATE_COLL_AMT_YTD             DECIMAL    22                                    Y           5    
+FEE_LATE_COLL_NON_ACCR            DECIMAL    11                                    N           2    
+FEE_LATE_COLL_NON_ACCR_MTD        DECIMAL    13                                    N           2    
+FEE_LATE_COLL_NON_ACCR_YTD        DECIMAL    13                                    N           2    
+FEE_LATE_DUE_AMT                  DECIMAL    22                                    Y           5    
+FEE_LATE_INCOME_NON_ACCR          DECIMAL    13                                    N           2    
+FEE_LATE_INCOME_NON_ACCR_MTD      DECIMAL    13                                    N           2    
+FEE_LATE_INCOME_NON_ACCR_YTD      DECIMAL    13                                    N           2    
+FEE_PAID_AMT_CTD                  DECIMAL    22                                    N           5    
+FEE_SPECIFIC_DAY_1                DECIMAL    2                                     N                
+FEE_SPECIFIC_DAY_2                DECIMAL    2                                     N                
+FEE_SPECIFIC_DAY_3                DECIMAL    2                                     N                
+FEE_SPECIFIC_DAY_4                DECIMAL    2                                     N                
+FEE_SPECIFIC_DAY_5                DECIMAL    2                                     N                
+FEE_WAIVED_AMT_CTD                DECIMAL    22                                    N           5    
+FEE_1_PAST_DUE_1                  DECIMAL    15                                    N           2    
+FEE_1_PAST_DUE_2                  DECIMAL    15                                    N           2    
+FEE_1_PAST_DUE_3                  DECIMAL    15                                    N           2    
+FEE_1_PAST_DUE_4                  DECIMAL    15                                    N           2    
+FEE_1_PAST_DUE_5                  DECIMAL    15                                    N           2    
+FEE_2_PAST_DUE_1                  DECIMAL    15                                    N           2    
+FEE_2_PAST_DUE_2                  DECIMAL    15                                    N           2    
+FEE_2_PAST_DUE_3                  DECIMAL    15                                    N           2    
+FEE_2_PAST_DUE_4                  DECIMAL    15                                    N           2    
+FEE_2_PAST_DUE_5                  DECIMAL    15                                    N           2    
+FEES_ASSESSED_THIS_CYCLE_1        DECIMAL    22                                    N           5    
+FEES_ASSESSED_THIS_CYCLE_2        DECIMAL    9                                     N           2    
+FEES_ASSESSED_THIS_CYCLE_3        DECIMAL    9                                     N           2    
+FEES_ASSESSED_THIS_CYCLE_4        DECIMAL    9                                     N           2    
+FEES_ASSESSED_THIS_CYCLE_5        DECIMAL    9                                     N           2    
+FEES_ASSESSED_UNPAID              DECIMAL    11                                    N           2    
+FEES_PAID_LAST_YEAR               DECIMAL    22                                    N           5    
+FEES_PAID_MONTH_TO_DATE           DECIMAL    22                                    N           5    
+FEES_PAID_YEAR_TO_DATE            DECIMAL    22                                    N           5    
+FEES_SUBJECT_TO_F_C_CYCLE_1       DECIMAL    9                                     N           2    
+FEES_SUBJECT_TO_F_C_CYCLE_2       DECIMAL    9                                     N           2    
+FEES_SUBJECT_TO_F_C_CYCLE_3       DECIMAL    9                                     N           2    
+FEES_SUBJECT_TO_F_C_CYCLE_4       DECIMAL    9                                     N           2    
+FEES_SUBJECT_TO_F_C_CYCLE_5       DECIMAL    9                                     N           2    
+FEES_SUBJECT_TO_F_C_LAST_YEA      DECIMAL    11                                    N           2    
+FEES_SUBJECT_TO_F_C_PAID_MTD      DECIMAL    11                                    N           2    
+FEES_SUBJECT_TO_F_C_PAID_YTD      DECIMAL    11                                    N           2    
+FEES_SUBJECT_TO_F_C_UNPAID        DECIMAL    11                                    N           2    
+FINANCE_CHARGE_CYCLE              DECIMAL    15                                    N           2    
+FIX_RATE_ADV_ACCT_FLAG            CHAR       1                                     N                
+FIXED_CONVERT_NOTICE_LEAD_DA      DECIMAL    3                                     N                
+FIXED_RATE_CHG_NOTICE_NBR         DECIMAL    3                                     N                
+FLAT_CANCEL_FLAT_VOID             CHAR       1                                     N                
+FORECLOSURE_IND_PRIOR_QTR         CHAR       1                                     N                
+FORECLOSURE_REO_CODE              CHAR       1                                     N                
+FREE_ADVANCES_CNT                 DECIMAL    3                                     N                
+GUARANTOR_NOTICE_CODE             CHAR       1                                     N                
+HIGHEST_CREDIT                    DECIMAL    13                                    N           2    
+HOLD_AMOUNT                       DECIMAL    17                                    N           2    
+HOLD_AMOUNT_TOMORROW              DECIMAL    17                                    N           2    
+HOLDBACK_CODE                     CHAR       1                                     N                
+HOLDBACK_VALUE                    DECIMAL    9                                     N           2    
+HUD_NOTICE_NUMBER                 DECIMAL    3                                     N                
+INCLUDE_FEE_IN_F_C_FLAG_1         CHAR       1                                     N                
+INCLUDE_FEE_IN_F_C_FLAG_2         CHAR       1                                     N                
+INCLUDE_FEE_IN_F_C_FLAG_3         CHAR       1                                     N                
+INCLUDE_FEE_IN_F_C_FLAG_4         CHAR       1                                     N                
+INCLUDE_FEE_IN_F_C_FLAG_5         CHAR       1                                     N                
+INDEX_RATE_AT_LAST_REVIEW         DECIMAL    10                                    N           7    
+INDEX_RATE_AT_PREV_REVIEW         DECIMAL    10                                    N           7    
+INDEX_RATE_MULTIPLIER             DECIMAL    3                                     N                
+INDEX_RATE_NUMBER                 DECIMAL    2                                     N                
+INDEX_VARIANCE_RATE               DECIMAL    10                                    Y           7    
+INITIAL_RATE_ADJ_NOTICE_NBR       DECIMAL    3                                     N                
+INSURANCE_ASSESSED_UNPAID         DECIMAL    15                                    N           2    
+INSURANCE_BILLING_RATE_APR        DECIMAL    7                                     N           6    
+INSURANCE_CALCULATION_OPTION      CHAR       1                                     N                
+INSURANCE_CHARGE_CYCLE            DECIMAL    15                                    N           2    
+INSURANCE_COMPANY_NUMBER          DECIMAL    5                                     N                
+INSURANCE_PAID_LAST_YEAR          DECIMAL    17                                    N           2    
+INSURANCE_PAID_MTD                DECIMAL    17                                    N           2    
+INSURANCE_PAID_YTD                DECIMAL    17                                    N           2    
+INSURANCE_POLICY_TYPE             CHAR       1                                     N                
+INT_COLLECTED_IN_NON_ACCRUAL      DECIMAL    13                                    N           2    
+INT_ONLY_BILLING_FREQUENCY        DECIMAL    3                                     N                
+INT_ONLY_BILLING_NBR_OF_TIME      DECIMAL    5                                     N                
+INT_ONLY_BILLING_PERIOD           CHAR       1                                     N                
+INT_ONLY_BILLING_SPECIFIC         DECIMAL    2                                     N                
+INT_RATE_CALCULATION_METHOD       CHAR       1                                     N                
+INTEREST_ACCR_AMT_LTD             DECIMAL    22                                    Y           6    
+INTEREST_ACCR_AMT_MTD             DECIMAL    22                                    Y           6    
+INTEREST_ACCR_AMT_YTD             DECIMAL    23                                    Y           6    
+INTEREST_ACCR_CHARGE_OFF_AMT      DECIMAL    22                                    Y           6    
+INTEREST_ACCRUED_TD_YESTERDA      DECIMAL    17                                    N           2    
+INTEREST_CHARGED_OFF_PREV_YR      DECIMAL    15                                    N           2    
+INTEREST_COMPUTATION_CODE         CHAR       1                                     N                
+INTEREST_DUE                      DECIMAL    17                                    N           2    
+INTEREST_DUE_YESTERDAY            DECIMAL    15                                    N           2    
+INTEREST_EARNING_SPECIFIC_DA      DECIMAL    2                                     N                
+INTEREST_PAID_AMT_LTD             DECIMAL    22                                    Y           5    
+INTEREST_PAID_AMT_MTD             DECIMAL    22                                    Y           5    
+INTEREST_PAID_AMT_YTD             DECIMAL    22                                    Y           5    
+INTEREST_PAID_CTD                 DECIMAL    22                                    N           5    
+INTEREST_PAID_LAST_YEAR           DECIMAL    17                                    N           2    
+INTEREST_PAID_THIS_CYCLE          DECIMAL    17                                    N           2    
+INTEREST_RATE                     DECIMAL    10                                    Y           7    
+INTEREST_RATE_CEILING             DECIMAL    10                                    Y           7    
+INTEREST_RATE_FLOOR               DECIMAL    10                                    Y           7    
+INTEREST_RATE_GUARANTEE_CODE      CHAR       1                                     N                
+INTEREST_RATE_LAST                DECIMAL    10                                    Y           7    
+INTEREST_RATE_ORIGINAL            DECIMAL    10                                    Y           7    
+INTEREST_RECOVERIES               DECIMAL    15                                    N           2    
+INTEREST_REPORT_AMT_LTD           DECIMAL    22                                    Y           5    
+INTEREST_REPORT_AMT_YTD_LAST      DECIMAL    22                                    Y           5    
+INTEREST_REPORTING_FLAG_Y_E       CHAR       1                                     N                
+INTEREST_TYPE                     CHAR       1                                     N                
+LAST_CHECK_CREDIT_STMT_FLAG       CHAR       1                                     N                
+LATE_DAYS_TO_COMPOUND_INT         DECIMAL    2                                     N                
+LATE_FEE_COMPUTATION_CODE         CHAR       1                                     N                
+LATE_FEE_FIRST_OR_LAST_FLAG       CHAR       1                                     N                
+LATE_FEE_FLAG_MATURITY_BILL       CHAR       1                                     N                
+LATE_FEE_FLAG_POST_MATURITY       CHAR       1                                     N                
+LATE_FEE_MAX_MATURITY_BILL        DECIMAL    22                                    N           5    
+LATE_FEE_PERCENTAGE               DECIMAL    10                                    N           7    
+LATE_FEES_MAX_AMT_ASSESSABLE      DECIMAL    15                                    N           2    
+LATE_FEES_PAID_CTD                DECIMAL    22                                    N           5    
+LATE_FEES_PAID_PREV_YEAR          DECIMAL    13                                    N           2    
+LATE_FEES_THIS_CYCLE              DECIMAL    13                                    N           2    
+LATE_FEES_WAIVED_TO_DATE          DECIMAL    15                                    N           2    
+LN_POINTS_PAYMENT_FLAG            CHAR       1                                     N                
+LNEADT_DATE_VALIDATION_FIELD      CHAR       10                                    N                
+LNOTDT_DATE_VALIDATION_FIELD      CHAR       10                                    N                
+LOAN_FEE_FLAG                     CHAR       1                                     N                
+LOAN_FEES_CYCLE                   DECIMAL    13                                    N           2    
+LOAN_PAYOFF_BASE_CODE             CHAR       1                                     N                
+LOAN_TO_VALUE_RATIO               DECIMAL    10                                    Y           7    
+LOAN_TO_VALUE_RATIO_ORIGINAL      DECIMAL    10                                    N           7    
+LOAN_TO_VALUE_RATIO_SECONDARY     DECIMAL    10                                    N           7    
+LOAN_TO_VALUE_RATIO_TOTAL         DECIMAL    10                                    N           7    
+LOAN_WAREHOUSE_FLAG               CHAR       1                                     N                
+LOSS_SHARING_AGREEMENT            CHAR       1                                     N                
+MAIL_CODE                         CHAR       5                                     Y                
+MATCH_FLUCTUATING_FLAG            CHAR       1                                     N                
+MAX_PAYMENT_DECREASE_FOR_LIF      DECIMAL    13                                    N           2    
+MAX_PAYMENT_INCREASE_FOR_LIF      DECIMAL    13                                    N           2    
+MAX_RATE_CHANGE_PER_PERIOD        DECIMAL    10                                    N           7    
+MAX_TERM_DECREASE_PERIOD          DECIMAL    3                                     N                
+MAX_TERM_INCREASE_PERIOD          DECIMAL    3                                     N                
+MAXIMUM_INSURANCE_AMOUNT          DECIMAL    11                                    N                
+MAXIMUM_PAYMENT_CHANGE            DECIMAL    13                                    N           2    
+MAXIMUM_PRINCIPAL_BALANCE         DECIMAL    13                                    N           2    
+MAXIMUM_TERM                      DECIMAL    3                                     N                
+MESSAGE_BYTE_1                    CHAR       1                                     N                
+MESSAGE_BYTE_2                    CHAR       1                                     N                
+MESSAGE_BYTE_3                    CHAR       1                                     N                
+MESSAGE_BYTE_4_BITS               CHAR       1                                     N                
+MESSAGE_BYTE_5_BITS               CHAR       1                                     N                
+METRO_STAT_AREA_CODE_MSA          DECIMAL    5                                     N                
+MINIMUM_ADVANCE_OPTION            CHAR       1                                     N                
+MINIMUM_INTEREST                  DECIMAL    17                                    N           2    
+MINIMUM_PMT_CHANGE_PER_PERIO      DECIMAL    13                                    N           2    
+MISC_FEE_DESCRIPTION_1            CHAR       30                                    N                
+MISC_FEE_DESCRIPTION_2            CHAR       30                                    N                
+MISC_FEE_DESCRIPTION_3            CHAR       30                                    N                
+MISC_FEE_DESCRIPTION_4            CHAR       30                                    N                
+MISC_FEE_DESCRIPTION_5            CHAR       30                                    N                
+MORTGAGE_TYPE                     CHAR       2                                     N                
+MTG_INS_NOT_RPTABLE_LAST_YEAR     DECIMAL    22                                    N           5    
+MTG_INS_NOT_RPTABLE_THIS_YEAR     DECIMAL    22                                    N           5    
+MTG_INS_PAID_LAST_YEAR            DECIMAL    22                                    N           5    
+MTG_INS_PAID_THIS_YEAR            DECIMAL    22                                    N           5    
+MTG_INS_REPORTABLE_LAST_YEAR      DECIMAL    22                                    N           5    
+MTG_INS_REPORTABLE_THIS_YEAR      DECIMAL    22                                    N           5    
+MTG_INT_REFUND_CURR_YEAR          DECIMAL    22                                    N           5    
+MTG_INT_REFUND_PREV_YEAR          DECIMAL    22                                    N           5    
+MTG_POINTS_REPORTABLE_LAST_Y      DECIMAL    15                                    N           2    
+MTG_POINTS_REPORTABLE_THIS_Y      DECIMAL    15                                    N           2    
+MTG_PROP_CNT_LAST_YEAR            DECIMAL    5                                     N                
+MTG_PROP_CNT_THIS_YEAR            DECIMAL    5                                     N                
+MULTIPLIER_OPTION                 CHAR       1                                     N                
+NBR_OF_ADVANCES_CTD               DECIMAL    3                                     N                
+NBR_OF_HUD_NOTICES_SENT           DECIMAL    3                                     N                
+NBR_OF_PYMT_SCHEDULES             DECIMAL    2                                     N                
+NBR_OF_RENEWALS_EXTENSIONS        DECIMAL    2                                     N                
+NBR_OF_TIMES_TO_USE_SCHED         DECIMAL    5                                     N                
+NEG_AM_ADVANCE_MONTH_TO_DATE      DECIMAL    13                                    N           2    
+NEG_AM_ADVANCES_YEAR_TO_DATE      DECIMAL    13                                    N           2    
+NEG_AM_REDUCTIONS_MTD             DECIMAL    13                                    N           2    
+NEG_AM_REDUCTIONS_YTD             DECIMAL    13                                    N           2    
+NEG_AM_REMAINING_PR_QTR           DECIMAL    22                                    N           5    
+NEG_AM_TOTAL_PR_QTR               DECIMAL    22                                    N           5    
+NEG_AM_YTD_NONCSH_INC_PR_QTR      DECIMAL    22                                    N           5    
+NEGATIVE_AMORTIZATION_BALANC      DECIMAL    22                                    N           5    
+NEGATIVE_AMORTIZATION_FLAG        CHAR       1                                     N                
+NET_INT_ADJ_CURRENT_CYCLE         DECIMAL    13                                    N           2    
+NET_INTEREST_ADJUSTMENT           DECIMAL    13                                    N           2    
+NEXT_PAYMENT_CHANGE_DAY           DECIMAL    2                                     N                
+NEXT_PAYMENT_CHANGE_FREQ          DECIMAL    5                                     N                
+NEXT_PAYMENT_CHANGE_PERIOD        CHAR       1                                     N                
+NON_ACCR_INTEREST                 DECIMAL    23                                    N           6    
+NON_ACCR_INTEREST_COLL_MTD        DECIMAL    15                                    N           2    
+NON_ACCR_INTEREST_COLL_YTD        DECIMAL    15                                    N           2    
+NON_ACCR_INTEREST_INCOME          DECIMAL    15                                    N           2    
+NON_ACCR_INTEREST_INCOME_MTD      DECIMAL    15                                    N           2    
+NON_ACCR_INTEREST_INCOME_YTD      DECIMAL    15                                    N           2    
+NON_ACCRUAL_FLAG                  CHAR       1                                     N                
+NON_ACCRUAL_INTEREST_CODE         CHAR       1                                     N                
+NON_ACCRUAL_INTEREST_MTD          DECIMAL    15                                    N           2    
+NOTE_PAST_DUE_A_H_INS_1           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_A_H_INS_2           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_A_H_INS_3           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_A_H_INS_4           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_A_H_INS_5           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_CL_INS_1            DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_CL_INS_2            DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_CL_INS_3            DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_CL_INS_4            DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_CL_INS_5            DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_OTR_INS_1           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_OTR_INS_2           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_OTR_INS_3           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_OTR_INS_4           DECIMAL    13                                    N           2    
+NOTE_PAST_DUE_OTR_INS_5           DECIMAL    13                                    N           2    
+NOTE_TYPE                         DECIMAL    1                                     N                
+OCCUPANT_CODE                     CHAR       2                                     N                
+ODD_DAYS_INTEREST_AMOUNT          DECIMAL    17                                    N           2    
+OFFICER_PRIMARY_ID                CHAR       10                                    Y                
+OFFICER_SECONDARY_ID              CHAR       10                                    Y                
+ORIGIN_OF_POSTING_RESTRICTIO      CHAR       1                                     N                
+ORIGINAL_DEALER_HOLDBACK          DECIMAL    13                                    N           2    
+ORIGINAL_DEALER_RATE              DECIMAL    10                                    N           7    
+ORIGINAL_INDEX_RATE               DECIMAL    10                                    N           7    
+ORIGINAL_P_I_PMT_AMOUNT           DECIMAL    17                                    N           2    
+ORIGINAL_PREPAID_DLR_RESERVE      DECIMAL    13                                    N           2    
+OTHER_CREDITS_THIS_CYCLE          DECIMAL    17                                    N           2    
+OTHER_DEBITS_THIS_CYCLE           DECIMAL    17                                    N           2    
+OTHER_INS_PAID_CTD                DECIMAL    22                                    N           5    
+PAST_DUE_INTEREST_1               DECIMAL    17                                    N           2    
+PAST_DUE_INTEREST_2               DECIMAL    17                                    N           2    
+PAST_DUE_INTEREST_3               DECIMAL    17                                    N           2    
+PAST_DUE_INTEREST_4               DECIMAL    17                                    N           2    
+PAST_DUE_INTEREST_5               DECIMAL    17                                    N           2    
+PAST_DUE_NOTICE_1                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_2                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_3                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_4                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_5                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_6                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_7                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_8                 DECIMAL    3                                     N                
+PAST_DUE_NOTICE_9                 DECIMAL    3                                     N                
+PAST_DUE_PRE_PETITION_CODE_1      CHAR       1                                     N                
+PAST_DUE_PRE_PETITION_CODE_2      CHAR       1                                     N                
+PAST_DUE_PRE_PETITION_CODE_3      CHAR       1                                     N                
+PAST_DUE_PRE_PETITION_CODE_4      CHAR       1                                     N                
+PAST_DUE_PRE_PETITION_CODE_5      CHAR       1                                     N                
+PAST_DUE_PRINCIPAL_1              DECIMAL    17                                    N           2    
+PAST_DUE_PRINCIPAL_2              DECIMAL    17                                    N           2    
+PAST_DUE_PRINCIPAL_3              DECIMAL    17                                    N           2    
+PAST_DUE_PRINCIPAL_4              DECIMAL    17                                    N           2    
+PAST_DUE_PRINCIPAL_5              DECIMAL    17                                    N           2    
+PAST_DUE_1_ESCROW_1               DECIMAL    15                                    N           2    
+PAST_DUE_1_ESCROW_2               DECIMAL    15                                    N           2    
+PAST_DUE_1_PMT_TYPE               CHAR       1                                     N                
+PAST_DUE_2_ESCROW_1               DECIMAL    15                                    N           2    
+PAST_DUE_2_ESCROW_2               DECIMAL    15                                    N           2    
+PAST_DUE_2_PMT_TYPE               CHAR       1                                     N                
+PAST_DUE_3_ESCROW_1               DECIMAL    15                                    N           2    
+PAST_DUE_3_ESCROW_2               DECIMAL    15                                    N           2    
+PAST_DUE_3_PMT_TYPE               CHAR       1                                     N                
+PAST_DUE_4_ESCROW_1               DECIMAL    15                                    N           2    
+PAST_DUE_4_ESCROW_2               DECIMAL    15                                    N           2    
+PAST_DUE_4_PMT_TYPE               CHAR       1                                     N                
+PAST_DUE_5_ESCROW_1               DECIMAL    15                                    N           2    
+PAST_DUE_5_ESCROW_2               DECIMAL    15                                    N           2    
+PAST_DUE_5_PMT_TYPE               CHAR       1                                     N                
+PAYMENT_HISTORY_PROFILE           CHAR       24                                    N                
+PAYMENT_RATING                    CHAR       1                                     N                
+PAYMENT_SCHEDULE_AMOUNT           DECIMAL    17                                    N           2    
+PAYMENT_SCHEDULE_NBR              DECIMAL    2                                     N                
+PAYMENT_SCHEDULE_PERIOD           CHAR       1                                     N                
+PAYMENT_SCHEDULE_TYPE             DECIMAL    1                                     N                
+PAYMENTS_PAID_TO_DATE             DECIMAL    3                                     N                
+PAYMENTS_PAID_YTD                 DECIMAL    3                                     N                
+PAYOFF_REVERSAL_TODAY_FLAG        CHAR       1                                     N                
+PCT_OVERLIMIT_ALLOWED             DECIMAL    5                                     N           5    
+PENDING_INTEREST_RATE             DECIMAL    10                                    N           7    
+PENDING_P_I_PAYMENT_AMT           DECIMAL    17                                    N           2    
+PENDING_TERM_IN_MONTHS            DECIMAL    3                                     N                
+PERCENTAGE_SOLD                   DECIMAL    14                                    N           11   
+PLEDGE_ID_LAST                    DECIMAL    5                                     N                
+PMT_REVERSAL_TODAY_FLAG           CHAR       1                                     N                
+PMT_REVIEW_NOTICE_NBR             DECIMAL    3                                     N                
+PMT_TERM_REVIEW_LEAD_DAYS         DECIMAL    3                                     N                
+PMT_TERM_REVIEW_NOTICE_NBR        DECIMAL    3                                     N                
+PMTS_BILLED_THIS_SCHEDULE         DECIMAL    6                                     N                
+POINTER_TO_FIRST_TRAN             DECIMAL    7                                     N                
+POINTER_TO_LAST_TRANS_THIS        DECIMAL    7                                     N                
+POINTER_TO_REN_OR_12_HIST_TR      DECIMAL    7                                     N                
+POST_MAT_BILLING_ALLOWED          CHAR       1                                     N                
+POST_MAT_BILLS_TO_PRODUCE         DECIMAL    3                                     N                
+POST_PETITION_DAYS_PAST_DUE       NUMERIC    5                                     N                
+POSTING_RESTRICTION_CODE          CHAR       1                                     N                
+POSTING_RESTRICTIONS              DECIMAL    1                                     N                
+PRE_PETITION_AMT_PD_LAST_MONTH    DECIMAL    22                                    N           5    
+PRE_PETITION_CODE                 CHAR       1                                     N                
+PRE_PETITION_FEE                  DECIMAL    22                                    N           5    
+PRE_PETITION_LATE_FEES_DUE        DECIMAL    22                                    N           5    
+PRE_PETITION_UNAPPLIED_FUNDS      DECIMAL    22                                    N           5    
+PREV_BALANCE_ESCROW_1             DECIMAL    15                                    N           2    
+PREV_BALANCE_ESCROW_2             DECIMAL    15                                    N           2    
+PREVIOUS_P_I_PMT_AMOUNT           DECIMAL    17                                    N           2    
+PREVIOUS_STATEMENT_BALANCE        DECIMAL    17                                    N           2    
+PREVIOUS_TERM_IN_MONTHS           DECIMAL    3                                     N                
+PRINCIPAL_BALANCE_YESTERDAY       DECIMAL    15                                    N           2    
+PRINCIPAL_PAID_CTD                DECIMAL    22                                    N           5    
+PRINCIPAL_PAID_LAST_YEAR          DECIMAL    17                                    N           2    
+PRINCIPAL_PAID_THIS_CYCLE         DECIMAL    17                                    N           2    
+PRINCIPAL_PAID_TO_DATE            DECIMAL    17                                    N           2    
+PRINCIPAL_PAID_YTD                DECIMAL    17                                    N           2    
+PRINCIPAL_RECOVERIES_ADJ          DECIMAL    15                                    N           2    
+PRINCIPAL_RECOVERIES_TO_DATE      DECIMAL    22                                    N           5    
+PRIOR_QTD_NON_ACCR_AMT            DECIMAL    22                                    N           5    
+PRIOR_QTD_PRIN_AMT                DECIMAL    22                                    N           5    
+PRIOR_QTR_AVERAGE_BALANCE         DECIMAL    15                                    N           2    
+PRIOR_QTR_CHG_OFF_RECVRY_YTD      DECIMAL    13                                    N           2    
+PRIOR_QTR_CHG_OFF_YTD_CALL        DECIMAL    13                                    N           2    
+PRIOR_QTR_ESCROW_BAL_1            DECIMAL    22                                    N           5    
+PRIOR_QTR_ESCROW_BAL_2            DECIMAL    22                                    N           5    
+PRIOR_QTR_INCOME                  DECIMAL    15                                    N           2    
+PRIOR_QTR_NO_DAYS_PAST_DUE        DECIMAL    5                                     N                
+PRIOR_QTR_NONACCRUAL_FLAG         CHAR       1                                     N                
+PRIOR_QTR_ORIGINAL_BALANCE        DECIMAL    13                                    N           2    
+PRIOR_QTR_PRINCIPAL_BALANCE       DECIMAL    13                                    N           2    
+PRIOR_QTR_RESTRUCTURED_FLAG       CHAR       1                                     N                
+PRIOR_QTR_UNAPPLIED_FUNDS         DECIMAL    22                                    N           5    
+PRIOR_QTR_UNUSED_COMMITMENT       DECIMAL    13                                    N           2    
+PRIOR_YEAR_PREPAID_INTEREST       DECIMAL    13                                    N           2    
+PRIVATE_BALANCE_ADJ               DECIMAL    15                                    N           2    
+PRIVATE_BALANCE_YESTERDAY         DECIMAL    15                                    N           2    
+PRIVATE_MTG_INSUR_INDICATOR       CHAR       1                                     N                
+PRODUCT_CODE                      CHAR       5                                     Y                
+PRODUCT_CODE_LAST                 CHAR       5                                     Y                
+PROPERTY_ADDR_FLAG                CHAR       1                                     N                
+PROVIDER                          CHAR       10                                    N                
+PURCHASED_FROM_SOLD_TO_CUST       CHAR       10                                    N                
+QTD_AGGREGATE_BAL_CALL_RPT        DECIMAL    15                                    N           2    
+QTD_NON_ACCR_AMT                  DECIMAL    22                                    N           5    
+QTD_PRIN_AMT                      DECIMAL    22                                    N           5    
+RATE_CHANGE_CARRYOVER_AMOUNT      DECIMAL    10                                    N           7    
+RATE_CHANGE_CARRYOVER_OPTION      CHAR       1                                     N                
+RATE_CHANGE_PERIOD                CHAR       1                                     N                
+RATE_FLOOR_CEILING_CODE           CHAR       1                                     N                
+RATE_PMT_REVIEW_NOTICE_NBR        DECIMAL    3                                     N                
+RATE_PMT_TERM_REVIEW_NOTICE       DECIMAL    3                                     N                
+RATE_REVIEW_DAY                   INTEGER    4                                     Y                
+RATE_REVIEW_FREQUENCY             INTEGER    4                                     Y                
+RATE_REVIEW_LEAD_DAY              INTEGER    4                                     Y                
+RATE_REVIEW_LEAD_DAY_INITIAL      DECIMAL    3                                     N                
+RATE_REVIEW_MIN_RATE_MUST_CH      DECIMAL    10                                    N           7    
+RATE_REVIEW_NOTICE_NBR            DECIMAL    3                                     N                
+RATE_REVIEW_PERIOD                CHAR       1                                     N                
+RATE_ROUNDING_FACTOR              DECIMAL    1                                     N                
+REASON_FOR_DEFAULT_CODE           CHAR       3                                     N                
+RECOURSE_CODE                     CHAR       5                                     Y                
+REMITTANCE_AMOUNT                 DECIMAL    13                                    N           2    
+RENEGOTIATED_LOAN                 CHAR       1                                     N                
+RENEWAL_CNT_MTD                   DECIMAL    3                                     N                
+RENEWAL_CNT_TD                    DECIMAL    3                                     N                
+RENEWAL_CNT_YTD                   DECIMAL    3                                     N                
+RENEWAL_WORKOUT_CNT_MTD           DECIMAL    3                                     N                
+RENEWAL_WORKOUT_CNT_TD            DECIMAL    3                                     N                
+RENEWAL_WORKOUT_CNT_YTD           DECIMAL    3                                     N                
+REO_REPO_AMT_TD                   DECIMAL    15                                    N           2    
+REO_REPO_SALE_GAIN_AMT            DECIMAL    15                                    N           2    
+REO_REPO_SALE_LOSS_AMT            DECIMAL    15                                    N           2    
+REO_REPO_VALUATION_ADJ_TD         DECIMAL    15                                    N           2    
+REPURCHASE_NOTE                   CHAR       1                                     N                
+RESERVE_COLLECTED_MTD             DECIMAL    23                                    N           6    
+RESERVE_COLLECTED_TD              DECIMAL    13                                    N           2    
+RESOLUTION_ACTION_CODE            CHAR       2                                     N                
+RISK_CODE_BANK_ASSIGN             CHAR       5                                     Y                
+ROUNDING_OPTION                   CHAR       2                                     N                
+ROW_PROCESSED_THRU                CHAR       8                                     N                
+ROW_UPDATE_DATE                   DATE       4                                     N                
+ROW_UPDATE_TYPE                   CHAR       3                                     N                
+SCHED_NOTE_INT_BAL                DECIMAL    18                                    N           6    
+SCHED_NOTE_PRIN_BALANCE           DECIMAL    13                                    N           2    
+SCHEDULE_ESCROW_AMOUNT_1          DECIMAL    15                                    N           2    
+SCHEDULE_ESCROW_AMOUNT_2          DECIMAL    15                                    N           2    
+SCHEDULE_FREQUENCY                DECIMAL    3                                     N                
+SCHEDULE_SPECIFIC_DAY             DECIMAL    2                                     N                
+SECURED_IND                       CHAR       1                                     Y                
+SEND_RATE_CHANGE_NOTICE           CHAR       1                                     N                
+SHORT_NAME                        CHAR       18                                    N                
+SKIP_PYMT_CNT_MTD                 DECIMAL    3                                     N                
+SKIP_PYMT_CNT_TD                  DECIMAL    3                                     N                
+SKIP_PYMT_CNT_YTD                 DECIMAL    3                                     N                
+SPECIAL_COMMENT_CD                CHAR       2                                     N                
+SPECIAL_SCHEDULED_OPTION          CHAR       1                                     N                
+START_CODE_1                      CHAR       1                                     N                
+START_CODE_2                      CHAR       1                                     N                
+START_CODE_3                      CHAR       1                                     N                
+START_CODE_4                      CHAR       1                                     N                
+START_CODE_5                      CHAR       1                                     N                
+STATE_CODE_HMDA                   DECIMAL    2                                     N                
+STATEMENT_MODEL_NBR               DECIMAL    3                                     N                
+STATEMENT_REMARKS                 CHAR       50                                    N                
+STMT_FEES_CHARGED_YTD             DECIMAL    22                                    N           5    
+STMT_FEES_CHARGED_YTD_LAST        DECIMAL    22                                    N           5    
+STMT_INT_CHARGED_YTD              DECIMAL    22                                    N           5    
+STMT_INT_CHARGED_YTD_LAST         DECIMAL    22                                    N           5    
+STOP_HOLD_SPECIAL_INSTRUCTIO      CHAR       1                                     N                
+SUB_NOTE_SEQ_LAST_USED            DECIMAL    5                                     N                
+SUBLIMIT_NUMBER                   DECIMAL    11                                    N                
+SUBPRIME_FLAG                     CHAR       1                                     N                
+SWEEP_PENDING_FROM_TA             DECIMAL    13                                    N           2    
+TAX_EXEMPT_CODE                   CHAR       1                                     N                
+TAXES_PAID_FLAG                   CHAR       1                                     N                
+TAXES_PAID_LAST_YEAR              DECIMAL    15                                    N           2    
+TAXES_PAID_YEAR_TO_DATE           DECIMAL    15                                    N           2    
+TEASER_FLAG_Y_N                   CHAR       1                                     N                
+TERM_IN_MONTHS                    DECIMAL    3                                     N                
+TIMES_LATE_CYCLE_1                DECIMAL    3                                     N                
+TIMES_LATE_CYCLE_2                DECIMAL    3                                     N                
+TIMES_LATE_CYCLE_3                DECIMAL    3                                     N                
+TIMES_LATE_120_DAYS               DECIMAL    3                                     N                
+TIMES_LATE_150_DAYS               DECIMAL    3                                     N                
+TIMES_LATE_180_DAYS               DECIMAL    3                                     N                
+TIMES_LATE_30_DAYS                DECIMAL    3                                     N                
+TIMES_LATE_60_DAYS                DECIMAL    3                                     N                
+TIMES_LATE_90_DAYS                DECIMAL    3                                     N                
+TOTAL_AMT_DISBURSED               DECIMAL    17                                    N           2    
+TOTAL_AMT_OF_PMTS_PAST_DUE        DECIMAL    17                                    N           2    
+TOTAL_DEALER_RESERVE              DECIMAL    13                                    N           2    
+TOTAL_MINIMUM_INTEREST            DECIMAL    17                                    N           2    
+TOTAL_OF_OTHER_DEDUCTIONS         DECIMAL    17                                    N           2    
+TOTAL_OF_OTHER_REBATES            DECIMAL    17                                    N           2    
+TOTAL_PAID_DURING_BANKRUPTCY      DECIMAL    22                                    N           5    
+TOTAL_PAID_THIS_CYCLE             DECIMAL    17                                    N           2    
+TOTAL_PRE_PAID_RESERVE            DECIMAL    13                                    N           2    
+TOTAL_SCHEDULED_INTEREST          DECIMAL    13                                    N           2    
+UCCC_FLAG                         CHAR       1                                     N                
+UNAPPLIED_FUNDS                   DECIMAL    13                                    N           2    
+UNAPPLIED_FUNDS_PAID_CTD          DECIMAL    22                                    N           5    
+USE_FOR_RELATED_SC                CHAR       1                                     N                
+USER_CODE_1                       CHAR       5                                     N                
+USER_CODE_2                       CHAR       5                                     N                
+USER_DEFINED_STMT_NOTICE_NBR      DECIMAL    3                                     N                
+USER_FIELD_11                     DECIMAL    5                                     N                
+USER_FIELD_12                     DECIMAL    5                                     N                
+USER_FIELD_3                      CHAR       11                                    N                
+USER_FIELD_4                      CHAR       11                                    N                
+USER_FIELD_5                      CHAR       11                                    N                
+USER_FIELD_6                      CHAR       11                                    N                
+USER_FIELD_8                      CHAR       2                                     N                
+USER_FIELD_9                      DECIMAL    13                                    N           2    
+USER_MESSAGE_BYTE_BITS            CHAR       1                                     N                
+VARIABLE_PAYMENT_TERM_OPTION      CHAR       1                                     N                
+WAREHOUSED_GROUP_ID               CHAR       10                                    N                
+WRITE_DOWN_AMT                    DECIMAL    15                                    N           2    
+Y_E_PRINCIPAL_BALANCE             DECIMAL    13                                    N           2    
+YEAR_BASE_CODE                    CHAR       5                                     Y                
+YIELD                             DECIMAL    10                                    Y           7    
+ZERO_AVAIL_FUNDS_AT_MATURITY      CHAR       1                                     N              
+
+--======================================================================
+map
+--
+Data Element Name (Alias Name)	Source Field Name
+A_H_PAID_CTD	LNANHPDCTD
+ACCOUNT_NUMBER	GNC12ACCT
+ACCOUNT_STATUS_CODE	LNSTAT
+ACCR_BALANCE_CODE	LNSCHD
+ACCRUAL_BASE	LNACBS
+ACCT_STATUS_CHNG_TODAY_IND	VLNSTCG
+ACH_FOREIGN_ACCOUNT_NUMBER	LNACH
+ACQUISITION_FEE_AMOUNT_ILD	LNACQ
+ACTIVITY_ON_SOLD_LOAN_FLAG	LNACSL
+ACTUARIAL_FTR_DENOMINATOR	LNAMFR
+ADJ_AVAILABLE_TO_DISB	LNCR1
+ADVANCE_CNT_YTD	LNAYTD
+ADVANCES_THIS_CYCLE	LNBADV
+AGGREGATE_BAL_THIS_BILLING	LNAGGB
+AGGREGATE_DAY_CNT_MTD	LNMTDD
+AGGREGATE_DAY_CNT_YTD	LNYTDD
+AGGREGATE_DAYS_THIS_BILLING	LNAGGD
+AGGREGATE_DAYS_THIS_CYCLE	LNBDAY
+ALTERNATE_NAME_ADDRESS_FLAG	LNALT
+AMORTIZATION_OPTION	LNREAM
+AMOUNT_OF_LAST_PMT_RECEIVED	LNLAMT
+AMT_PAST_DUE_COMPTR_OF_CURR	LNCCPD
+APPLICATION_NUMBER	LNAPPL
+APPROVAL_CODE_USER_DEFINED	LNAPP
+ASSUMPTION_FEE_PAID	LNASFE
+ASSUMPTION_FLAG	LNASFG
+ATM_STATUS	LNATMS
+AUTO_DEBIT_BILL_FINAL_PYMT	LNBLST
+AUTO_NON_ACCRUAL_DAYS	LNANAD
+AUTO_PMT_DRAFT_DELAY_DAYS	LNADDD
+AUTO_PMT_ROUTING_TRANSIT_NBR	LNRTN
+AUTO_SPREAD_ADV_PARTIC_CODE	LNSACDE
+AUTO_SPREAD_PARTIC_FLAG	LNASOP
+AUTOMATIC_CHARGE_APPL_ACCT	LNACAP
+AVERAGE_BALANCE_CYCLE	LNBAVG
+BAL_AGG_MTD	LNMTDA
+BAL_AGG_YTD	LNYTDA
+BAL_PRIN_AMT	LNBAL
+BAL_PRIN_SOLD_AMT	LNAMTS
+BALLOON_IND	LNBLCD
+BANK_EARNINGS_RATE	LNBERT
+BANK_NUMBER	GBANKNBR
+BEGIN_PRINCIPAL_BAL_LAST_YR	LNLYBBAL
+BILL_COUPON_CODE	LNBILL
+BILL_LEAD_DAY_CNT	LNLEAD
+BILLED_PROJECTED_FLAG	LNCUPF
+BOUGHT_SOLD_CODE	LNPART
+BRANCH_PRIMARY_ID	VLNBRCH
+BUYDOWN_CODE	LNRWTM
+CACS_COLL_CONTROL_IND	LNCCI
+CACS_LOCATION_CODE	LNCLOC
+CAPITALIZED_INTEREST_CYCLE	LNBCIN
+CENSUS_TRACT	LNCENS
+CHARGE_OFF_AMT_MTD	LNAMCO
+CHARGE_OFF_CODE	LNCHGF
+CHARGE_OFF_PRINCIPAL_AMT	LNCHGA
+CHARGE_OFF_YTD_CALL_REPORT	LNCHGY
+CHARGEBACK_AMOUNT	LNCHGB
+CHARGEBACK_FREQUENCY	LNCBFQ
+CHARGEBACK_PERIOD	LNCBPR
+CHARGEOFF_REPO_CONTROLS	LNCRCL
+CHARGEOFF_REPO_FREQUENCY	LNCRFQ
+CHARGEOFF_REPO_PERIOD	LNCRPR
+CHG_OFF_RECOVRY_YTD_CALL_RPT	LNRECY
+CL_IL_ML_FLAG	LNILCL
+CLASSIFICATION_CODE	LNCLSF
+COLLATERAL_BALANCE_CODE	LNCOLB
+COLLATERAL_CODE	LNCOLL
+COLLECTION_OFFICER	LNOFF3
+COMMITMENT_AMT_PRIOR_QTR	LNPQTC
+COMPLIANCE_CONDITION_CODE	LNCCCD
+CORRESP_POOL_ACCR_YESTERDAY	LNCPIY
+CORRESP_POOL_ACCRUED_MTD	LNCPMI
+CORRESP_POOL_ACCRUED_TD	LNCPIN
+CORRESP_POOL_ACCRUED_YTD	LNCPYI
+CORRESP_POOL_INDEX_NBR	LNCPIX
+CORRESP_POOL_RATE	LNCPRT
+CORRESP_POOL_VARIANCE	LNCPVA
+COUNTY_CODE_HMDA	LNCTY
+COUPON_CNT_TO_PRODUCE	LNCPNR
+CR_LIFE_PAID_CTD	LNCRLPDCTD
+CREDIT_BUREAU_TYPE_CODE	LNCTOA
+CREDIT_LINE_2_CD	LNCR2
+CREDIT_LINE_AVAIL_FLAG	LNCLAF
+CREDIT_REPORTING_CYCLE	LNCRCY
+CREDIT_STATUS	LNCRST
+CREDIT_STATUS_OVERRIDE	LNCRSO
+CREDIT_SVC_ACCOUNT_TYPE	LNCRTY
+CURR_PROJ_NOTE_BILL_A_H_INS	LNBLID
+CURR_PROJ_NOTE_BILL_CL_INS	LNBLIC
+CURR_PROJ_NOTE_BILL_OT_INS	LNBLIO
+CURRENT_ACTIVE_MEMO_NUMBER	LNMEMO
+CURRENT_PRJ_BILLING_PRINCIPA	LNBLPR
+CURRENT_PROJ_BILLING_FEE_1	LNBLF1
+CURRENT_PROJ_BILLING_FEE_2	LNBLF2
+CURRENT_PROJ_BILLING_INTERES	LNBLIN
+CURRENT_PROJ_NOTE_BILL_ESC1	LNBLE1
+CURRENT_PROJ_NOTE_BILL_ESC2	LNBLE2
+CURRENT_PROJ_PMT_CODE	LNBLTY
+CURRENT_UNEARNED_FASB_FEES	LNFUNR
+CURTAILMENTS_PAID_TO_DATE	LNCUTD
+CUSTOMER_CREDIT_LINE_NUMBER	LNLNR
+DAILY_ACCRUAL_FACTOR	LNACCR
+DATE_1ST_DELINQ_THIS_CYCLE	LNOCCD
+DATE_AGGREGATE	LNAGDT
+DATE_BANKRUPTCY	LNBKDT
+DATE_BILLING_CURRENT_PROJ	LNBLDT
+DATE_CHARGE_OFF	LNCHGD
+DATE_CLOSE	LNDTCL
+DATE_CONTACT_VERBAL	LNVCDT
+DATE_COUPONS_FIRST	LNCPFS
+DATE_COUPONS_THRU	LNCPNX
+DATE_CREDIT_PCT_EXCEEDED	LNOVCL
+DATE_EARLY_INTRVEN_NOTICE_LAST	LNLSTEIDT
+DATE_EARN_FIRST	LNERFD
+DATE_ESCROW_ACTION_NEXT	LNEADT
+DATE_ESCROW_INT_ACCRUED	LNEATD
+DATE_ESCROW_INT_PYMT_NEXT	LNESDT
+DATE_EXPECT_PAYOFF	LNEXPD
+DATE_FIXED_RATE_CONVERSION	LNFXDT
+DATE_HUD_NOTICE_LAST	LNHUDT
+DATE_INITIAL_ARM_NOTICE	LNINARMDT
+DATE_INT_ONLY_PMT_NEXT	LNINDT
+DATE_INTEREST_ACCR	LNACDT
+DATE_INTEREST_EARNED_TO	LNERDT
+DATE_INTEREST_PAID_TO	LNIPDT
+DATE_LAST_DEFERMENT	LNDFRDTE
+DATE_LAST_DUE_DATE_CHANGE	LNDDDTE
+DATE_LAST_EXTENSION	LNEXTDTE
+DATE_LAST_SKIP_PYMT	LNSKPDTE
+DATE_LAST_WORKOUT_RENWL	LNWRNDTE
+DATE_LATE_FEE_FLAG_DELAY	LNCLDT
+DATE_MAINTENANCE_LAST	LNMTND
+DATE_MATURITY_NEXT	LNNXMT
+DATE_MATURITY_ORIGINAL	LNMTDT
+DATE_MATURITY_PRIOR_QTR	LNPQMD
+DATE_NON_ACCR_START	LNNOND
+DATE_OPEN	LNNTDT
+DATE_OPEN_ORIGINAL	LNODOP
+DATE_OTHER_REBATES_NEXT_CHG	LNOTDT
+DATE_PAID_LAST	LNLPI
+DATE_PAST_DUE_1	LNBD01
+DATE_PAST_DUE_2	LNBD02
+DATE_PAST_DUE_3	LNBD03
+DATE_PAST_DUE_4	LNBD04
+DATE_PAST_DUE_5	LNBD05
+DATE_PI_PMT_TERM_CHG_PENDING	LNNPCD
+DATE_PRIN_REDUCTION	LNPRRD
+DATE_PRODUCT_CHNG	LNDLPC
+DATE_PYMT_POST_LAST	LNLPDT
+DATE_PYMT_RECVD_LAST	LNLPRD
+DATE_PYMT_REVIEW_END	LNPREX
+DATE_PYMT_TERM_REVIEW_CHG_NXT	LNPRVD
+DATE_RATE_EFFECTIVE	LNRDT
+DATE_RATE_EFFECTIVE_PENDING	LNIRVE
+DATE_RATE_REVIEW_CHG_NEXT	LNIRVN
+DATE_RENEWAL_LAST	LNRNDT
+DATE_REOPENED	LNDTRO
+DATE_REPRICING_PRIOR_QTR	LNPQRD
+DATE_RESOLUTION_ACTION	LNRSDT
+DATE_SCHEDULE_NEXT_PMT	LNSCDT
+DATE_SCHEDULED_DELIVERY	LNSDEL
+DATE_STATEMENT_PREVIOUS	LNBPRD
+DATE_TEASER	LNTSDT
+DATE_TRANS_LAST	LNTRND
+DATE_VARIABLE_TERM_EXPIRY	LNTRMX
+DATE_WAREHOUSE	LNWHDT
+DAYS_PAST_DUE	LNPDLS
+DAYS_TO_ASSESS_LATE_FEE	LNLDAY
+DEALER_EARNINGS_METHOD	LNDREM
+DEALER_NUMBER	LNDLR
+DEALER_PROCESSING_FLAG	LNDLPF
+DEALER_RESERVE_ACCR_TD_YEST	LNDAYS
+DEALER_RESERVE_ACCR_TO_DATE	LNDATD
+DEALER_RESERVE_ACCRUED_MTD	LNDAMD
+DEALER_RESERVE_ACCRUED_YTD	LNDAYD
+DEALER_RESERVE_FACTOR	LNRSVF
+DEALER_RESERVE_METHOD	LNDRMT
+DEALER_RESERVE_TYPE	LNDRTY
+DEALER_SINCE_NON_ACCURAL	LNDNON
+DEALER_STATE_CODE	LNDSCD
+DEDUCTION_CR_AMT_YTD	LNDCYD
+DEDUCTION_DR_AMT_YTD	LNDDYD
+DEFERMENT_CNT_MTD	LNDFRMTD
+DEFERMENT_CNT_TD	LNDFRTD
+DEFERMENT_CNT_YTD	LNDFRYTD
+DELINQUENT_MTG_NOTICE_FLAG	LN45DYNOTF
+DIRECTOR_OFFICER_EMPLOYEE_CD	LNDOE
+DISCOUNT_PREV_EARNED	LNDSCE
+DLR_RESRV_EARNED_CYC_TO_DT	LNRECD
+DUE_DATE_CHANGE_CNT_MTD	LNDDMTD
+DUE_DATE_CHANGE_CNT_TD	LNDDTD
+DUE_DATE_CHANGE_CNT_YTD	LNDDYTD
+DWELLING_CODE	LNDWEL
+EARLY_INTERVENT_NOTICES_SENT	LNNOFNST
+EARLY_INTERVENTION_NOTICE_NBR	LNELYINNOT
+EARLY_PAYOFF_CONTROLS	LNEPCL
+ENDING_BALANCE_CYCLE	LNBEBL
+ESCROW_BALANCE_1	LNES1
+ESCROW_BALANCE_2	LNES2
+ESCROW_INT_ACCRUAL_METHOD	LNESCD
+ESCROW_INT_DISPOSITION_CODE	LNESDS
+ESCROW_INT_EARNED_NOT_PAID	LNESAC
+ESCROW_INT_EARNED_NOT_PD_YES	LNESAP
+ESCROW_INT_PAID_LAST_YEAR	LNESIP
+ESCROW_INT_PAID_YTD	LNESIY
+ESCROW_INT_PAYMENT_PERIOD	LNESP
+ESCROW_INT_PAYOFF_OPTION	LNESPO
+ESCROW_INTEREST_MONTH_BASE	LNEIMB
+ESCROW_INTEREST_RATE	LNESRT
+ESCROW_INTEREST_YEAR_BASE	LNEIYB
+ESCROW_PAID_CTD	LNESCPDCTD
+ESCROW_PAID_YTD	LNESCPDYTD
+ESCROW_PAYMENT_FREQUENCY	LNESF
+ESCROW_PMT_SPECIFIC_DAY	LNESSP
+EXTENSION_CNT_MTD	LNEXTMTD
+EXTENSION_CNT_TD	LNEXTTD
+EXTENSION_CNT_YTD	LNEXTYTD
+EXTENSION_FEES_LAST_YEAR	LNEXTL
+EXTENSION_FEES_TO_DATE	LNEXT
+EXTENSION_FEES_YTD	LNEXTY
+EXTENSION_MONTH_CNT	LNEXTM
+EXTENSION_PROCESSING_OPTION	LNEXTO
+EXTRA_STMT_COPIES_CNT	LNSTCP
+FACE_AMOUNT_OF_NOTE	LNFACE
+FASB_CARRYING_BALANCE	LNFBAL
+FASB_COLLECTED_PAID_AT_RENWL	LNFCPR
+FASB_CURRENT_TERM	LNFTRM
+FASB_DAILY_YIELD_AMOUNT	LNFYLA
+FASB_EARNED_NON_ACCR_PREV	LNPFNA
+FASB_EARNING_CODE	LNFCD
+FASB_EARNING_CODE_PREV	LNPFCD
+FASB_FEES_COLLECTED_PAID	LNFFCL
+FASB_FEES_COLLECTED_PREV	LNPFFC
+FASB_FEES_EARNED_MTD	LNFMTD
+FASB_FEES_EARNED_NON_ACCR	LNFTDN
+FASB_FEES_EARNED_PREV	LNPFTD
+FASB_FEES_EARNED_THRU_YEST	LNFTYS
+FASB_FEES_EARNED_TO_DATE	LNFTD
+FASB_FEES_EARNED_YTD	LNFYTD
+FASB_FEES_PAID_LAST_YEAR	LNFFCP
+FASB_FEES_PAID_YTD	LNFFCY
+FASB_FEES_UNEARNED_PREV	LNPFUN
+FASB_ORIGINAL_COSTS	LNOCST
+FASB_ORIGINAL_FEES	LNOFEE
+FASB_ORIGINAL_TERM	LNOFTM
+FASB_PAID_CR_AMT_YTD	LNFCYD
+FASB_PAID_DR_AMT_YTD	LNFDYD
+FASB_TERM_PREV	LNPFTM
+FASB_TRANSACTION_OCCURRED	LNFLLX
+FASB_YIELD	LNFYLD
+FASB_YIELD_PREV	LNPFYL
+FDIC_CALL_REPORT_CODE	LNFDIC
+FEBRUARY_ADJUST_BILL_FLAG_1	LXBF
+FEDERAL_CALL_CODE	VLNFRB
+FEE_1_PAST_DUE_1	LNBFO1
+FEE_1_PAST_DUE_2	LNBFO2
+FEE_1_PAST_DUE_3	LNBFO3
+FEE_1_PAST_DUE_4	LNBFO4
+FEE_1_PAST_DUE_5	LNBFO5
+FEE_2_PAST_DUE_1	LNBFT1
+FEE_2_PAST_DUE_2	LNBFT2
+FEE_2_PAST_DUE_3	LNBFT3
+FEE_2_PAST_DUE_4	LNBFT4
+FEE_2_PAST_DUE_5	LNBFT5
+FEE_LATE_ASSESS_AMT_LTD	LNLATD
+FEE_LATE_ASSESS_AMT_MTD	LNLAMD
+FEE_LATE_ASSESS_AMT_YTD	LNLAYD
+FEE_LATE_ASSESS_MAX_AMT	LNLMAX
+FEE_LATE_ASSESS_MIN_AMT	LNLMIN
+FEE_LATE_COLL_AMT_LTD	LNLPD
+FEE_LATE_COLL_AMT_MTD	LNLPMD
+FEE_LATE_COLL_AMT_YTD	LNLPYD
+FEE_LATE_DUE_AMT	LNLFD
+FEE_PAID_AMT_CTD	LNLNFPDCTD
+FEE_WAIVED_AMT_CTD	LNBFWC
+FINANCE_CHARGE_CYCLE	LNBFIN
+FIX_RATE_ADV_ACCT_FLAG	LNFXRA
+FIXED_CONVERT_NOTICE_LEAD_DA	LNFXLD
+FIXED_RATE_CHG_NOTICE_NBR	LNNFIX
+FLAT_CANCEL_FLAT_VOID	LNFCFV
+FORECLOSURE_IND_PRIOR_QTR	LNPQFC
+FORECLOSURE_REO_CODE	LNFRCD
+FREE_ADVANCES_CNT	LNFADV
+GUARANTOR_NOTICE_CODE	LNGUAR
+HIGHEST_CREDIT	LNHICR
+HOLD_AMOUNT	LNHOLD
+HOLD_AMOUNT_TOMORROW	LNHLTW
+HOLDBACK_CODE	LNHBC
+HOLDBACK_VALUE	LNHBVL
+HUD_NOTICE_NUMBER	LNNHUD
+INDEX_RATE_AT_LAST_REVIEW	LNIRLY
+INDEX_RATE_AT_PREV_REVIEW	LNLFCP
+INDEX_RATE_MULTIPLIER	LNIMLT
+INDEX_RATE_NUMBER	LNINBR
+INDEX_VARIANCE_RATE	LNIVAR
+INITIAL_RATE_ADJ_NOTICE_NBR	LNINRATNOT
+INSURANCE_ASSESSED_UNPAID	LNCPAS
+INSURANCE_BILLING_RATE_APR	LNCRTE
+INSURANCE_CALCULATION_OPTION	LNCBFG
+INSURANCE_CHARGE_CYCLE	LNBIIN
+INSURANCE_COMPANY_NUMBER	LNCPNO
+INSURANCE_PAID_LAST_YEAR	LNCPLY
+INSURANCE_PAID_MTD	LNCPTM
+INSURANCE_PAID_YTD	LNCPTY
+INSURANCE_POLICY_TYPE	LNJTSI
+INT_COLLECTED_IN_NON_ACCRUAL	LNICNA
+INT_ONLY_BILLING_FREQUENCY	LNINTF
+INT_ONLY_BILLING_NBR_OF_TIME	LNINTM
+INT_ONLY_BILLING_PERIOD	LNINTP
+INT_ONLY_BILLING_SPECIFIC	LNISPD
+INT_RATE_CALCULATION_METHOD	LNIRCM
+INTEREST_ACCR_AMT_LTD	LNACTD
+INTEREST_ACCR_AMT_MTD	LNACMD
+INTEREST_ACCR_AMT_YTD	LNACYD
+INTEREST_ACCR_CHARGE_OFF_AMT	LNCHGI
+INTEREST_ACCRUED_TD_YESTERDA	LNACYS
+INTEREST_COMPUTATION_CODE	LNICMP
+INTEREST_DUE	LNIDUE
+INTEREST_DUE_YESTERDAY	LNYIDU
+INTEREST_EARNING_SPECIFIC_DA	LNERSP
+INTEREST_PAID_AMT_LTD	LNIPD
+INTEREST_PAID_AMT_YTD	LNIPY
+INTEREST_PAID_CTD	LNINTPDCTD
+INTEREST_PAID_LAST_YEAR	LNIPLY
+INTEREST_PAID_THIS_CYCLE	LNBPRI
+INTEREST_RATE	LNRATE
+INTEREST_RATE_CEILING	LNICLG
+INTEREST_RATE_FLOOR	LNIFLR
+INTEREST_RATE_GUARANTEE_CODE	LNIGAR
+INTEREST_RATE_LAST	LNLRTE
+INTEREST_RATE_ORIGINAL	LNFRTE
+INTEREST_REPORT_AMT_LTD	LNIRPT
+INTEREST_REPORT_AMT_YTD_LAST	LNIRPY
+INTEREST_REPORTING_FLAG_Y_E	LNYEND
+INTEREST_TYPE	LNINTT
+LAST_CHECK_CREDIT_STMT_FLAG	LNLSTF
+LATE_DAYS_TO_COMPOUND_INT	LNLFDU
+LATE_FEE_COMPUTATION_CODE	LNLFCD
+LATE_FEE_FIRST_OR_LAST_FLAG	LNLFFL
+LATE_FEE_FLAG_MATURITY_BILL	LNPSAFEE
+LATE_FEE_FLAG_POST_MATURITY	LNPSAFMT
+LATE_FEE_MAX_MATURITY_BILL	LNPSMTMX
+LATE_FEE_PERCENTAGE	LNLPCT
+LATE_FEES_MAX_AMT_ASSESSABLE	LNMAXA
+LATE_FEES_PAID_CTD	LNLTFPDCTD
+LATE_FEES_PAID_PREV_YEAR	LNLFPP
+LATE_FEES_THIS_CYCLE	LNLFCY
+LATE_FEES_WAIVED_TO_DATE	LNLWV
+LN_POINTS_PAYMENT_FLAG	LNMPPF
+LNEADT_DATE_VALIDATION_FIELD	VDV_LNEADT
+LNOTDT_DATE_VALIDATION_FIELD	VDV_LNOTDT
+LOAN_FEE_FLAG	LNFEEF
+LOAN_FEES_CYCLE	LNBTFC
+LOAN_PAYOFF_BASE_CODE	LNPOBS
+LOAN_TO_VALUE_RATIO	LNLTV
+LOAN_TO_VALUE_RATIO_ORIGINAL	LNOLTV
+LOAN_TO_VALUE_RATIO_SECONDARY	LNSLTV
+LOAN_TO_VALUE_RATIO_TOTAL	LNTLTV
+LOAN_WAREHOUSE_FLAG	LNWHFG
+LOSS_SHARING_AGREEMENT	LNLOSH
+MAIL_CODE	LNMAIL
+MATCH_FLUCTUATING_FLAG	LNCPCD
+MAX_PAYMENT_DECREASE_FOR_LIF	LNDEPL
+MAX_PAYMENT_INCREASE_FOR_LIF	LNINPL
+MAX_RATE_CHANGE_PER_PERIOD	LNRTCP
+MAX_TERM_DECREASE_PERIOD	LNDETR
+MAX_TERM_INCREASE_PERIOD	LNINTR
+MAXIMUM_INSURANCE_AMOUNT	LNMXIN
+MAXIMUM_PAYMENT_CHANGE	LNMXPP
+MAXIMUM_PRINCIPAL_BALANCE	LNMXBL
+MAXIMUM_TERM	LNMAXT
+MESSAGE_BYTE_1	LNFLG1
+MESSAGE_BYTE_2	LNFLG2
+MESSAGE_BYTE_3	LNFLG3
+MESSAGE_BYTE_4_BITS	LNFLG4
+MESSAGE_BYTE_5_BITS	LNFLG5
+METRO_STAT_AREA_CODE_MSA	LNMSA
+MINIMUM_ADVANCE_OPTION	LNMADV
+MINIMUM_INTEREST	LNMIN
+MINIMUM_PMT_CHANGE_PER_PERIO	LNPMCH
+MORTGAGE_TYPE	LNMTYP
+MTG_INS_NOT_RPTABLE_LAST_YEAR	LNMINRL
+MTG_INS_NOT_RPTABLE_THIS_YEAR	LNMINRT
+MTG_INS_PAID_LAST_YEAR	LNMIPL
+MTG_INS_PAID_THIS_YEAR	LNMIPT
+MTG_INS_REPORTABLE_LAST_YEAR	LNMIRL
+MTG_INS_REPORTABLE_THIS_YEAR	LNMIRT
+MTG_INT_REFUND_CURR_YEAR	LNMIRC
+MTG_INT_REFUND_PREV_YEAR	LNMIRP
+MTG_POINTS_REPORTABLE_LAST_Y	LNMPLY
+MTG_POINTS_REPORTABLE_THIS_Y	LNMPTY
+MULTIPLIER_OPTION	LNIMLO
+NBR_OF_ADVANCES_CTD	LNACYC
+NBR_OF_HUD_NOTICES_SENT	LNHUDN
+NBR_OF_PYMT_SCHEDULES	LNNRSC
+NBR_OF_TIMES_TO_USE_SCHED	LNSCPM
+NEG_AM_ADVANCE_MONTH_TO_DATE	LNNGI2
+NEG_AM_ADVANCES_YEAR_TO_DATE	LNNGAD
+NEG_AM_REDUCTIONS_MTD	LNNGI3
+NEG_AM_REDUCTIONS_YTD	LNNGRD
+NEG_AM_REMAINING_PR_QTR	LNPQRNA
+NEG_AM_TOTAL_PR_QTR	LNPQANA
+NEG_AM_YTD_NONCSH_INC_PR_QTR	LNPQYTDNC
+NEGATIVE_AMORTIZATION_BALANC	LNNGI1
+NEGATIVE_AMORTIZATION_FLAG	LNNEGA
+NET_INT_ADJ_CURRENT_CYCLE	LNNIAC
+NET_INTEREST_ADJUSTMENT	LNBNIA
+NEXT_PAYMENT_CHANGE_DAY	LNNPCS
+NEXT_PAYMENT_CHANGE_FREQ	LNNPCF
+NEXT_PAYMENT_CHANGE_PERIOD	LNNPCP
+NON_ACCR_INTEREST	LNNONA
+NON_ACCRUAL_FLAG	LNNONF
+NON_ACCRUAL_INTEREST_CODE	LNNACD
+NON_ACCRUAL_INTEREST_MTD	LNNACM
+NOTE_PAST_DUE_A_H_INS_1	LNBID1
+NOTE_PAST_DUE_A_H_INS_2	LNBID2
+NOTE_PAST_DUE_A_H_INS_3	LNBID3
+NOTE_PAST_DUE_A_H_INS_4	LNBID4
+NOTE_PAST_DUE_A_H_INS_5	LNBID5
+NOTE_PAST_DUE_CL_INS_1	LNBIC1
+NOTE_PAST_DUE_CL_INS_2	LNBIC2
+NOTE_PAST_DUE_CL_INS_3	LNBIC3
+NOTE_PAST_DUE_CL_INS_4	LNBIC4
+NOTE_PAST_DUE_CL_INS_5	LNBIC5
+NOTE_PAST_DUE_OTR_INS_1	LNBIO1
+NOTE_PAST_DUE_OTR_INS_2	LNBIO2
+NOTE_PAST_DUE_OTR_INS_3	LNBIO3
+NOTE_PAST_DUE_OTR_INS_4	LNBIO4
+NOTE_PAST_DUE_OTR_INS_5	LNBIO5
+NOTE_TYPE	LNNTYP
+OCCUPANT_CODE	LNOWOC
+ODD_DAYS_INTEREST_AMOUNT	LNODDI
+OFFICER_PRIMARY_ID	LNOFF
+OFFICER_SECONDARY_ID	LNOFF2
+ORIGIN_OF_POSTING_RESTRICTIO	LNORIG
+ORIGINAL_DEALER_HOLDBACK	LNOHBK
+ORIGINAL_DEALER_RATE	LNARTE
+ORIGINAL_INDEX_RATE	LNOIXR
+ORIGINAL_P_I_PMT_AMOUNT	LNORPI
+ORIGINAL_PREPAID_DLR_RESERVE	LNOPPD
+OTHER_CREDITS_THIS_CYCLE	LNBOCR
+OTHER_DEBITS_THIS_CYCLE	LNBODR
+OTHER_INS_PAID_CTD	LNOTHPDCTD
+PAST_DUE_1_ESCROW_1	LNB101
+PAST_DUE_1_ESCROW_2	LNB201
+PAST_DUE_1_PMT_TYPE	LNBT01
+PAST_DUE_2_ESCROW_1	LNB102
+PAST_DUE_2_ESCROW_2	LNB202
+PAST_DUE_2_PMT_TYPE	LNBT02
+PAST_DUE_3_ESCROW_1	LNB103
+PAST_DUE_3_ESCROW_2	LNB203
+PAST_DUE_3_PMT_TYPE	LNBT03
+PAST_DUE_4_ESCROW_1	LNB104
+PAST_DUE_4_ESCROW_2	LNB204
+PAST_DUE_4_PMT_TYPE	LNBT04
+PAST_DUE_5_ESCROW_1	LNB105
+PAST_DUE_5_ESCROW_2	LNB205
+PAST_DUE_5_PMT_TYPE	LNBT05
+PAST_DUE_INTEREST_1	LNBI01
+PAST_DUE_INTEREST_2	LNBI02
+PAST_DUE_INTEREST_3	LNBI03
+PAST_DUE_INTEREST_4	LNBI04
+PAST_DUE_INTEREST_5	LNBI05
+PAST_DUE_NOTICE_1	LNNPD1
+PAST_DUE_NOTICE_2	LNNPD2
+PAST_DUE_NOTICE_3	LNNPD3
+PAST_DUE_NOTICE_4	LNNPD4
+PAST_DUE_NOTICE_5	LNNPD5
+PAST_DUE_NOTICE_6	LNNPD6
+PAST_DUE_NOTICE_7	LNNPD7
+PAST_DUE_NOTICE_8	LNNPD8
+PAST_DUE_NOTICE_9	LNNPD9
+PAST_DUE_PRINCIPAL_1	LNBP01
+PAST_DUE_PRINCIPAL_2	LNBP02
+PAST_DUE_PRINCIPAL_3	LNBP03
+PAST_DUE_PRINCIPAL_4	LNBP04
+PAST_DUE_PRINCIPAL_5	LNBP05
+PAYMENT_HISTORY_PROFILE	LNPMHP
+PAYMENT_RATING	LNPMRT
+PAYMENT_SCHEDULE_AMOUNT	LNSCAM
+PAYMENT_SCHEDULE_NBR	LNSCNR
+PAYMENT_SCHEDULE_PERIOD	LNSCP
+PAYMENT_SCHEDULE_TYPE	LNSCTY
+PAYMENTS_PAID_TO_DATE	LNPMPD
+PAYMENTS_PAID_YTD	LNPMYD
+PAYOFF_REVERSAL_TODAY_FLAG	LNPORTDY
+PCT_OVERLIMIT_ALLOWED	LNPCTO
+PENDING_INTEREST_RATE	LNIRVR
+PENDING_P_I_PAYMENT_AMT	LNNXPA
+PENDING_TERM_IN_MONTHS	LNNXTR
+PERCENTAGE_SOLD	LNPCTS
+PLEDGE_ID_LAST	LNPLID
+PMT_REVERSAL_TODAY_FLAG	LNREVF
+PMT_REVIEW_NOTICE_NBR	LNNPMT
+PMT_TERM_REVIEW_LEAD_DAYS	LNPRLD
+PMT_TERM_REVIEW_NOTICE_NBR	LNNTRM
+PMTS_BILLED_THIS_SCHEDULE	LNSCPD
+POINTER_TO_FIRST_TRAN	LNBFTR
+POINTER_TO_LAST_TRANS_THIS	LNLAST
+POINTER_TO_REN_OR_12_HIST_TR	LNOTHR
+POST_MAT_BILLING_ALLOWED	LNPSMT
+POST_MAT_BILLS_TO_PRODUCE	LNPSNOBL
+POSTING_RESTRICTION_CODE	LNRSN
+POSTING_RESTRICTIONS	LNPOST
+PREV_BALANCE_ESCROW_1	LNESP1
+PREV_BALANCE_ESCROW_2	LNESP2
+PREVIOUS_P_I_PMT_AMOUNT	LNPRPI
+PREVIOUS_STATEMENT_BALANCE	LNBPRB
+PREVIOUS_TERM_IN_MONTHS	LNPRTM
+PRINCIPAL_BALANCE_YESTERDAY	LNYBAL
+PRINCIPAL_PAID_CTD	LNPRNPDCTD
+PRINCIPAL_PAID_LAST_YEAR	LNPRLY
+PRINCIPAL_PAID_THIS_CYCLE	LNBPRP
+PRINCIPAL_PAID_TO_DATE	LNPRPD
+PRINCIPAL_PAID_YTD	LNPRYD
+PRINCIPAL_RECOVERIES_TO_DATE	LNPRNRCVTD
+PRIOR_QTD_NON_ACCR_AMT	LNNAPQ
+PRIOR_QTD_PRIN_AMT	LNPRPQ
+PRIOR_QTR_AVERAGE_BALANCE	LNPQAV
+PRIOR_QTR_CHG_OFF_RECVRY_YTD	LNPREC
+PRIOR_QTR_CHG_OFF_YTD_CALL	LNPCHG
+PRIOR_QTR_ESCROW_BAL_1	LNPQE1
+PRIOR_QTR_ESCROW_BAL_2	LNPQE2
+PRIOR_QTR_INCOME	LNPQYI
+PRIOR_QTR_NO_DAYS_PAST_DUE	LNPQDP
+PRIOR_QTR_NONACCRUAL_FLAG	LNPQNF
+PRIOR_QTR_ORIGINAL_BALANCE	LNPQOB
+PRIOR_QTR_PRINCIPAL_BALANCE	LNPQBL
+PRIOR_QTR_RESTRUCTURED_FLAG	LNPQRF
+PRIOR_QTR_UNAPPLIED_FUNDS	LNPQUF
+PRIOR_QTR_UNUSED_COMMITMENT	LNPQUC
+PRIOR_YEAR_PREPAID_INTEREST	LNPREI
+PRIVATE_BALANCE_YESTERDAY	LNPBAL
+PRIVATE_MTG_INSUR_INDICATOR	LNPMI
+PRODUCT_CODE	VLNTYPE
+PRODUCT_CODE_LAST	VLNLPTY
+PROPERTY_ADDR_FLAG	LNPAFLG
+PROVIDER	GPROVCBS
+PURCHASED_FROM_SOLD_TO_CUST	LNPNBR
+QTD_AGGREGATE_BAL_CALL_RPT	LNQAGG
+QTD_NON_ACCR_AMT	LNNAQT
+QTD_PRIN_AMT	LNPRQT
+RATE_CHANGE_CARRYOVER_AMOUNT	LNIRVH
+RATE_CHANGE_CARRYOVER_OPTION	LNIRVO
+RATE_CHANGE_PERIOD	LNRCHG
+RATE_FLOOR_CEILING_CODE	LNFLCD
+RATE_PMT_REVIEW_NOTICE_NBR	LNNRTP
+RATE_PMT_TERM_REVIEW_NOTICE	LNNRPT
+RATE_REVIEW_DAY	LNIRVS
+RATE_REVIEW_FREQUENCY	LNIRVF
+RATE_REVIEW_LEAD_DAY	LNIRVL
+RATE_REVIEW_LEAD_DAY_INITIAL	LNINREVDY
+RATE_REVIEW_MIN_RATE_MUST_CH	LNIRVC
+RATE_REVIEW_NOTICE_NBR	LNNRAT
+RATE_REVIEW_PERIOD	LNIRVP
+RATE_ROUNDING_FACTOR	LNRNDF
+REASON_FOR_DEFAULT_CODE	LNDRDF
+RECOURSE_CODE	LNRCRS
+REMITTANCE_AMOUNT	LNRAMT
+RENEGOTIATED_LOAN	LNREWT
+RENEWAL_CNT_MTD	LNRNMTD
+RENEWAL_CNT_TD	LNRNNR
+RENEWAL_CNT_YTD	LNRNYTD
+RENEWAL_WORKOUT_CNT_MTD	LNWRNMTD
+RENEWAL_WORKOUT_CNT_TD	LNWRNTD
+RENEWAL_WORKOUT_CNT_YTD	LNWRNYTD
+REPURCHASE_NOTE	LNRPUR
+RESERVE_COLLECTED_MTD	LNABAC
+RESERVE_COLLECTED_TD	LNABAL
+RESOLUTION_ACTION_CODE	LNRESL
+RISK_CODE_BANK_ASSIGN	LNRISK
+ROUNDING_OPTION	LNIRND
+ROW_PROCESSED_THRU	GROWTHRU
+ROW_UPDATE_DATE	GROWDATE
+ROW_UPDATE_TYPE	GROWTYPE
+SCHED_NOTE_INT_BAL	LNSINT
+SCHED_NOTE_PRIN_BALANCE	LNSPRN
+SCHEDULE_ESCROW_AMOUNT_1	LNSCE1
+SCHEDULE_ESCROW_AMOUNT_2	LNSCE2
+SCHEDULE_FREQUENCY	LNSCF
+SCHEDULE_SPECIFIC_DAY	LNSCSP
+SECURED_IND	LNSECR
+SEND_RATE_CHANGE_NOTICE	LNRCNT
+SHORT_NAME	LNSHRT
+SKIP_PYMT_CNT_MTD	LNSKPMTD
+SKIP_PYMT_CNT_TD	LNSKPTD
+SKIP_PYMT_CNT_YTD	LNSKPYTD
+SPECIAL_COMMENT_CD	LNCRSP
+SPECIAL_SCHEDULED_OPTION	LNSCOP
+STATE_CODE_HMDA	LNSTE
+STATEMENT_MODEL_NBR	LNSMDL
+STATEMENT_REMARKS	LNSTRMK
+STMT_FEES_CHARGED_YTD	LNBSFY
+STMT_FEES_CHARGED_YTD_LAST	LNBSFP
+STMT_INT_CHARGED_YTD	LNBFIY
+STMT_INT_CHARGED_YTD_LAST	LNBFIP
+STOP_HOLD_SPECIAL_INSTRUCTIO	LNSPSI
+SUB_NOTE_SEQ_LAST_USED	LNLSEQ
+SUB_NOTE_SEQUENCE_NBR	LNSUBN
+SUBLIMIT_NUMBER	LNSLNR
+SUBPRIME_FLAG	LNSPFG
+SWEEP_PENDING_FROM_TA	LNPNSWP
+TAX_EXEMPT_CODE	LNTAX
+TAXES_PAID_FLAG	LNETPD
+TAXES_PAID_LAST_YEAR	LNETPL
+TAXES_PAID_YEAR_TO_DATE	LNETPY
+TEASER_FLAG_Y_N	LNTSFG
+TERM_IN_MONTHS	LNTERM
+TIMES_LATE_120_DAYS	LNP120
+TIMES_LATE_150_DAYS	LNP150
+TIMES_LATE_180_DAYS	LNP180
+TIMES_LATE_30_DAYS	LNPD30
+TIMES_LATE_60_DAYS	LNPD60
+TIMES_LATE_90_DAYS	LNPD90
+TIMES_LATE_CYCLE_1	LNPD1
+TIMES_LATE_CYCLE_2	LNPD2
+TIMES_LATE_CYCLE_3	LNPD3
+TOTAL_AMT_DISBURSED	LNDISB
+TOTAL_AMT_OF_PMTS_PAST_DUE	LNPMPS
+TOTAL_DEALER_RESERVE	LNTDRV
+TOTAL_MINIMUM_INTEREST	LNMINT
+TOTAL_OF_OTHER_DEDUCTIONS	LNOTDD
+TOTAL_OF_OTHER_REBATES	LNOTRB
+TOTAL_PAID_THIS_CYCLE	LNBTPD
+TOTAL_PRE_PAID_RESERVE	LNTPPR
+TOTAL_SCHEDULED_INTEREST	LNTSIN
+UCCC_FLAG	LNLUCC
+UNAPPLIED_FUNDS	LNUPFD
+UNAPPLIED_FUNDS_PAID_CTD	LNUNFNDCTD
+USE_FOR_RELATED_SC	LNUREL
+USER_CODE_1	LNUSR1
+USER_CODE_2	LNUSR2
+USER_DEFINED_STMT_NOTICE_NBR	LNNSTM
+USER_FIELD_11	LNUS11
+USER_FIELD_12	LNUS12
+USER_FIELD_3	LNUSR3
+USER_FIELD_4	LNUSR4
+USER_FIELD_5	LNUSR5
+USER_FIELD_6	LNUSR6
+USER_FIELD_8	LNUSR8
+USER_FIELD_9	LNUSR9
+USER_MESSAGE_BYTE_BITS	LNUSR7
+VARIABLE_PAYMENT_TERM_OPTION	LNPMVR
+WAREHOUSED_GROUP_ID	LNWHGR
+Y_E_PRINCIPAL_BALANCE	LNYEPB
+YEAR_BASE_CODE	LNYRBS
+YIELD	LNYLD
+ZERO_AVAIL_FUNDS_AT_MATURITY	LNZAFM
+--===============================================================================
