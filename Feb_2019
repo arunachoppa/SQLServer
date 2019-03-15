@@ -2723,3 +2723,20 @@ YEAR_BASE_CODE	LNYRBS
 YIELD	LNYLD
 ZERO_AVAIL_FUNDS_AT_MATURITY	LNZAFM
 --===============================================================================
+SELECT  
+              ','+ COLUMN_NAME + ' = ' + 'convert(' + DATA_TYPE + 
+              case when data_type in ( 'date','int') then '' 
+                      when data_type = 'char' then '(' +  convert(varchar, CHARACTER_MAXIMUM_LENGTH) + ')' 
+                      when data_type = 'decimal' then '(' +  convert(varchar, NUMERIC_PRECISION) +','+ convert(varchar, NUMERIC_SCALE)+ ')' 
+                    else ''
+             end 
+              +',' + isnull([Source Field Name],'null') + ')'
+FROM    ODS.information_schema.columns c
+left join (
+       select * from DWReporting.dbo.ODSSignatureDataMapping
+       where [Target Data Set Alias Name] like '%TA_PRODUCT_DEFINITION%'
+)mapping
+on c.COLUMN_NAME = mapping.[Data Element Name (Alias Name)]
+WHERE table_name = 'TA_PRODUCT_DEFINITION'
+ORDER BY c.COLUMN_NAME
+
