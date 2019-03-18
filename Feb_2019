@@ -2050,4 +2050,82 @@ left join (
 on c.COLUMN_NAME = mapping.[Data Element Name (Alias Name)]
 WHERE table_name = 'TA_PRODUCT_DEFINITION'
 ORDER BY c.COLUMN_NAME
+--========================
+3/18
+ACCOUNT_NAME	GTNAME
+ACCOUNT_NUMBER	VGHACT
+ACCOUNT_STATUS_CODE	GTSTAT
+ACTIVE_TODAY_IND	GTACTT
+APPL_ID	GAPPLID
+AUTHORIZED_CASH_BALANCE	GTTBAL
+BAL_AGG_MTD	GTMTD
+BAL_AGG_YTD	GTYTD
+BAL_CURRENT	GTBAL
+BAL_MAX_AMT_MTD	GTHIGB
+BAL_MIN_AMT_MTD	GTLOWB
+BANK_NUMBER	GBANKNBR
+CASH_IN_AMT_MTD	GTMIN
+CASH_IN_AMT_TODAY	GTTIN
+CASH_OUT_AMT_MTD	GTMOUT
+CASH_OUT_AMT_TODAY	GTTOUT
+COST_CENTER	GTCNTR
+CREDITS_POSTED_TODAY	GTTCR
+CURRENCY_CODE	GTMCCD
+DATE_ACTIVITY_LAST	GTLACT
+DATE_MAINTENANCE_LAST	GTLMTN
+DATE_PROCESSED_THRU	GTLPRC
+DAYS_OVER_AUTH_BAL_MTD	GTTOVR
+DAYS_UNDER_AUTH_BAL_MTD	GTTUND
+DEBITS_POSTED_TODAY	GTTDR
+LEDGER_TYPE	GTLEDG
+LOCAL_CURRENCY_EQUIVALENT	GTFCYE
+PROVIDER	GPROVCBS
+ROW_PROCESSED_THRU	GROWTHRU
+ROW_UPDATE_DATE	GROWDATE
+ROW_UPDATE_TYPE	GROWTYPE
+TELLER_LONG_AMT_MTD	GTLGM
+TELLER_LONG_AMT_YTD	GTLGY
+TELLER_SHORT_AMT_MTD	GTSHM
+TELLER_SHORT_AMT_YTD	GTSHY
+TIMES_OUT_OF_BALANCE_MTD	GTOBM
+TIMES_OUT_OF_BALANCE_YTD	GTOBY
+--=======================================================
+ACCOUNT_NUMBER               CHAR       30                                    N                
+APPL_ID                      CHAR       3                                     N                
+BANK_NUMBER                  CHAR       5                                     N                
+CURRENCY_CODE                DECIMAL    3                                     N                
+LEDGER_TYPE                  CHAR       1                                     N                
+COST_CENTER                  DECIMAL    5                                     N                
+ACCOUNT_NAME                 CHAR       30                                    N                
+ACCOUNT_STATUS_CODE          CHAR       5                                     Y                
+ACTIVE_TODAY_IND             CHAR       1                                     Y                
+AUTHORIZED_CASH_BALANCE      DECIMAL    22                                    N           5    
+BAL_AGG_MTD                  DECIMAL    22                                    Y           5    
+BAL_AGG_YTD                  DECIMAL    22                                    Y           5    
+BAL_CURRENT                  DECIMAL    22                                    Y           5    
+BAL_MAX_AMT_MTD              DECIMAL    22                                    Y           5    
+BAL_MIN_AMT_MTD              DECIMAL    22                                    Y           5    
+CASH_IN_AMT_MTD              DECIMAL    22                                    N           5    
+CASH_IN_AMT_TODAY            DECIMAL    22                                    N           5    
+CASH_OUT_AMT_MTD             DECIMAL    22                                    N           5    
+CASH_OUT_AMT_TODAY           DECIMAL    22                                    N           5    
+CREDITS_POSTED_TODAY         DECIMAL    19                                    N           2    
+DATE_ACTIVITY_LAST           DATE       4                                     Y                
+DATE_MAINTENANCE_LAST        DATE       4                                     Y                
+DATE_PROCESSED_THRU          DATE       4                                     Y                
+DAYS_OVER_AUTH_BAL_MTD       NUMERIC    3                                     N                
+DAYS_UNDER_AUTH_BAL_MTD      NUMERIC    3                                     N                
+DEBITS_POSTED_TODAY          DECIMAL    19                                    N           2    
+LOCAL_CURRENCY_EQUIVALENT    DECIMAL    17                                    N           2    
+PROVIDER                     CHAR       10                                    N                
+ROW_PROCESSED_THRU           CHAR       8                                     N                
+ROW_UPDATE_DATE              DATE       4                                     N                
+ROW_UPDATE_TYPE              CHAR       3                                     N                
+TELLER_LONG_AMT_MTD          DECIMAL    22                                    N           5    
+TELLER_LONG_AMT_YTD          DECIMAL    22                                    N           5    
+TELLER_SHORT_AMT_MTD         DECIMAL    22                                    N           5    
+TELLER_SHORT_AMT_YTD         DECIMAL    22                                    N           5    
+TIMES_OUT_OF_BALANCE_MTD     NUMERIC    3                                     N                
+TIMES_OUT_OF_BALANCE_YTD     NUMERIC    3                                     N                
+
 
