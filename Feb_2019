@@ -3052,4 +3052,137 @@ P_USER_MESSAGE_BYTE_BITS        CHAR       1                                    
 P_YEAR_BASE_CODE                CHAR       5                                     Y                
 ROWID                           INTEGER    4                                     N                
 
+--====================================================================
+storedprocedure
+create procedure [INFORMENT].[usp_TA_HISTORY_MONETARY_TRANS_Load]
+as
+/******************************************************************************************
+
+Description: TA_HISTORY_MONETARY_TRANS Table Load
+
+-- EXEC INFORMENT.usp_TA_HISTORY_MONETARY_TRANS_Load
+
+****************
+Change History
+****************
+Date			Author				Description 
+--------		-------------		------------------------------------
+03/29/2019		Manoj Bhandari		Initial Version
+
+*******************************************************************************************/
+begin
+  begin try
+    begin transaction
+	
+		insert into INFORMENT.TA_HISTORY_MONETARY_TRANS(
+			ACCOUNT_NUMBER
+			,BANK_NUMBER
+			,NUMBER_OF_TRANS_WITHIN_DAY
+			,ACCOUNT_TYPE
+			,DATE_POSTING
+			,APPL_ID
+			,BATCH_NUMBER
+			,CHECK_FEE_TRANSMITTED
+			,DATE_EFFECTIVE
+			,DEBIT_CREDIT_CODE
+			,LOCAL_CURRENCY_EQUIVALENT
+			,PASSBOOK_IND
+			,POSTING_TRANSACTION_CODE_1
+			,[PROVIDER]
+			,QUANTITY_FOR_THIS_TRANSACTIO
+			,REVERSAL_FLAG
+			,ROW_PROCESSED_THRU
+			,ROW_UPDATE_DATE
+			,ROW_UPDATE_TYPE
+			,RUN_NUMBER
+			,SEQUENCE_NUMBER
+			,SERIAL_OR_CHECK_NUMBER
+			,SORTER_NUMBER
+			,SOURCE_OF_TRANSACTION
+			,SUBSEQUENCE_NUMBER
+			,SUBSTITUTE_CHECK_IND
+			,TRAN_CODE_EXTERNAL
+			,TRANSACTION_AMT
+			,TRANSACTION_CODE_INTERNAL
+			,TRANSACTION_DESCRIPTION_1
+			,TRANSACTION_DESCRIPTION_2
+			,TRANSACTION_DESCRIPTION_3
+			,[USER_ID])
+		select 
+			ACCOUNT_NUMBER
+			,BANK_NUMBER
+			,NUMBER_OF_TRANS_WITHIN_DAY
+			,ACCOUNT_TYPE
+			,DATE_POSTING
+			,APPL_ID
+			,BATCH_NUMBER
+			,CHECK_FEE_TRANSMITTED
+			,DATE_EFFECTIVE
+			,DEBIT_CREDIT_CODE
+			,LOCAL_CURRENCY_EQUIVALENT
+			,PASSBOOK_IND
+			,POSTING_TRANSACTION_CODE_1
+			,[PROVIDER]
+			,QUANTITY_FOR_THIS_TRANSACTIO
+			,REVERSAL_FLAG
+			,ROW_PROCESSED_THRU
+			,ROW_UPDATE_DATE
+			,ROW_UPDATE_TYPE
+			,RUN_NUMBER
+			,SEQUENCE_NUMBER
+			,SERIAL_OR_CHECK_NUMBER
+			,SORTER_NUMBER
+			,SOURCE_OF_TRANSACTION
+			,SUBSEQUENCE_NUMBER
+			,SUBSTITUTE_CHECK_IND
+			,TRAN_CODE_EXTERNAL
+			,TRANSACTION_AMT
+			,TRANSACTION_CODE_INTERNAL
+			,TRANSACTION_DESCRIPTION_1
+			,TRANSACTION_DESCRIPTION_2
+			,TRANSACTION_DESCRIPTION_3
+			,[USER_ID]
+		from INFORMENT.TA_DAILY_MONETARY_TRANS dly
+		where 
+			DATE_POSTING = dateadd(dd,-1,convert(date,getdate()))
+		and not exists (
+			select 1
+			from INFORMENT.TA_HISTORY_MONETARY_TRANS hist
+			where dly.ACCOUNT_NUMBER = hist.ACCOUNT_NUMBER
+			and dly.ACCOUNT_TYPE = hist.ACCOUNT_TYPE
+			and dly.DATE_POSTING = hist.DATE_POSTING 
+			and dly.NUMBER_OF_TRANS_WITHIN_DAY = hist.NUMBER_OF_TRANS_WITHIN_DAY
+			);
+
+		insert into dbo.ODS_Tables_Load_Log(TableName, [Action], NumberOfRowsAffected, DateTimeStamp)
+		values ('TA_HISTORY_MONETARY_TRANS', 'INSERT', @@rowcount, getdate());
+
+
+		--Match Reversal Process 
+		update hist 
+			set hist.REVERSAL_FLAG = 'M'
+		from INFORMENT.TA_DAILY_MONETARY_TRANS dly
+		join INFORMENT.TA_HISTORY_MONETARY_TRANS hist
+			on dly.ACCOUNT_NUMBER = hist.ACCOUNT_NUMBER
+			and dly.ACCOUNT_TYPE = hist.ACCOUNT_TYPE
+			and dly.DATE_POSTING = hist.DATE_POSTING 
+			and dly.NUMBER_OF_TRANS_WITHIN_DAY = hist.NUMBER_OF_TRANS_WITHIN_DAY
+		where 
+			dly.DATE_POSTING < dateadd(dd,-1,convert(date,getdate()))
+			and hist.DATE_POSTING >= dateadd(dd,-60,convert(date,getdate()))
+			and dly.REVERSAL_FLAG = 'M';
+
+		insert into dbo.ODS_Tables_Load_Log(TableName, [Action], NumberOfRowsAffected, DateTimeStamp)
+		values ('TA_HISTORY_MONETARY_TRANS', 'UPDATE', @@rowcount, getdate());
+
+    commit transaction;
+  end try
+
+  begin catch
+    if @@trancount > 0
+    rollback transaction;
+    throw;
+  end catch
+end
+GO
 
