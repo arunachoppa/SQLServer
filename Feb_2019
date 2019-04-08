@@ -3185,4 +3185,160 @@ begin
   end catch
 end
 GO
+--=============================
+4/8***************************************************************************************************************************
+
+
+
+create procedure [INFORMENT].[usp_PV_CU_XREF_5DAY_Load]
+as
+/******************************************************************************************
+
+Description: PV_CU_XREF_5DAY Table Load
+
+-- EXEC INFORMENT.usp_PV_CU_XREF_5DAY_Load
+
+****************
+
+
+*******************************************************************************************/
+begin
+  begin try
+    begin transaction
+		
+		if datename(dw, getdate()) IN ('Sunday','Monday')
+		begin
+			delete from INFORMENT.PV_CU_XREF_5DAY 
+			where POST_DATE = dateadd(dd,-1,convert(date,getdate())) 
+
+			insert into INFORMENT.PV_CU_XREF_5DAY(
+				[POST_DATE]
+				,[TREND_GROUP_ID]
+				,[APPL_ID]
+				,[BANK_NUMBER]
+				,[CUSTOMER_NUMBER]
+				,[RECORD_TYPE]
+				,[RELATIONSHIP_TYPE]
+				,[APPLICATION_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[P_ACCOUNT_NICKNAME]
+				,[P_ACCOUNT_NUMBER_LINK]
+				,[P_CONSUMER_INFORMATION_IND]
+				,[P_FDIC_OWNERSHIP_CODE]
+				,[P_PROVIDER]
+				,[P_RELATIONSHIP]
+				,[P_ROW_PROCESSED_THRU]
+				,[P_ROW_UPDATE_DATE]
+				,[P_ROW_UPDATE_TYPE]
+				,[P_TA_TYPE_SD_BRANCH_LINK]
+				)
+			select 
+				[POST_DATE] = dateadd(dd,-1,convert(date,getdate())) 
+				,[TREND_GROUP_ID] = 'D'
+				,[APPL_ID]
+				,[BANK_NUMBER]
+				,[CUSTOMER_NUMBER]
+				,[RECORD_TYPE]
+				,[RELATIONSHIP_TYPE]
+				,[APPLICATION_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[P_ACCOUNT_NICKNAME]
+				,[P_ACCOUNT_NUMBER_LINK]
+				,[P_CONSUMER_INFORMATION_IND]
+				,[P_FDIC_OWNERSHIP_CODE]
+				,[P_PROVIDER]
+				,[P_RELATIONSHIP]
+				,[P_ROW_PROCESSED_THRU]
+				,[P_ROW_UPDATE_DATE]
+				,[P_ROW_UPDATE_TYPE]
+				,[P_TA_TYPE_SD_BRANCH_LINK]
+			from INFORMENT.PV_CU_XREF_5DAY hist1
+			where POST_DATE = dateadd(dd,-2,convert(date,getdate())) 
+		end
+
+		else
+		begin
+			delete from INFORMENT.PV_CU_XREF_5DAY 
+			where POST_DATE = dateadd(dd,-1,convert(date,getdate()))
+
+			insert into INFORMENT.PV_CU_XREF_5DAY(
+				[POST_DATE]
+				,[TREND_GROUP_ID]
+				,[APPL_ID]
+				,[BANK_NUMBER]
+				,[CUSTOMER_NUMBER]
+				,[RECORD_TYPE]
+				,[RELATIONSHIP_TYPE]
+				,[APPLICATION_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[P_ACCOUNT_NICKNAME]
+				,[P_ACCOUNT_NUMBER_LINK]
+				,[P_CONSUMER_INFORMATION_IND]
+				,[P_FDIC_OWNERSHIP_CODE]
+				,[P_PROVIDER]
+				,[P_RELATIONSHIP]
+				,[P_ROW_PROCESSED_THRU]
+				,[P_ROW_UPDATE_DATE]
+				,[P_ROW_UPDATE_TYPE]
+				,[P_TA_TYPE_SD_BRANCH_LINK]
+				)
+			select 
+				[POST_DATE] = dateadd(dd,-1,convert(date,getdate())) 
+				,[TREND_GROUP_ID] = 'D'
+				,[APPL_ID]
+				,[BANK_NUMBER]
+				,[CUSTOMER_NUMBER]
+				,[RECORD_TYPE]
+				,[RELATIONSHIP_TYPE]
+				,[APPLICATION_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[ACCOUNT_NICKNAME]
+				,[ACCOUNT_NUMBER_LINK]
+				,[CONSUMER_INFORMATION_IND]
+				,[FDIC_OWNERSHIP_CODE]
+				,[PROVIDER]
+				,[RELATIONSHIP]
+				,[ROW_PROCESSED_THRU]
+				,[ROW_UPDATE_DATE]
+				,[ROW_UPDATE_TYPE]
+				,[TA_TYPE_SD_BRANCH_LINK]
+			from INFORMENT.CUSTOMER_CROSS_REFERENCE dly
+			--where not exists (
+			--select 1
+			--from INFORMENT.PV_CU_XREF_5DAY hist
+			--where 
+			--hist.POST_DATE = dateadd(dd,-1,convert(date,getdate())) 
+			--and TREND_GROUP_ID = 'D' 
+			--and dly.APPL_ID = hist.APPL_ID 
+			--and dly.BANK_NUMBER = hist.BANK_NUMBER
+			--and dly.CUSTOMER_NUMBER = hist.CUSTOMER_NUMBER
+			--and dly.RECORD_TYPE = hist.RECORD_TYPE
+			--and dly.RELATIONSHIP_TYPE = hist.RELATIONSHIP_TYPE
+			--and dly.APPLICATION_NUMBER = hist.APPLICATION_NUMBER
+			--and dly.ACCOUNT_NUMBER = hist.ACCOUNT_NUMBER
+			--);
+		end
+
+		insert into dbo.ODS_Tables_Load_Log(TableName, [Action], NumberOfRowsAffected, DateTimeStamp)
+		values ('PV_CU_XREF_5DAY', 'INSERT', @@rowcount, getdate());
+
+
+		--Delete any records older than 5 days
+		delete
+		from INFORMENT.PV_CU_XREF_5DAY 
+		where POST_DATE < dateadd(dd,-6,convert(date,getdate()))
+
+		insert into dbo.ODS_Tables_Load_Log(TableName, [Action], NumberOfRowsAffected, DateTimeStamp)
+		values ('PV_CU_XREF_5DAY', 'DELETE', @@rowcount, getdate());
+
+    commit transaction;
+  end try
+
+  begin catch
+    if @@trancount > 0
+    rollback transaction;
+    throw;
+  end catch
+end
+GO
 
