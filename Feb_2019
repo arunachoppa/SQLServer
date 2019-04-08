@@ -3342,3 +3342,206 @@ begin
 end
 GO
 
+----======================================================
+
+create procedure [INFORMENT].[usp_PV_DEP_TIME_DAILY_Load]
+as
+/******************************************************************************************
+
+Description: PV_DEP_TIME_DAILY Table Load
+
+-- EXEC INFORMENT.usp_PV_DEP_TIME_DAILY_Load
+
+****************
+Change History
+****************
+Date			Author				Description 
+--------		-------------		------------------------------------
+04/08/2019		Manoj Bhandari		Initial Version
+
+*******************************************************************************************/
+begin
+  begin try
+    begin transaction
+		
+		if datename(dw, getdate()) IN ('Sunday','Monday')
+		begin
+			delete from INFORMENT.PV_DEP_TIME_DAILY 
+			where POST_DATE = dateadd(dd,-1,convert(date,getdate())) 
+
+			insert into INFORMENT.PV_DEP_TIME_DAILY(
+				[POST_DATE]
+				,[TREND_GROUP_ID]
+				,[BANK_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[P_ACCOUNT_DESIGNATION]
+				,[P_ACCOUNT_STATUS_CODE]
+				,[P_APPL_ID]
+				,[P_BAL_AGG_MTD]
+				,[P_BAL_AGG_YTD]
+				,[P_BAL_CURRENT]
+				,[P_BAL_LDGR_FACE_AMT_ORIGINAL]
+				,[P_BRANCH_PRIMARY_ID]
+				,[P_BROKERED_DEPOSITS]
+				,[P_DATE_MATURITY_NEXT]
+				,[P_DATE_OPEN]
+				,[P_HOLD_AMOUNT]
+				,[P_INTEREST_ACCR_AMT_MTD]
+				,[P_INTEREST_ACCR_AMT_YTD]
+				,[P_INTEREST_PAID_AMT_LTD]
+				,[P_INTEREST_PAID_AMT_MTD]
+				,[P_INTEREST_PAID_AMT_YTD]
+				,[P_INTEREST_RATE]
+				,[P_INTEREST_RATE_ORIGINAL]
+				,[P_OFFICER_PRIMARY_ID]
+				,[P_PRODUCT_CODE]
+				,[P_PUBLIC_FUND_CODE]
+				,[P_RETIREMENT_FLAG]
+				,[P_TERM_IN_DAYS]
+				,[P_TERM_IN_MONTHS]
+				,[P_USER_CODE_1]
+				,[P_PERSONAL_NON_PERSONAL_FLAG]
+				,[P_INTEREST_ACCR_AMT_LTD]
+				,[P_INT_PENALTY_AMT_LTD]
+				,[P_PRINCIPAL_W_H_YEAR_TO_DATE]
+				,[P_WTHHLD_AMT_YTD]
+				,[P_TITLE_MODIFIER]
+				)
+			select 
+				[POST_DATE] = dateadd(dd,-1,convert(date,getdate())) 
+				,[TREND_GROUP_ID] = 'D'
+				,[BANK_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[P_ACCOUNT_DESIGNATION]
+				,[P_ACCOUNT_STATUS_CODE]
+				,[P_APPL_ID]
+				,[P_BAL_AGG_MTD]
+				,[P_BAL_AGG_YTD]
+				,[P_BAL_CURRENT]
+				,[P_BAL_LDGR_FACE_AMT_ORIGINAL]
+				,[P_BRANCH_PRIMARY_ID]
+				,[P_BROKERED_DEPOSITS]
+				,[P_DATE_MATURITY_NEXT]
+				,[P_DATE_OPEN]
+				,[P_HOLD_AMOUNT]
+				,[P_INTEREST_ACCR_AMT_MTD]
+				,[P_INTEREST_ACCR_AMT_YTD]
+				,[P_INTEREST_PAID_AMT_LTD]
+				,[P_INTEREST_PAID_AMT_MTD]
+				,[P_INTEREST_PAID_AMT_YTD]
+				,[P_INTEREST_RATE]
+				,[P_INTEREST_RATE_ORIGINAL]
+				,[P_OFFICER_PRIMARY_ID]
+				,[P_PRODUCT_CODE]
+				,[P_PUBLIC_FUND_CODE]
+				,[P_RETIREMENT_FLAG]
+				,[P_TERM_IN_DAYS]
+				,[P_TERM_IN_MONTHS]
+				,[P_USER_CODE_1]
+				,[P_PERSONAL_NON_PERSONAL_FLAG]
+				,[P_INTEREST_ACCR_AMT_LTD]
+				,[P_INT_PENALTY_AMT_LTD]
+				,[P_PRINCIPAL_W_H_YEAR_TO_DATE]
+				,[P_WTHHLD_AMT_YTD]
+				,[P_TITLE_MODIFIER]
+			from INFORMENT.PV_DEP_TIME_DAILY 
+			where POST_DATE = dateadd(dd,-2,convert(date,getdate())) 
+		end
+
+		else
+		begin
+			delete from INFORMENT.PV_CU_XREF_5DAY 
+			where POST_DATE = dateadd(dd,-1,convert(date,getdate()))
+
+			insert into INFORMENT.PV_DEP_TIME_DAILY (
+				[POST_DATE]
+				,[TREND_GROUP_ID]
+				,[BANK_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[P_ACCOUNT_DESIGNATION]
+				,[P_ACCOUNT_STATUS_CODE]
+				,[P_APPL_ID]
+				,[P_BAL_AGG_MTD]
+				,[P_BAL_AGG_YTD]
+				,[P_BAL_CURRENT]
+				,[P_BAL_LDGR_FACE_AMT_ORIGINAL]
+				,[P_BRANCH_PRIMARY_ID]
+				,[P_BROKERED_DEPOSITS]
+				,[P_DATE_MATURITY_NEXT]
+				,[P_DATE_OPEN]
+				,[P_HOLD_AMOUNT]
+				,[P_INTEREST_ACCR_AMT_MTD]
+				,[P_INTEREST_ACCR_AMT_YTD]
+				,[P_INTEREST_PAID_AMT_LTD]
+				,[P_INTEREST_PAID_AMT_MTD]
+				,[P_INTEREST_PAID_AMT_YTD]
+				,[P_INTEREST_RATE]
+				,[P_INTEREST_RATE_ORIGINAL]
+				,[P_OFFICER_PRIMARY_ID]
+				,[P_PRODUCT_CODE]
+				,[P_PUBLIC_FUND_CODE]
+				,[P_RETIREMENT_FLAG]
+				,[P_TERM_IN_DAYS]
+				,[P_TERM_IN_MONTHS]
+				,[P_USER_CODE_1]
+				,[P_PERSONAL_NON_PERSONAL_FLAG]
+				,[P_INTEREST_ACCR_AMT_LTD]
+				,[P_INT_PENALTY_AMT_LTD]
+				,[P_PRINCIPAL_W_H_YEAR_TO_DATE]
+				,[P_WTHHLD_AMT_YTD]
+				,[P_TITLE_MODIFIER]
+				)
+			select 
+				[POST_DATE] = dateadd(dd,-1,convert(date,getdate())) 
+				,[TREND_GROUP_ID] = 'D'
+				,[BANK_NUMBER]
+				,[ACCOUNT_NUMBER]
+				,[ACCOUNT_DESIGNATION]
+				,[ACCOUNT_STATUS_CODE]
+				,[APPL_ID]
+				,[BAL_AGG_MTD]
+				,[BAL_AGG_YTD]
+				,[BAL_CURRENT]
+				,[BAL_LDGR_FACE_AMT_ORIGINAL]
+				,[BRANCH_PRIMARY_ID]
+				,[BROKERED_DEPOSITS]
+				,[DATE_MATURITY_NEXT]
+				,[DATE_OPEN]
+				,[HOLD_AMOUNT]
+				,[INTEREST_ACCR_AMT_MTD]
+				,[INTEREST_ACCR_AMT_YTD]
+				,[INTEREST_PAID_AMT_LTD]
+				,[INTEREST_PAID_AMT_MTD]
+				,[INTEREST_PAID_AMT_YTD]
+				,[INTEREST_RATE]
+				,[INTEREST_RATE_ORIGINAL]
+				,[OFFICER_PRIMARY_ID]
+				,[PRODUCT_CODE]
+				,[PUBLIC_FUND_CODE]
+				,[RETIREMENT_FLAG]
+				,[TERM_IN_DAYS]
+				,[TERM_IN_MONTHS]
+				,[USER_CODE_1]
+				,[PERSONAL_NON_PERSONAL_FLAG]
+				,[INTEREST_ACCR_AMT_LTD]
+				,[INT_PENALTY_AMT_LTD]
+				,[PRINCIPAL_W_H_YEAR_TO_DATE]
+				,[WTHHLD_AMT_YTD]
+				,[TITLE_MODIFIER]
+			from INFORMENT.TIME_MASTER_FILE dly
+		end
+
+		insert into dbo.ODS_Tables_Load_Log(TableName, [Action], NumberOfRowsAffected, DateTimeStamp)
+		values ('PV_DEP_TIME_DAILY', 'INSERT', @@rowcount, getdate());
+
+    commit transaction;
+  end try
+
+  begin catch
+    if @@trancount > 0
+    rollback transaction;
+    throw;
+  end catch
+end
+GO
+
