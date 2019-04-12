@@ -3544,4 +3544,19 @@ begin
   end catch
 end
 GO
+--=====================================
+4/12/19
+select   case when right(cufax,1)=0 then '}'
+                                                                      when right(cufax,1)=1 then 'J'
+			                                                          when right(cufax,1)=2 then 'K'
+			                                                          when right(cufax,1)=3 then 'L'
+			                                                          when right(cufax,1)=4 then 'M'
+			                                                          when right(cufax,1)=5 then 'N'
+			                                                          when right(cufax,1)=6 then 'O'
+			                                                          when right(cufax,1)=7 then 'P'
+			                                                          when right(cufax,1)=8 then 'Q'
+			                                                          when right(cufax,1)=9 then 'R'
+			                                                          when left(cufax,1)='-' then replace(cufax,'-',0) end
 
+from SNLBanker_DW.SourceData.cup003 where cunbr='0000024164'
+case when  left(cufax,1)='-' then replace(cufax,'-',0)
