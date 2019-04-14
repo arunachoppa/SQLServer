@@ -1,0 +1,14 @@
+select case when left(numb,1)='-' then replace(
+                                                case when right(numb,1)=0 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),0,'}')
+													 when right(numb,1)=1 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),1,'j')
+													 when right(numb,1)=2 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),2,'K')
+								                     when right(numb,1)=3 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),3,'L')
+								                     when right(numb,1)=4 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),4,'M')
+								                     when right(numb,1)=5 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),5,'N')
+								                     when right(numb,1)=6 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),6,'O')
+								                     when right(numb,1)=7 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1), 7, 'p')
+								                     when right(numb,1)=8 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),8,'Q')
+								                     when right(numb,1)=9 then LEFT(numb, Len(numb)-1) + Replace(RIGHT(numb, 1),9,'R')
+													 end,'-',0)
+							
+												 else numb end from nums
