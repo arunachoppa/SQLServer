@@ -12,3 +12,97 @@ select case when left(numb,1)='-' then replace(
 													 end,'-',0)
 							
 												 else numb end from nums
+												 
+--+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1.Execute sql task:(Create temp table - ##PostDates_PV_DEP_TRAN_DAILY)
+IF OBJECT_ID('tempdb..##PostDates_PV_DEP_TRAN_DAILY') IS NOT NULL
+ DROP TABLE ##PostDates_PV_DEP_TRAN_DAILY
+ 
+CREATE TABLE ##PostDates_PV_DEP_TRAN_DAILY
+    (
+ TableName varchar(500) default 'PV_DEP_TRAN_DAILY'
+        ,[PostDate] date
+    )
+connection manager:SNL_Prod
+--===================================================
+2.dataflow task:(Poulate ##PostDates_PV_DEP_TRAN_DAILY)
+
+a.Oledb source:select DISTINCT POST_DATE from INFORMENT.PV_DEP_TRAN_DAILY
+order by POST_DATE
+connection manager:odssource
+b.oledb destination:snl_prod
+                    table name or variable name
+                    user::DateTempTable
+
+--=========================================================
+3.execute sql task(Insert new rows to ODS_Historical_Data_Load if needed):
+COM:SNL_prod
+
+insert into DWReporting.dbo.ODS_Historical_Data_Load(TableName,PostDate)
+
+select  TableName, PostDate from ##PostDates_PV_DEP_TRAN_DAILY temp
+where not exists (
+ select 1 from DWReporting.dbo.ODS_Historical_Data_Load t1
+ where t1.TableName = temp.TableName
+ and t1.PostDate = temp.PostDate
+)
+order by temp.PostDate
+
+--==========================================================
+4.Execute sql task:(Get List of dates to be processed)
+com:snl_prod
+ 
+select convert(varchar(10),PostDate) from ODS_Historical_Data_Load
+where TableName = ?
+and IsProcessed = 0
+order by PostDate
+
+parameter mapping:User::TableName Input 0 -1
+ResultSet 0 User::DatesToProcess
+--====================================================
+5.Foreach loop:
+A.Execute sql task:(Delete records for the date being processed)
+com:snl_prod
+
+delete from DWReporting.INFORMENT.PV_DEP_TRAN_DAILY 
+where POST_DATE = ?
+
+parameter mapping:User::DateBeingProcessed  input  varchar 0 -1
+
+       *****
+B.DataFlow task:(Load destination)
+oledb source:
+com:ods_source
+Sql command form variable
+
+select *
+from INFORMENT.PV_DEP_TRAN_DAILY where POST_DATE = '2019-04-04 '
+
+oledb destinatio
+com:snl_prod
+table:informent.pv_dep_tran_daily
+
+--===============================================
+6.Execute sql task:(Update IsProcessed Flag and ProcessedDateTime)
+com:snl_prod
+
+update h
+set IsProcessed = 1
+,ProcessedDateTime = getdate()
+from ODS_Historical_Data_Load h
+where PostDate = ?
+and TableName = ?
+
+parameter mapping:
+User::DateBeingPricessed Input varchar 0 -1
+User::TableName Input Varchar 1 -1
+
+--============================================
+
+Variables:name | scope|data type|Value |Expression
+DateBeingProcessed|PV_DEP_Tran_daily|string |2019-04-04
+DatesToProcess|PV_DEP_Tran_daily|object|system.Object
+DateTempTable|PV_DEP_Tran_daily|string|##PostDates_PV_DEP_TRAN_DAILY
+SourceDataQuery|PV_DEP_Tran_daily|string|"select *
+from INFORMENT.PV_DEP_TRAN_DAILY where POST_DATE = '"+ @[User::DateBeingProcessed] +" '"
+TableName|PV_DEP_Tran_daily|string|PV_DEP_Tran_daily
