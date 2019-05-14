@@ -106,3 +106,101 @@ DateTempTable|PV_DEP_Tran_daily|string|##PostDates_PV_DEP_TRAN_DAILY
 SourceDataQuery|PV_DEP_Tran_daily|string|"select *
 from INFORMENT.PV_DEP_TRAN_DAILY where POST_DATE = '"+ @[User::DateBeingProcessed] +" '"
 TableName|PV_DEP_Tran_daily|string|PV_DEP_Tran_daily
+--=========================================
+5/14/19
+Subject: RE: Bug 1759059 : SNLBanker Non-Critical Failure | Sunflower Bank | 08207998 
+ 
+Status: The job is finished successfully and below are details for it. 
+
+Error Type : Database backup failed 
+
+Error Description : Un availability of drive space 
+
+Resolution Steps : Deleted old backup file and set backup files to keep for 2 days. 
+
+Could this bug impact other clients on this core? no 
+
+Could this bug impact any other clients? no 
+
+--=========================================================
+just want to let you know I added these couple tables to “Adhoc Package”. 
+: Let me know in case fields are added after wards for table which we already loading. In this case, we need to recreate respective SourceData table.
+
+1. Check if underlying table (all columns) is being populated by ETL in PROD
+2. Check max post date in Replica Prod. Import any data after that max date from ODS to Replica Prod. Deploy package if not in Prod yet.
+3. Generate create script for the stored procedure from DEV and execute in PROD (For Ongoing data)
+4. Create a step in "Ongoing_ODS_Data_Load" in Prod.
+Kevin, as per our conversation this morning, these are the tables that we want to be moved to 3AM load that hopefully will resolve some of the validation failed items. 
+
+Also, it probably will help, if we move these master/cross-ref tables as well, if we can-
+
+Hi TJ & Ryan – the table that we would like to get promoted to the Prod ETL as soon as possible is: LNP00101
+ 
+That table is a single row that changes daily, but contains date columns that are used on many other ODS tables. If we could get that added to the Prod ETL as soon as possible it would allow us to start verifying some of our production ready ODS replica views. 
+ 
+Appreciate the help. Let me know if any questions.
+will work on this today.
+For your information, We are not using both the table at SNL data warehouse. Both table were added add Load AdHoc Table SSIS package.
+
+Let me know if you need more details.
+ It’s also the existing table with missing columns. 
+
+
+I think we need to escalate this. Here is what we know:
+
+Using the same credentials:
+Aruna & Manoj can pull the 4 fields
+Parag can not pull the fields
+
+If the statements above are not correct, please speak up. To help us make sure we are talking about the same thing, please respond to this email with the user id you have tried to connect with.
+
+If we are using the same id, then we will need try deleting the meta data and reading on the SNL side to see if we can get the 4 fields to come up.
+If we are not using the same id, then we will need to escalate to Fiserv on the access issue.
+I was wondering if you guys have any update regarding the 4 columns. 
+OK.  Thanks for the heads up.
+Okay, can you get me those tables that are impacted and we’ll see how long the full load takes (all columns) for each table? We could put those as the first step in our job and run them at 3AM, assuming they don’t take too long, we would then run the rest of our SNLBanker job and then the last package would be the rest of the non time sensitive tables.
+
+Here’s what I’m thinking, but I still need to confirm timing:
+1.	Live table load at 3AM (Sunflower/Contractors could own this)
+2.	~5AM SNLBanker load through to cubes (SNLBanker owns this)
+3.	~7 AM rest of tables needed for downstream reporting / processes (Sunflower/ Contractor will own this)
+
+Keep in mind that if more tables are added to the live load (Step 1) that the SNLBanker solution could be delayed.
+I’m confident we can find a solution.
+
+Speaking theoretically, the data we are pulling is still accurate as to when we pull it, but it just isn’t in agreement with what ODS pulled earlier in the day – Right?
+Is tying to the ODS for the transaction counts / balances the requirement from a business perspective? 
+Sorry if that’s an old wound – just want to make sure before we get into the weeds.
+Today I have checked those two tables and those were not added at “Data Load 4” Data flow. 
+
+I have added those table today at “Data Load 4” at “Load AdHoc Core Table.dtsx” package. 
+I verified it now at “Load AdHoc Core Table.dtsx” package and didn’t find duplicate table. 
+
+Could you please confirm package name where you made changes as I didn’t get duplicate two table ?
+Please make sure Hyperion queries will work in SQL Server environment (which I doubt) before going down that route. Hyperion queries looks like PL/SQL. Might be better off going with Oracle db if they want to go that way. 
+Looks like we have these options to bring database objects and data from Oracle to SQL Server- 
+1.	Script out database objects and “insert” statements from oracle and run it in SQL Server – This option requires some manual editing of script to make it compatible to SQL Server T-SQL. 
+2.	 SSIS – Create dataflow task for each table to be imported but this will be troublesome and time consuming.
+3.	SQL Server Data Import Wizard – This options seems better than SSIS as you can just pick tables from the list (we can pick all) and the wizard will do the job (in the backend its actually creating SSIS package)
+4.	Use SSMA (OracleToSQL)– I think this tool will be best thing to do this job. Looks like we can create a project, do the mapping and click some buttons to do our migration https://docs.microsoft.com/en-us/sql/ssma/oracle/getting-started-with-ssma-for-oracle-oracletosql?view=sql-server-2017
+
+If so, great – there’s a few ways to accomplish this but first I’d like to get some more info on job times from my team.
+Hi Christopher – thanks for doing some research on this. It is sounding like we will need to break this out into its own ETL and have it run as soon as PCOMB is done. Lets discuss in our call today.
+We are tasked with importing all database objects and data from ODS to in-house SQL server instance. We are told that ODS is an oracle database. So, we are looking for a server name or IP / db name / connection credentials so that we could put that into tool like SSIS or SQL Server Data Import Wizard and copy those oracle objects and data to SQL server. 
+
+Can you please us with that?
+I’m going to send out an email to everyone to see if we can get assistance.
+
+I have project estimation ready for you guys to look at. Please find attached spreadsheet. 
+
+Also I have created all tables (just the table definition; no data) in SQL Server (SAL-SNL-DEV) . 
+
+Looks like all the tables in ODS are column to column mapping from signature tables. There is no aggregation or summary happening there. We do have a mappings for most of the fields in the mapping documents provided to us but are missing few, which we will deal with as the project progresses. 
+
+To build an ETL pipe line project, I have estimated 12.73 weeks with 2 full time resources. Estimation is based on how many columns each tables has. My estimation is 3 minutes per column. 
+
+Please let me know if you have any questions. 
+We would need couple of these things done ASAP, in the meantime. 
+
+1.	Connection to signature from Plano be fixed
+2.	Have someone prioritize these tables into High, Medium and Low category. Tables that are used by most reports and master tables should probably be in High Priority. We will start with High Priority tables first.  
