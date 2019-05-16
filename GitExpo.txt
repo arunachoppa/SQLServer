@@ -203,4 +203,141 @@ Please let me know if you have any questions.
 We would need couple of these things done ASAP, in the meantime. 
 
 1.	Connection to signature from Plano be fixed
-2.	Have someone prioritize these tables into High, Medium and Low category. Tables that are used by most reports and master tables should probably be in High Priority. We will start with High Priority tables first.  
+2.	Have someone prioritize these tables into High, Medium and Low category. Tables that are used by most reports and master tables should probably be in High Priority. We will start with High Priority tables first. 
+
+--===============================================================================
+
+/***************************
+File Name  : fn_ISODate_SQL.sql
+Created by : 
+Created Date:
+Description :  Date conversion function using general 2049 rule. Use for most dates from DB2 
+
+****************************/
+
+
+create FUNCTION [SourceData].[fn_ISODate_SQL]
+	( @UNIX_TIME VARCHAR(10) )
+RETURNS  DATETIME
+AS
+BEGIN
+
+	IF LEN(@UNIX_TIME) >= 5
+	BEGIN
+	DECLARE @bad_date	VARCHAR(6)
+	DECLARE @month		VARCHAR(2)
+	DECLARE @day		VARCHAR(2)
+	DECLARE @year		VARCHAR(4)
+	DECLARE @outputvalue DATETIME
+	DECLARE @sql_date	VARCHAR(20)
+
+	SET  @bad_date = @UNIX_TIME
+
+	--format the date parts and let SQL covert to date using 2049 rule
+	SET @bad_date = RIGHT('000000' + @bad_date, 6)
+	SET @month = SUBSTRING(@bad_date, 1, 2)
+	SET @day = SUBSTRING(@bad_date, 3, 2)
+	SET @year = SUBSTRING(@bad_date, 5, 2)
+	SET @sql_date = @month + '/' + @day + '/' + @year
+
+	-- validate the date value
+	  IF (ISDATE(@sql_date) =1)
+	  BEGIN
+			SET @outputvalue =  cast(@sql_date AS DATETIME)
+	  END
+	  ELSE
+	  BEGIN
+			SET @outputvalue = NULL
+	  END
+	
+	END
+	ELSE 
+	BEGIN
+		SET @outputvalue = NULL
+	END
+
+	RETURN  @outputvalue	
+
+END
+
+
+
+
+GO
+--=======================================================
+
+/***************************
+File Name  : fn_JulianDate_SQL.sql
+Created by : 
+Created Date:
+Description :   Date conversion function converting Julian Date. Use for most dates from DB2
+
+****************************/
+
+
+CREATE  FUNCTION [SourceData].[fn_JulianDate_SQL]( @JulianDate INT )
+RETURNS  DATETIME
+AS
+
+BEGIN
+	DECLARE @OUTPUTVALUE DATETIME
+
+	IF @JulianDate = 0
+	BEGIN 
+		SET @outputvalue = NULL
+	END
+	ELSE
+	BEGIN
+		IF LEFT(@JulianDate,4) < 1800
+		BEGIN
+			SET @outputvalue = NULL
+		END
+		ELSE
+		BEGIN
+			SET @OUTPUTVALUE = (SELECT CONVERT(DATE,DATEADD(day, CAST(RIGHT(@JulianDate,3) AS int) - 1, 
+            CONVERT(datetime, LEFT(@JulianDate,4) + '0101', 112))))
+		END
+	END
+
+	RETURN  @outputvalue	
+
+END
+
+
+
+
+
+GO
+--=============================================
+/***************************
+File Name  : fn_JulianDate_SQL.sql
+Created by : 
+Created Date:
+Description :   Date conversion function converting Julian Date. Use for most dates from DB2
+
+****************************/
+
+
+CREATE  FUNCTION [SourceData].[fn_MDDYYYYDate_SQL]( @MDDYYYYDate INT )
+RETURNS  DATETIME
+AS
+
+BEGIN
+DECLARE @outputvalue DATETIME
+
+	IF @MDDYYYYDate = 0
+	BEGIN 
+		SET @outputvalue = NULL
+	END
+	ELSE
+	BEGIN
+		DECLARE @MMDDYYYY varchar(8)
+		SELECT @MMDDYYYY = RIGHT('0' + CAST(@MDDYYYYDate as varchar(255)),8)  
+		SET @outputvalue = CAST(SUBSTRING(@MMDDYYYY,1,2) + '/'+SUBSTRING(@MMDDYYYY,3,2) + '/'+SUBSTRING(@MMDDYYYY,5,4) as date)	
+	END
+	
+	RETURN  @outputvalue
+
+END
+
+
