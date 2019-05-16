@@ -340,4 +340,80 @@ DECLARE @outputvalue DATETIME
 
 END
 
+--===================================================================
 
+create function [dbo].[fn_NumberToTime] (@InputVal numeric(6,0))
+returns datetime
+as
+/******************************************************************************************
+
+Description: returns time
+
+****************
+Change History
+****************
+Date			Author				Description 
+--------		-------------		------------------------------------
+04/10/2019		Manoj Bhandari		Initial Version
+
+*******************************************************************************************/
+begin
+	declare @OutputValue varchar(20)
+	set @OutputValue = RIGHT(replicate ('0',6) + convert(varchar(10),@InputVal), 6)
+	set @OutputValue = left(@OutputValue,2) + ':'+ SUBSTRING(@OutputValue,3,2) + ':' + right(@OutputValue,2)
+	return convert(datetime,@OutputValue)
+end
+GO
+--==================================================================================
+
+create function [dbo].[fn_PadZeroToCertainDigit] (@InputStr varchar(200), @PadLength int)
+returns varchar(200)
+as
+/******************************************************************************************
+
+Description: returns 10 digit account Number
+
+****************
+Change History
+****************
+Date			Author				Description 
+--------		-------------		------------------------------------
+01/28/2019		Manoj Bhandari		Initial Version
+
+*******************************************************************************************/
+begin
+
+declare @OutputValue varchar(200)
+set @OutputValue = RIGHT(replicate ('0',@PadLength) + @InputStr, @PadLength)
+return @OutputValue
+
+end
+GO
+--===========================================================================
+create function [dbo].[fn_NumberToPhoneFormat] (@InputVal numeric(20,0))
+returns varchar(20)
+as
+/******************************************************************************************
+
+Description: returns time
+
+****************
+Change History
+****************
+Date			Author				Description 
+--------		-------------		------------------------------------
+04/10/2019		Manoj Bhandari		Initial Version
+
+*******************************************************************************************/
+begin
+	declare @OutputValue varchar(20)
+	declare @InputValStr varchar(20)
+	set @InputValStr = convert(varchar(20),@InputVal)
+	if len(@InputValStr)=10 
+		set @OutputValue = left(@InputValStr,3) + '-'+ SUBSTRING(@InputValStr,4,3) + '-' + right(@InputValStr,4)	
+	else 
+		set @OutputValue = @InputValStr	
+	return isnull(nullif(@OutputValue,'0'),'')
+end
+GO
+--=======================================================
