@@ -417,3 +417,838 @@ begin
 end
 GO
 --=======================================================
+CREATE PROCEDURE [dbo].[LoadForecasting] 
+	
+AS
+BEGIN
+
+set nocount on
+
+BEGIN TRY
+
+	/****** Object:  Index [IX_ForecastProductCashFlows_Product]    Script Date: 11/17/2015 6:18:34 PM ******/
+	IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND name = N'IX_ForecastProductCashFlows_Product')
+	DROP INDEX [IX_ForecastProductCashFlows_Product] ON [dbo].[ForecastProductCashFlows] WITH ( ONLINE = OFF )
+	--GO
+	/****** Object:  Index [IX_ForecastProductCashFlows_Branch]    Script Date: 11/17/2015 6:19:38 PM ******/
+	IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND name = N'IX_ForecastProductCashFlows_Branch')
+	DROP INDEX [IX_ForecastProductCashFlows_Branch] ON [dbo].[ForecastProductCashFlows]
+	--GO
+	/****** Object:  Index [IX_ForecastProductCashFlows_Region]    Script Date: 11/17/2015 6:20:04 PM ******/
+	IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND name = N'IX_ForecastProductCashFlows_Region')
+	DROP INDEX [IX_ForecastProductCashFlows_Region] ON [dbo].[ForecastProductCashFlows]
+	--GO
+	/****** Object:  Table [dbo].[ForecastProductCashFlows]    Script Date: 11/17/2015 4:54:22 PM ******/
+	IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND type in (N'U'))
+	DROP TABLE [dbo].[ForecastProductCashFlows]
+	--GO
+
+	/* Pre-populate ForecastProductCashFlows. THIS TABLE MUST BE KEPT UP-TO-DATE WITH THE NIGHTLY ETL!!! */
+	SELECT 
+		acct.AccountNumber
+		,products.ProductKey
+		,products.ProductCode
+		,products.Product
+		,loans.OriginalLoanAmount
+		,loans.currentbalance AS Balance	
+		,loans.currentbalance AS CurrentBalance
+		,loans.LoanInterestRate
+		,loans.NextPaymentAmount 
+		,[BookBalance]
+		,[BankOwnedPercentage]
+		,[LoanToValueRatio]
+		,[LastPayment]
+		,[LineBalance]
+		,[TotalCollateralValue]
+		,[TotalParticipationBalance]
+		,[TotalParticipationPercent]
+		,[TotalCommitment]
+		,[AdjustedNoteRate]
+		,[NonAccrualBalance]
+		,[TotalAmountPastDue]
+		,[YTDAggregateBalance]
+		,[YTDAverageBalance]
+		,[YesterdayBalance]
+		,[ClosingBalance]
+		,acctCommon.RateIndexCode  
+		,CAST(ISNULL(acct.FixedRateFlag, 0) AS bit)	AS IsFixedRate
+		,loans.CeilingInterestRate				
+		,loans.FloorInterestRate					
+		,loans.RateVariance	  
+		,dt.FullDate AS Date_Last_Updated	 
+		,org.RegionCode
+		,org.BranchCode
+		,org.BankCode
+		,org.OrganizationKey
+		,products.ProductTypeCode
+		,loans.ProcessingDateKey
+		,loans.OpenedDateKey
+		,loans.MaturityDateKey
+		,loans.NextRateChangeDateKey
+		,acct.RateChangeFrequencyCode
+		,acct.RateChangeFrequency
+		,acctCommon.RateIndex
+		,dt.DateMonth
+		,dt.DateYear
+		,dtO.fulldate as EnteredDate
+		,matdate.FullDate as MaturityDate
+		,rateDate.FullDate as Next_Rate_Change_Date
+		,rateindex.RateIndexKey
+		,rateFreq.RateChangeFrequencyKey
+	INTO dbo.ForecastProductCashFlows
+	FROM dbo.dimProduct AS products
+	INNER JOIN dbo.factLoans AS loans ON products.ProductKey = loans.ProductKey
+	INNER JOIN dbo.dimAccountLoan acct ON loans.AccountLoanKey = acct.AccountLoanKey
+	INNER JOIN dbo.dimAccountCommon acctCommon ON acct.AccountCommonKey = acctCommon.AccountCommonKey
+	INNER JOIN dbo.dimDate AS dt ON loans.ProcessingDateKey = dt.DateKey
+	INNER JOIN dbo.dimOrganization AS org ON loans.OrganizationKey = org.OrganizationKey
+	INNER JOIN CubeView.dimRateIndex_cube rateIndex ON acctCommon.RateIndexCode = rateIndex.RateIndexCode AND acctCommon.RateIndex = rateIndex.RateIndex
+	INNER JOIN CubeView.dimRateChangeFrequency_cube rateFreq ON isnull(acct.RateChangeFrequencyCode, '-1') = rateFreq.RateChangeFrequencyCode AND isnull(acct.RateChangeFrequency, 'None') = rateFreq.RateChangeFrequency
+	LEFT JOIN dbo.dimDate dtO ON loans.OpenedDateKey = dtO.DateKey
+	LEFT JOIN dbo.dimDate AS matDate ON loans.MaturityDateKey = matDate.DateKey
+	LEFT JOIN dbo.dimDate AS rateDate on loans.NextRateChangeDateKey = rateDate.DateKey
+
+	--GO
+
+	/****** Object:  Index [IX_ForecastProductCashFlows_Product]    Script Date: 11/17/2015 6:18:34 PM ******/
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND name = N'IX_ForecastProductCashFlows_Product')
+	CREATE CLUSTERED INDEX [IX_ForecastProductCashFlows_Product] ON [dbo].[ForecastProductCashFlows]
+	(
+		[ProductTypeCode] ASC,
+		[ProductKey] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+	--GO
+	/****** Object:  Index [IX_ForecastProductCashFlows_Branch]    Script Date: 11/17/2015 6:19:38 PM ******/
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND name = N'IX_ForecastProductCashFlows_Branch')
+	CREATE NONCLUSTERED INDEX [IX_ForecastProductCashFlows_Branch] ON [dbo].[ForecastProductCashFlows]
+	(
+		[BranchCode] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+	--GO
+	/****** Object:  Index [IX_ForecastProductCashFlows_Region]    Script Date: 11/17/2015 6:20:04 PM ******/
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProductCashFlows]') AND name = N'IX_ForecastProductCashFlows_Region')
+	CREATE NONCLUSTERED INDEX [IX_ForecastProductCashFlows_Region] ON [dbo].[ForecastProductCashFlows]
+	(
+		[RegionCode] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+	--GO
+
+
+
+	/****** Object:  Index [IX_ForecastTimeDeposits_Product]    Script Date: 11/17/2015 6:21:06 PM ******/
+	IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND name = N'IX_ForecastTimeDeposits_Product')
+	DROP INDEX [IX_ForecastTimeDeposits_Product] ON [dbo].[ForecastTimeDeposits] WITH ( ONLINE = OFF )
+	--GO
+	/****** Object:  Index [IX_ForecastTimeDeposits_Branch]    Script Date: 11/17/2015 6:21:41 PM ******/
+	IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND name = N'IX_ForecastTimeDeposits_Branch')
+	DROP INDEX [IX_ForecastTimeDeposits_Branch] ON [dbo].[ForecastTimeDeposits]
+	--GO
+	/****** Object:  Index [IX_ForecastTimeDeposits_Region]    Script Date: 11/17/2015 6:22:16 PM ******/
+	IF  EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND name = N'IX_ForecastTimeDeposits_Region')
+	DROP INDEX [IX_ForecastTimeDeposits_Region] ON [dbo].[ForecastTimeDeposits]
+	--GO
+	/****** Object:  Table [dbo].[ForecastTimeDeposits]    Script Date: 11/17/2015 5:45:50 PM ******/
+	IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND type in (N'U'))
+	DROP TABLE [dbo].[ForecastTimeDeposits]
+	--GO
+
+	/* Pre-populate ForecastTimeDeposits. THIS TABLE MUST BE KEPT UP-TO-DATE WITH THE NIGHTLY ETL!!! */
+	SELECT 
+		-- Fields used to return data
+		acct.AccountNumber			AS AccountNumber,	-- DataType: String
+		cod.CurrentBalance	AS CurrentBalance,	-- DataType: Numeric
+		cod.ClosingBalance,
+		cod.MTDAggregateBalance,
+		cod.MTDAverageBalance,
+		cod.OpeningBalance,
+		cod.PreviousBalance,
+		cod.PrevPaymentBalance,
+		cod.YesterdayBalance,
+		cod.YTDAggregateBalance,
+		cod.YTDAverageBalance,
+		products.ProductCode		AS ProductNumber,	-- DataType: String
+		products.Product			AS ProductName,		-- DataType: String
+		cod.InterestRate			AS InterestRate,	-- DataType: Numeric
+		matDate.FullDate			AS MaturityDate,	-- DataType: Datetime
+		dates.FullDate  			AS DateLastUpdated,	-- DataType: Datetime
+		enterDate.FullDate		AS DateEntered,		-- DataType: Datetime
+	 dates.datemonth
+	 ,dates.DateYear
+	 ,products.ProductTypeCode
+	 ,RegionCode
+	 ,BranchCode
+	 ,products.ProductKey
+	 ,MaturityDateKey
+	 ,EnterDateKey
+	 ,cod.OrganizationKey
+	INTO dbo.ForecastTimeDeposits
+	FROM dbo.factCDs cod
+	INNER JOIN dbo.dimProduct products ON cod.ProductKey = products.ProductKey
+	INNER JOIN dbo.dimDate dates ON cod.ProcessingDateKey = dates.DateKey
+	INNER JOIN dbo.dimAccountCD acct ON cod.AccountCDKey = acct.AccountCDKey
+	INNER JOIN dbo.dimOrganization org ON cod.OrganizationKey = org.OrganizationKey
+	LEFT JOIN dbo.dimDate matDate ON cod.MaturityDateKey = matDate.DateKey
+	LEFT JOIN dbo.dimDate enterDate ON cod.EnterDateKey = enterDate.DateKey
+	--GO
+
+	/****** Object:  Index [IX_ForecastTimeDeposits_Product]    Script Date: 11/17/2015 6:21:06 PM ******/
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND name = N'IX_ForecastTimeDeposits_Product')
+	CREATE CLUSTERED INDEX [IX_ForecastTimeDeposits_Product] ON [dbo].[ForecastTimeDeposits]
+	(
+		[ProductTypeCode] ASC,
+		[ProductKey] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+	--GO
+	/****** Object:  Index [IX_ForecastTimeDeposits_Branch]    Script Date: 11/17/2015 6:21:41 PM ******/
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND name = N'IX_ForecastTimeDeposits_Branch')
+	CREATE NONCLUSTERED INDEX [IX_ForecastTimeDeposits_Branch] ON [dbo].[ForecastTimeDeposits]
+	(
+		[BranchCode] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+	--GO
+	/****** Object:  Index [IX_ForecastTimeDeposits_Region]    Script Date: 11/17/2015 6:22:16 PM ******/
+	IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[ForecastTimeDeposits]') AND name = N'IX_ForecastTimeDeposits_Region')
+	CREATE NONCLUSTERED INDEX [IX_ForecastTimeDeposits_Region] ON [dbo].[ForecastTimeDeposits]
+	(
+		[RegionCode] ASC
+	)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+	--GO
+	IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProducts]') AND type in (N'U'))
+	DROP TABLE [dbo].[ForecastProducts]
+	--GO
+
+	IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ForecastProducts]') AND type in (N'U'))
+	BEGIN
+	CREATE TABLE [dbo].[ForecastProducts](
+		[ProductKey] [int] NOT NULL,
+		[IsFixedRate] [bit] NULL
+	) ON [PRIMARY]
+	END
+	--GO
+
+	/* Pre-populate ForecastProducts. THIS TABLE MUST BE KEPT UP-TO-DATE WITH THE NIGHTLY ETL!!! */
+	INSERT INTO [dbo].[ForecastProducts] (ProductKey, IsFixedRate)
+	SELECT DISTINCT loans.ProductKey, CAST(ISNULL(acct.FixedRateFlag, 0) AS bit) AS IsFixedRate
+	FROM CubeView.factLoans_cube loans
+	INNER JOIN CubeView.dimAccountLoan_cube acct ON acct.AccountLoanKey = loans.AccountLoanKey AND acct.CurrentRecord = 1
+	--GO
+	
+Return(1)
+
+END TRY
+
+
+BEGIN CATCH
+	Return(0)
+END CATCH; 
+
+
+END
+
+
+
+
+
+
+GO
+--===============================================
+USE [SNLBanker_DW]
+GO
+
+/****** Object:  StoredProcedure [dbo].[LoadGLReportingRollup]    Script Date: 5/17/2019 2:25:43 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE PROCEDURE [dbo].[LoadGLReportingRollup] (@InsertedBy varchar(50) = NULL)
+	
+AS
+BEGIN
+
+BEGIN TRY
+
+	If (@InsertedBy is null )
+	Begin
+		Set @InsertedBy = SYSTEM_USER
+	End
+	
+	/*
+	Populating dimGLReportingRollup:
+
+	1) For Chart Of Accounts the GLReportRollupKey = GLAccountNumber; PrimaryHierarchy = 1; GLReportKey = 0; StandardHierarchy =0
+	2) For Other Condensed Reports GLReportRollupKey = GLReportKey + GL Parent Account Number + GL Account Number
+	3) GLReportKey is unique in this table
+	*/
+
+	------------Chart Of Accounts------------
+	IF OBJECT_ID('tempdb..#Rollups') IS NOT NULL
+		DROP TABLE #Rollups
+
+	create table #Rollups (
+		GLReportRollupKey varchar(30), 
+		GLReportRollupName varchar(200), 
+		GLReportRollupCategory varchar(50), 
+		GLReportName varchar(200), 
+		GLReportRollupParentKey varchar(30),
+		GLReportRollupUnaryOperator char(1), 
+		GLAccountNumber varchar(15), 
+		ReportType varchar(2), 
+		PrimaryHierarchy smallint, 
+		StandardHierarchy smallint, 
+		GLReportKey int,
+		LeafLevel varchar(10),
+		GLAccountTypeCode char(1),
+		SortOrderOverride bigint --0227 KM added new
+		)
+
+	--ChartOfAccounts
+	insert into #Rollups (GLReportRollupKey, GLReportRollupName, GLReportRollupCategory, GLReportName, GLReportRollupParentKey,
+		GLReportRollupUnaryOperator, GLAccountNumber, ReportType, PrimaryHierarchy, StandardHierarchy, GLReportKey, LeafLevel,
+		GLAccountTypeCode,SortOrderOverride )
+	select 
+		s.[GL Account Number] as GLReportRollupKey, isnull(max(s.[GL Account Name]),'') as [GLReportRollupName], 
+		case when max(s.[GL Account Category]) is not null then max(s.[GL Account Category])
+		when max(s.[GL Account Type]) = 'A' then 'Asset' 
+		when max(s.[GL Account Type]) = 'L' then 'Liability'
+		when max(s.[GL Account Type]) = 'C' then 'Capital'
+		when max(s.[GL Account Type]) = 'I' then 'Income'
+		when max(s.[GL Account Type]) = 'E' then 'Expense'
+		end as [GLReportRollupCategory],
+		'Chart Of Accounts' as [GLReportName], max(s.[GL Parent Account Number]) as [GLReportRollupParentKey], 
+		max(s.[Unary Operator]) as [GLReportRollupUnaryOperator], s.[GL Account Number] as [GLAccountNumber], max(s.[Report Type]) as [ReportType],
+		1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey, max(s.[Leaf Level Flag]), max(s.[GL Account Type]),
+		 ISNULL(max(s.SortOrder),0) --0227KM 
+	from stage.ChartOfAccounts s
+	where s.[GL Account Number] is not null
+	group by s.[GL Account Number]
+
+	--GL
+	insert into #Rollups (GLReportRollupKey, GLReportRollupName, GLReportRollupCategory, GLReportName, GLReportRollupParentKey,
+		GLReportRollupUnaryOperator, GLAccountNumber, ReportType, PrimaryHierarchy, StandardHierarchy, GLReportKey,LeafLevel,
+		GLAccountTypeCode)
+	select
+		s.[GL Account Number] as GLReportRollupKey, max(isnull(s.[GL Account Name],''))  as [GLReportRollupName], 
+		case when max(s.[GL Account Type]) = 'A' then 'Asset' 
+		when max(s.[GL Account Type]) = 'L' then 'Liability'
+		when max(s.[GL Account Type]) = 'C' then 'Capital'
+		when max(s.[GL Account Type]) = 'I' then 'Income'
+		when max(s.[GL Account Type]) = 'E' then 'Expense'
+		end as [GLReportRollupCategory],
+		'Chart Of Accounts' as [GLReportName], null as [GLReportRollupParentKey], 
+		'+' as [GLReportRollupUnaryOperator], s.[GL Account Number] as [GLAccountNumber], max(s.[Report Type]) as [ReportType],
+		1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey, 0 as LeafLevel,max(s.[GL Account Type])
+	from stage.GL s
+		left join #Rollups r on r.GLAccountNumber = s.[GL Account Number]
+	where s.[GL Account Number] is not null and r.GLAccountNumber is null
+	group by s.[GL Account Number] 
+
+	--Budget
+	insert into #Rollups (GLReportRollupKey, GLReportRollupName, GLReportRollupCategory, GLReportName, GLReportRollupParentKey,
+		GLReportRollupUnaryOperator, GLAccountNumber, ReportType, PrimaryHierarchy, StandardHierarchy, GLReportKey, LeafLevel,
+		GLAccountTypeCode)
+	select
+		s.[GL Account Number] as GLReportRollupKey, max(isnull(s.[GL Account Name],''))  as [GLReportRollupName], 
+		case when max(s.[GL Account Type]) = 'A' then 'Asset' 
+		when max(s.[GL Account Type]) = 'L' then 'Liability'
+		when max(s.[GL Account Type]) = 'C' then 'Capital'
+		when max(s.[GL Account Type]) = 'I' then 'Income'
+		when max(s.[GL Account Type]) = 'E' then 'Expense'
+		end as [GLReportRollupCategory],
+		'Chart Of Accounts' as [GLReportName], null as [GLReportRollupParentKey], 
+		'+' as [GLReportRollupUnaryOperator], s.[GL Account Number] as [GLAccountNumber], max(s.[Report Type]) as [ReportType],
+		1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey, 0 as LeafLevel,max(s.[GL Account Type])
+	from stage.Budget s
+		left join #Rollups r on r.GLAccountNumber = s.[GL Account Number]
+	where s.[GL Account Number] is not null and r.GLAccountNumber is null
+	group by s.[GL Account Number] 
+
+	--Assign orphan accounts to default parents
+	update r
+	set r.GLReportRollupParentKey = case r.GLAccountTypeCode when 'A' then '1999999999999' when 'L' then '2999999999999'
+		when 'C' then '3999999999999' when 'I' then '4999999999999' when 'E' then '5999999999999' end
+	from #Rollups r
+	where r.GLReportRollupParentKey is null and r.LeafLevel = 0
+
+	--Insert default parents
+	insert into #Rollups (GLReportRollupKey, GLReportRollupName, GLReportRollupCategory, GLReportName, GLReportRollupParentKey,
+		GLReportRollupUnaryOperator, GLAccountNumber, ReportType, PrimaryHierarchy, StandardHierarchy, GLReportKey, LeafLevel,
+		GLAccountTypeCode)
+	select a.* 
+	from (
+		Select '1999999999998' as GLReportRollupKey, 'Non-Parented Accounts' as GLReportRollupName, 'Asset' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], null as [GLReportRollupParentKey], '+' as GLReportRollupUnaryOperator,
+			'1999999999998' as GLAccountNumber, 'B' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'A' as GLAccountTypeCode
+		Union
+		Select '1999999999999' as GLReportRollupKey, 'Total Assets' as GLReportRollupName, 'Asset' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], '1999999999998' as [GLReportRollupParentKey], '+' as GLReportRollupUnaryOperator,
+			'1999999999999' as GLAccountNumber, 'B' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'A' as GLAccountTypeCode
+		Union
+		Select '2999999999999' as GLReportRollupKey, 'Total Liabilities' as GLReportRollupName, 'Liability' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], '1999999999998' as [GLReportRollupParentKey], '+' as GLReportRollupUnaryOperator,
+			'2999999999999' as GLAccountNumber, 'B' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'L' as GLAccountTypeCode
+		Union
+		Select '3999999999999' as GLReportRollupKey, 'Total Capital' as GLReportRollupName, 'Capital' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], '1999999999998' as [GLReportRollupParentKey], '+' as GLReportRollupUnaryOperator,
+			'3999999999999' as GLAccountNumber, 'B' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'C' as GLAccountTypeCode
+		Union
+		Select '4999999999999' as GLReportRollupKey, 'Total Income' as GLReportRollupName, 'Income' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], '6999999999999' as [GLReportRollupParentKey], '+' as GLReportRollupUnaryOperator,
+			'4999999999999' as GLAccountNumber, 'I' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'I' as GLAccountTypeCode
+		Union
+		Select '5999999999999' as GLReportRollupKey, 'Total Expense' as GLReportRollupName, 'Expense' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], '6999999999999' as [GLReportRollupParentKey], '-' as GLReportRollupUnaryOperator,
+			'5999999999999' as GLAccountNumber, 'I' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'E' as GLAccountTypeCode
+		Union
+		Select '6999999999999' as GLReportRollupKey, 'Net Income' as GLReportRollupName, 'Income' as GLReportRollupCategory, 
+			'Chart Of Accounts' as [GLReportName], '1999999999998' as [GLReportRollupParentKey], '+' as GLReportRollupUnaryOperator,
+			'6999999999999' as GLAccountNumber, 'I' as ReportType, 1 as PrimaryHierarchy, 0 as StandardHierarchy, 0 as GLReportKey,
+			1 as LeafLevel, 'I' as GLAccountTypeCode
+			) a
+		left join #Rollups r on r.GLReportRollupKey = a.GLReportRollupKey
+	where r.GLReportRollupKey is null
+
+
+	Merge into dbo.dimGLReportingRollup t
+	Using (
+		select 
+			s.GLReportRollupKey, s.[GLReportRollupName], s.[GLReportRollupCategory],
+			s.[GLReportName], s.[GLReportRollupParentKey], 
+			s.[GLReportRollupUnaryOperator], s.[GLAccountNumber], s.[ReportType],
+			s.PrimaryHierarchy, s.StandardHierarchy, s.GLReportKey
+			,ISNULL(s.SortOrderOverride,0) AS SortOrderOverride  -- 0227KM
+		from #Rollups s
+		where s.GLReportRollupKey is not null
+		) s on t.GLReportRollupKey = s.GLReportRollupKey
+	When not matched then
+	Insert (GLReportRollupKey,
+			GLReportRollupName,
+			GLReportRollupCategory,
+			GLReportName,
+			GLReportRollupParentKey,
+			GLReportRollupUnaryOperator,
+			GLAccountNumber,
+			InsertedBy,
+			ReportType,
+			PrimaryHierarchy,
+			StandardHierarchy,
+			GLReportKey
+			,SortOrderOverride) --0227KM
+	Values (GLReportRollupKey,
+			GLReportRollupName,
+			GLReportRollupCategory,
+			GLReportName,
+			GLReportRollupParentKey,
+			GLReportRollupUnaryOperator,
+			GLAccountNumber,
+			@InsertedBy,
+			ReportType,
+			PrimaryHierarchy,
+			StandardHierarchy,
+			GLReportKey
+			,ISNULL(SortOrderOverride,0))--0227KM
+	When matched and (ISNULL(t.GLReportRollupName,'') <> ISNULL(s.GLReportRollupName,'') OR
+			ISNULL(t.GLReportRollupCategory,'') <> ISNULL(s.GLReportRollupCategory,'') OR
+			ISNULL(t.GLReportRollupUnaryOperator,'') <> ISNULL(s.GLReportRollupUnaryOperator,'') OR
+			ISNULL(t.GLReportName,'') <> ISNULL(s.GLReportName,'') OR
+			ISNULL(t.GLReportRollupParentKey,'') <> ISNULL(s.GLReportRollupParentKey,'') OR
+			ISNULL(t.ReportType,'') <> ISNULL(s.ReportType,'') OR
+			ISNULL(t.PrimaryHierarchy,0) <> ISNULL(s.PrimaryHierarchy,0) OR
+			ISNULL(t.StandardHierarchy,0) <> ISNULL(s.StandardHierarchy,0) OR
+			ISNULL(t.GLReportKey,0) <> ISNULL(s.GLReportKey,0))
+			OR ISNULL(t.SortOrderOverride,0) <> ISNULL(s.SortOrderOverride,0) -- 0227KM
+	Then Update
+		Set t.GLReportRollupName = s.GLReportRollupName,
+			t.GLReportRollupCategory = s.GLReportRollupCategory,
+			t.GLReportRollupUnaryOperator = s.GLReportRollupUnaryOperator,
+			t.GLReportName = s.GLReportName,
+			t.GLReportRollupParentKey = s.GLReportRollupParentKey,
+			t.ReportType = s.ReportType,
+			t.PrimaryHierarchy = s.PrimaryHierarchy,
+			t.StandardHierarchy = s.StandardHierarchy,
+			t.GLReportKey = s.GLReportKey,
+			t.SortOrderOverride= ISNULL(s.SortOrderOverride,0),--0227
+			t.LastUpdatedDate = getdate(),
+			t.LastUpdatedBy = @InsertedBy
+	WHEN NOT MATCHED BY SOURCE AND t.PrimaryHierarchy = 1 THEN
+		Delete;
+	
+	------------Condensed GL / Rate Volume------------
+	--For alternate hierarchies the GLNumber (dimGLAccount) can be max of 11 characters, the numbers cannot overlap with COA or another alternate hierarchy
+	--GLReportRollupKey = GLReportKey (3 char with leading 0's) + GL Parent Account Number (13 char with leading 0's) + GL Account Number (13 char with leading 0's)
+	--PrimaryHierarchy = 0; GLReportKey = <Unique>; StandardHierarchy = 0
+	--<<Insert Code here>>
+
+	------------Condensed GL / Rate Volume------------
+	--For alternate hierarchies the GLNumber (dimGLAccount) can be max of 11 characters, the numbers cannot overlap with COA or another alternate hierarchy
+	--GLReportRollupKey = GLReportKey (3 char with leading 0's) + GL Parent Account Number (13 char with leading 0's) + GL Account Number (13 char with leading 0's)
+	--PrimaryHierarchy = 0; GLReportKey = <Unique>; StandardHierarchy = 0
+	--<<Insert Code here>>
+
+--Alt GL Hierarchies
+	Merge into dbo.dimGLReportingRollup t
+	Using (
+		select 
+			right(concat('000',s.[Report Number]),4) + right(concat('000000000000', s.[GL Parent Account Number]),13) +right(concat('000000000000', s.[GL Account Number]),13) as GLReportRollupKey, 
+			s.[GL Account Name] as GLReportRollupName,
+			s.[GL Account Type] as [GLReportRollupCategory],
+			s.[Report Name] as [GLReportName], 
+			right(concat('000',X0_1.[Report Number]),4) + right(concat('000000000000', X0_1.[GL Parent Account Number]),13) +right(concat('000000000000', X0_1.[GL Account Number]),13) as [GLReportRollupParentKey], 
+			s.[Unary Operator] as [GLReportRollupUnaryOperator], 
+			left(s.[GL Account Number],11) as [GLAccountNumber], 
+			s.[Report Type]  as [ReportType],
+			0 as PrimaryHierarchy, 
+			0 as StandardHierarchy, 
+			s.[Report Number] as GLReportKey
+			,ISNULL(s.[Sort Order],0) as SortOrder
+		 from stage.AlternateGLHierarchies s
+		 LEFT JOIN stage.AlternateGLHierarchies X0_1
+			ON s.[GL Parent Account Number] = X0_1.[GL Account Number] and s.[Report Number] = X0_1.[Report Number]
+
+		where s.[GL Account Number] is not null
+		) s on t.GLReportRollupKey = s.GLReportRollupKey and t.GLReportRollupParentKey = S.GLReportRollupParentKey
+	When not matched then
+	Insert (GLReportRollupKey,
+			GLReportRollupName,
+			GLReportRollupCategory,
+			GLReportName,
+			GLReportRollupParentKey,
+			GLReportRollupUnaryOperator,
+			GLAccountNumber,
+			InsertedBy,
+			ReportType,
+			PrimaryHierarchy,
+			StandardHierarchy,
+			GLReportKey,
+			SortOrderOverride)
+	Values (GLReportRollupKey,
+			GLReportRollupName,
+			GLReportRollupCategory,
+			GLReportName,
+			GLReportRollupParentKey,
+			GLReportRollupUnaryOperator,
+			GLAccountNumber,
+			@InsertedBy,
+			ReportType,
+			PrimaryHierarchy,
+			StandardHierarchy,
+			GLReportKey,
+			ISNULL(SortOrder,0))
+	When matched and (ISNULL(t.GLReportRollupName,'') <> ISNULL(s.GLReportRollupName,'') OR
+			ISNULL(t.GLReportRollupCategory,'') <> ISNULL(s.GLReportRollupCategory,'') OR
+			ISNULL(t.GLReportRollupUnaryOperator,'') <> ISNULL(s.GLReportRollupUnaryOperator,'') OR
+			ISNULL(t.ReportType,'') <> ISNULL(s.ReportType,'') OR
+			ISNULL(t.PrimaryHierarchy,0) <> ISNULL(s.PrimaryHierarchy,0) OR
+			ISNULL(t.StandardHierarchy,0) <> ISNULL(s.StandardHierarchy,0) OR
+			ISNULL(t.GLReportKey,0) <> ISNULL(s.GLReportKey,0) OR
+			ISNULL(t.SortorderOverride,0) <> ISNULL(s.SortOrder,0) OR 
+			ISNULL(t.GLAccountNumber,0) <> ISNULL(s.[GLAccountNumber],0) OR
+			ISNULL(t.GLReportRollupParentKey,0) <> ISNULL(s.GLReportRollupParentKey,0))
+	Then Update
+		Set t.GLReportRollupName = s.GLReportRollupName,
+			t.GLReportRollupCategory = s.GLReportRollupCategory,
+			t.GLReportRollupUnaryOperator = s.GLReportRollupUnaryOperator,
+			t.ReportType = s.ReportType,
+			t.PrimaryHierarchy = s.PrimaryHierarchy,
+			t.StandardHierarchy = s.StandardHierarchy,
+			t.GLReportKey = s.GLReportKey,
+			t.GLAccountNumber = s.GLAccountNumber,
+			t.GLReportRollupParentKey = s.GLReportRollupParentKey,
+			t.SortOrderOverride = ISNULL(s.SortOrder,0),
+			t.LastUpdatedDate = getdate(),
+			t.LastUpdatedBy = @InsertedBy
+	WHEN NOT MATCHED BY SOURCE AND t.PrimaryHierarchy <> 1 AND t.StandardHierarchy <> 1 THEN
+		Delete;
+
+
+Return(1)
+
+END TRY
+
+
+BEGIN CATCH
+	Return(0)
+END CATCH; 
+
+
+END
+
+
+
+
+--=====================================================================
+USE [SNLBanker_DW]
+GO
+
+/****** Object:  StoredProcedure [SourceData].[LoadCustomers]    Script Date: 5/17/2019 2:28:21 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+-- =============================================
+-- Author:		<Kavish Mody>
+-- Create date: <12312015>
+-- Description:	<Generate CDs data>
+-- =============================================
+-- [sourceData].[LoadCustomers] '05/07/2018'
+CREATE PROCEDURE [SourceData].[LoadCustomers]   (@DateofData Date)
+AS
+BEGIN TRY
+
+	SET NOCOUNT ON;
+
+TRUNCATE TABLE Stage.Customers;
+
+IF OBJECT_ID('tempdb..#CustomerInsiderCodes') IS NOT NULL
+        DROP TABLE #CustomerInsiderCodes
+
+SELECT A.CUX1CS, A.DMEMP,a.DMBK as BankNumber, CONVERT(VARCHAR,NULL) as InsiderCode
+INTO #CustomerInsiderCodes
+FROM
+(
+        SELECT a.DMEMP,b.CUX1CS,a.DMBK
+        FROM SourceData.TAP002 a
+        JOIN SourceData.CUP009 b on a.DMACCT = b.CUX1AC
+        WHERE a.DMEMP <> ''
+        UNION
+        SELECT LNDOE,b.CUX1CS,a.LNBK 
+		FROM SourceData.LNP003 a
+        JOIN SourceData.CUP009 b on a.LNNOTE = b.CUX1AC
+        WHERE a.LNDOE <> ''
+        UNION
+        SELECT TMEMP,b.CUX1CS,a.TMBK
+		FROM SourceData.TMP003 a
+        JOIN SourceData.CUP009 b on a.TMACCT = b.CUX1AC
+        WHERE a.TMEMP <> ''
+)A
+
+UPDATE A SET InsiderCode = ISNULL(B.InsiderCode, A.DMEMP)
+FROM
+#CustomerInsiderCodes A
+LEFT JOIN 
+(
+        SELECT CUX1CS, 'E' as InsiderCode,BankNumber FROM #CustomerInsiderCodes
+        GROUP BY CUX1CS,BankNumber
+        HAVING COUNT(DISTINCT DMEMP) > 1
+)B ON A.CUX1CS = B.CUX1CS and A.BankNumber = B.BankNumber
+
+
+-------------------------------------------
+;WITH CTE_InsiderA AS (
+SELECT DISTINCT
+		cast(CUP00301.CUNBR as varchar(10) ) [Customer Number Encrypted ],
+
+		--CUP00301.CUBK AS [Bank Code]
+		CONVERT(VARCHAR(10),CASE CUP00301.CUBK WHEN 170 THEN 200 ELSE CUP00301.CUBK END) AS [Bank Code]
+		
+		,NULL AS [Class Code]
+		,NULL AS [Class Description]
+		--,CUP00301.CUSIC AS [NAICS Code]
+		,CUP003.CUSIC AS [NAICS Code]   -- Added on 9/21/2018 as per christopher's email
+		,NULL AS [NAICS Description]
+		,CUP00301.CUSEX AS [Gender]
+		,DateDiff(Year,[SourceData].[fn_JulianDate_SQL](CUP00301.CUJBDT),GETDATE()) AS [Age] 
+		,ISNULL(CUP004.CUCTWN,'') AS [City]
+		,ISNULL(CUP004.CUCSTA,'') AS [State]
+		,CUP004.CUCZIP AS [Zip]
+		,[SourceData].[fn_ISODate_SQL](CUP003.CUOPDT) AS [Original Customer Date]
+		--,CUP003.CUOPDTJ -- All values are 0
+		--,[SourceData].[fn_JulianDate_SQL](CUP003.CUOPDTJ) AS [Original Customer Date]
+		,'Y' as [Individual]
+		,CASE WHEN CUP003.CUPERS = 'P'  AND left(isnull(ltrim(rtrim(CUP004.CUCFNM)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCSNM)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCLNM)),''), 100) = ''
+		THEN CUP004.CUCBUS
+		WHEN CUP003.CUPERS = 'P' THEN 
+		left(isnull(ltrim(rtrim(CUP004.CUCFNM)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCSNM)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCLNM)),''), 100) 
+		WHEN ISNULL(CUP004.CUCBUS,'') = '' THEN left(isnull(ltrim(rtrim(CUP004.CUCFNM)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCSNM)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCLNM)),''), 100) 
+		ELSE CUP004.CUCBUS END as  [Customername]
+		,[SourceData].[fn_JulianDate_SQL](CUP00301.CUJBDT) as [DateOfBirth]
+		--,left(isnull(ltrim(rtrim(CUP004.CUCHNO)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCSTR)),'') + ' ' + isnull(ltrim(rtrim(CUP004.CUCFNO)),''), 100) AS [AddressLine1]
+		,CASE WHEN ISNULL(LTRIM(RTRIM(CUP004.CUCHNM)), '') != '' THEN ISNULL(LTRIM(RTRIM(CUP004.CUCHNM)), '') ELSE ISNULL(LTRIM(RTRIM(CUP004.CUCHNO)), '') + ' ' + ISNULL(LTRIM(RTRIM(CUP004.CUCSTR)), '') END AS [AddressLine1]
+--		,CIC.InsiderCode as [InsiderCode]
+--		,CFP505.CFLDSC as [InsiderCodeDescription]
+
+	 --  ,CASE CUP003.CUEMPL WHEN 'E' THEN 'E' WHEN 'O' THEN 'O' WHEN 'D' THEN 'D' ELSE 'I' END AS [InsiderCode] -- UPdated code form REPLACE(CUP003.CUEMPL,'',NULL) to "I" on 3/18/2019 as per christopher's email dated 3/15/2019
+	--	,CASE CUP003.CUEMPL WHEN 'E' THEN 'EMPLOYEE' WHEN 'O' THEN 'EXECUTIVE' WHEN 'D' THEN 'DIRECTOR' ELSE 'RELATED INTEREST' END AS [InsiderCodeDescription]
+
+		,CASE WHEN CUP003.CUEMPL IN ('D','O','E')  AND (ISNULL(CUP009.CUXREL,'') NOT IN ('OWN','SOW') AND LEFT(ISNULL(CUP009.CUXREL,''),2) NOT IN ('JA','JO') )  
+                       THEN 'I' WHEN CUP003.CUEMPL = '' THEN NULL ELSE CUP003.CUEMPL END AS [InsiderCode]
+
+               ,CASE WHEN CUP003.CUEMPL IN ('D','O','E')  AND (ISNULL(CUP009.CUXREL,'') NOT IN ('OWN','SOW') AND LEFT(ISNULL(CUP009.CUXREL,''),2) NOT IN ('JA','JO') )  
+                       THEN 'RELATED INTEREST' 
+		          ELSE CASE CUP003.CUEMPL WHEN 'E' THEN 'EMPLOYEE' 
+		                                  WHEN 'O' THEN 'EXECUTIVE'
+					                      WHEN 'D' THEN 'DIRECTOR'
+										  WHEN ''  THEN  NULL ELSE CUP003.CUEMPL 
+				       END
+              END AS [InsiderCodeDescription]             -- PG : Code for Insidercode and InsiderCodeDescription on 8 April 2019 
+
+		,NULL as [CountyCode]
+		,ISNULL(CUP004.CUCCTY,'') as [County]
+		,CUP003.CUHMPH as [HomePhone]
+		,CUP003.CUBUPH as [BusinessPhone]
+		,NULL as [FICOScore]
+		--,CUP003.CUEMA1 as [EmailAddress]
+		--,CUP027.CUTHI1 as [EmailAddress]
+		,COALESCE(NULLIF(CUP027.CUTHI1, ''), NULLIF(CUP003.CUEMA1,''), NULLIF(CUP003.CUEMA2,'')) as [EmailAddress]
+		,CUP003.CUSSNR as [TaxID]
+		--,CUP003.CUNA2 AS [Addressline2]
+		,CASE WHEN ISNULL(LTRIM(RTRIM(CUP004.CUCHNM)), '') != '' THEN ISNULL(LTRIM(RTRIM(CUP004.CUCHNO)), '') + ' ' + ISNULL(LTRIM(RTRIM(CUP004.CUCSTR)), '') ELSE NULL END AS [Addressline2]
+		--,CUP003.CUZIP2  AS [ZipCodePlusFour
+		,CUP004.CUCZIS  AS [ZipCodePlusFour] -- Mapping changed as per email from Julie dated 7/7
+		,CASE CUP003.CUPERS WHEN 'P' THEN isnull(ltrim(rtrim(CUP004.CUCFNM)),'') ELSE '' END AS [FirstName]
+		,CASE CUP003.CUPERS WHEN 'P' THEN isnull(ltrim(rtrim(CUP004.CUCLNM)),'') ELSE '' END AS [LastName]
+		,CASE CUP003.CUPERS WHEN 'P' THEN 'Person' WHEN 'N' THEN 'Non Person' END AS [Customer Type]
+		,CUP003.CUPERS as [TaxIDTypecode]
+		,CASE CUP003.CUPERS WHEN 'P' THEN 'Person' WHEN 'N' THEN 'Non Person' END AS [TaxIDType],
+		CUP003.CUCLPH AS [CellPhoneNumber],
+		CUP003.CUEMPL as PrivateCustomer,
+		CUP003.CUEMA1 AS HomeEmail,
+		CUP003.CUEMA2 AS BusinessEMail,
+		--CUP027.CUTHI2 AS EStatementEMail,
+		CUP027.CUTHI1 AS EStatementEMail, -- Changed as per email from Marc dated 7/9
+		CUP027.CUTEN4 AS MandAAcquired,
+		CUP003.CUSSTY AS TaxIDFlag,
+		CUP003.CUCIRA AS WHFlag,
+		CUP003.CUSHRT AS Shortname
+
+		,ROW_NUMBER() OVER(Partition BY cast(CUP00301.CUNBR as varchar(10)) ORDER BY CASE WHEN CUP003.CUEMPL IN ('D','O','E')  AND (ISNULL(CUP009.CUXREL,'') NOT IN ('OWN','SOW') AND LEFT(ISNULL(CUP009.CUXREL,''),2) NOT IN ('JA','JO') )  
+            THEN 'RELATED INTEREST' ELSE CASE CUP003.CUEMPL WHEN 'E' THEN 'EMPLOYEE' WHEN 'O' THEN 'EXECUTIVE' WHEN 'D' THEN 'DIRECTOR' ELSE CUP003.CUEMPL END END) AS RN
+
+FROM  SourceData.CUP00301 CUP00301
+LEFT JOIN SourceData.CUP004 CUP004 ON CUP00301.CUBK = CUP004.CUCBK AND CUP00301.CUNBR = CUP004.CUCNBR
+LEFT JOIN SourceData.CUP003 CUP003 ON CUP00301.CUBK = CUP003.CUBK AND CUP00301.CUNBR = CUP003.CUNBR
+--LEFT JOIN SourceData.CFP505 CFP505 ON CUP00301.CUBK = CFP505.CFBK AND CUP00301.CUPERS = CFP505.CFLSNR AND CFP505.CFREC = 514
+LEFT JOIN SourceData.CUP027 CUP027 ON CUP00301.CUBK = CUP027.CUBK AND CUP00301.CUNBR = CUP027.CUNBR
+LEFT JOIN #CustomerInsiderCodes CIC on CUP00301.CUNBR = CIC.CUX1CS and CUP00301.CUBK = CIC.BankNumber
+LEFT JOIN SourceData.CFP505 CFP505 on CIC.InsiderCode = CFP505.CFLSNR and CIC.BankNumber = CFP505.CFBK and CFP505.CFREC = '514'
+
+--LEFT JOIN Sourcedata.CUP009 A ON CAST(A.CUX1AC AS VARCHAR(MAX)) = CAST(CUP003.CUNBR  AS VARCHAR(MAX))
+-- and CAST(A.CUXBK AS VARCHAR(MAX)) = CAST(CUP003.CUNBR AS VARCHAR(MAX
+
+LEFT JOIN SourceData.CUP009 CUP009 ON CUP003.CUNBR = CUP009.CUX1CS AND CUP003.CUBK = CUP009.CUXBK   --PG : Added join for Insidercode and InsiderCodeDescription on 8 April 2019
+WHERE ISNULL(LTRIM(RTRIM(CUP00301.CUNBR)), '') != '')
+
+-------------------------------------------
+
+INSERT INTO stage.customers(
+									[Customer Number Encrypted ] ,
+									[Bank Code],
+									[Class Code] ,
+									[Class Description],
+									[NAICS Code],
+									[NAICS Description],
+									[Gender],
+									[Age] ,
+									[City] ,
+									[State],
+									[Zip],
+									[OriginalCustomerDate],                                       
+                                    [Individual],                                    
+                                    [Customername],                                                   
+                                    [DateOfBirth],
+									[AddressLine1],
+									[InsiderCode],
+									[InsiderCodeDescription],
+									[CountyCode],
+									[County],
+									[HomePhone],
+									[BusinessPhone],
+									[FICOScore],
+									[EmailAddress],
+									[TaxID],
+									[Addressline2],
+									[ZipCodePlusFour],
+									[FirstName],
+									[LastName],
+									[CustomerType],
+									[TaxIDTypecode],
+									[TaxIDType],
+									[CellPhoneNumber],
+									PrivateCustomer,
+									HomeEMail,
+									BusinessEMail,
+									EStatementEMail,
+									MandAAcquired,
+									TaxIDFlag,
+									WHFlag,
+									Shortname
+									)
+
+
+                              SELECT [Customer Number Encrypted ] ,
+									[Bank Code],
+									[Class Code] ,
+									[Class Description],
+									[NAICS Code],
+									[NAICS Description],
+									[Gender],
+									[Age] ,
+									[City] ,
+									[State],
+									[Zip],
+									[Original Customer Date],                                       
+                                    [Individual],                                    
+                                    [Customername],                                                   
+                                    [DateOfBirth],
+									[AddressLine1],
+									[InsiderCode],
+									[InsiderCodeDescription],
+									[CountyCode],
+									[County],
+									[HomePhone],
+									[BusinessPhone],
+									[FICOScore],
+									[EmailAddress],
+									[TaxID],
+									[Addressline2],
+									[ZipCodePlusFour],
+									[FirstName],
+									[LastName],
+									[Customer Type],
+									[TaxIDTypecode],
+									[TaxIDType],
+									[CellPhoneNumber],
+									PrivateCustomer,
+									HomeEMail,
+									BusinessEMail,
+									EStatementEMail,
+									MandAAcquired,
+									TaxIDFlag,
+									WHFlag,
+									Shortname
+ FROM CTE_InsiderA WHERE RN = 1 
+
+
+
+Return(1)
+END TRY
+BEGIN CATCH
+	
+Return(0)
+	
+END CATCH;
+
+
+
+
+
+GO
+
+
+
+
