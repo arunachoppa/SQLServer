@@ -204,7 +204,8 @@ We would need couple of these things done ASAP, in the meantime.
 
 1.	Connection to signature from Plano be fixed
 2.	Have someone prioritize these tables into High, Medium and Low category. Tables that are used by most reports and master tables should probably be in High Priority. We will start with High Priority tables first. 
-
+Hi Manoj – thank you very much for following up with me. I honestly thought I had send those over, but I had not. Just sent an email to TJ. Hopefully we will hear back early next week. 
+Hi Kevin, did you get chance to get with TJ on this yet?
 --===============================================================================
 
 /***************************
