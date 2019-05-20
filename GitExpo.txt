@@ -1251,5 +1251,45 @@ END CATCH;
 GO
 
 
-
+--=======================================================
+select BANK_NUMBER   =convert(char(5),CUBK),     --GBANKNBR),
+       CUSTOMER_NUMBER      =convert(CHAR (10),CUNBR),
+       APPL_ID              ='CU',     --GAPPLID ),
+       [PROVIDER] = convert(char(10),(SELECT [PROVIDER] FROM INFORMENT.TA_TM_BANK_CONTROL_FILE)), --GPROVCBS --virtual column                                                     
+       ROW_PROCESSED_THRU = convert(char(8),(SELECT ROW_PROCESSED_THRU FROM INFORMENT.TA_TM_BANK_CONTROL_FILE)), 
+	   ROW_UPDATE_DATE = (SELECT ROW_UPDATE_DATE FROM INFORMENT.TA_TM_BANK_CONTROL_FILE),
+	   ROW_UPDATE_TYPE = convert(char(3),(SELECT ROW_UPDATE_TYPE FROM INFORMENT.TA_TM_BANK_CONTROL_FILE)), 
+       USER_FLD_1_LENGTH_10 =convert(CHAR (10),CUTEN1),
+       USER_FLD_1_LENGTH_20 =convert(CHAR (20),CUTWN1),
+       USER_FLD_1_LENGTH_3  =convert(CHAR (3 ),CUTHR1),
+       USER_FLD_1_LENGTH_30 =convert(CHAR (30),CUTHI1),
+       USER_FLD_1_LENGTH_5  =convert(CHAR (5 ),CUFIV1),
+       USER_FLD_1_LENGTH_7_0=convert(DECIMAL(7,0),CUSEV1),
+       USER_FLD_2_LENGTH_10 =convert(CHAR (10),CUTEN2),
+       USER_FLD_2_LENGTH_20 =convert(CHAR (20),CUTWN2),
+       USER_FLD_2_LENGTH_3  =convert(CHAR (3 ),CUTHR2),
+       USER_FLD_2_LENGTH_30 =convert(CHAR (30),CUTHI2),
+       USER_FLD_2_LENGTH_5  =convert(CHAR (5 ),CUFIV2),
+       USER_FLD_2_LENGTH_7_0=convert(DECIMAL(7,0),CUSEV2),
+       USER_FLD_3_LENGTH_10 =convert(CHAR (10),CUTEN3),
+       USER_FLD_3_LENGTH_20 =convert(CHAR (20),CUTWN3),
+       USER_FLD_3_LENGTH_3  =convert(CHAR (3 ),CUTHR3),
+       USER_FLD_3_LENGTH_30 =convert(CHAR (30),CUTHI3),
+       USER_FLD_3_LENGTH_5  =convert(CHAR (5 ),CUFIV3),
+       USER_FLD_3_LENGTH_7_0=convert(DECIMAL(7,0),CUSEV3),
+       USER_FLD_4_LENGHT_5  =convert(CHAR (5 ),CUFIV4),
+       USER_FLD_4_LENGTH_10 =convert(CHAR (10),CUTEN4),
+       USER_FLD_4_LENGTH_20 =convert(CHAR (20),CUTWN4),
+       USER_FLD_4_LENGTH_3  =convert(CHAR (3 ),CUTHR4),
+       USER_FLD_4_LENGTH_30 =convert(CHAR (30),CUTHI4),
+       USER_FLD_4_LENGTH_7_0=convert(DECIMAL(7,0),CUSEV4),
+       USER_FLD_5_LENGHT_5  =convert(CHAR (5 ),CUFIV5),
+       USER_FLD_5_LENGTH_10 =convert(CHAR (10),CUTEN5),
+       USER_FLD_5_LENGTH_20 =convert(CHAR (20),CUTWN5),
+       USER_FLD_5_LENGTH_3  =convert(CHAR (3 ),CUTHR5),
+       USER_FLD_5_LENGTH_30 =convert(CHAR (30),CUTHI5),
+       USER_FLD_5_LENGTH_7_0=convert(DECIMAL(7,0),CUSEV5)
+       from  (select  *,rn = row_number() over(partition by CUNBR order by CUTEN5 desc,CUTWN4 desc )
+              from SNLBanker_DW.SourceData.CUP027 ) t
+       where t.rn = 1
 
