@@ -3560,3 +3560,105 @@ select   case when right(cufax,1)=0 then '}'
 
 from SNLBanker_DW.SourceData.cup003 where cunbr='0000024164'
 case when  left(cufax,1)='-' then replace(cufax,'-',0)
+
+
+
+
+ 
+
+This a power BI report Manual Dailer connection issue.
+1.go to the power bi workspace.
+1.	Open the manual dialer workspace
+2.	Click the updateapp 
+3.	Click the permissions
+4.	Add the email id .
+5.	Click update app.
+2.Give the permissions in the cube data:
+1.	Go to the ssms, connect to the analysis service cube.
+2.	Open the db role 
+3.	Add the user address.
+--======================================
+7/14/19
+VPN Connection got failed:
+Solution: Disconnecting the Home_wifi and restarting the system solved the problem
+ 
+
+
+---==========================================================================
+Error refreshing the manual dialer power bi reports:
+ 
+
+1.	Go to the SSMS
+2.	Open the manual dialer db
+3.	Open the manual dialer table
+4.	Right click and select partitions
+5.	Click the edit icon
+6.	You can view the code 
+7.	Change the hardcoded dates in the code.(5 month) like 3/1/19 to 7/1/19
+8.	Then do the full process 
+9.	Go to the power bi reports and refresh them.
+
+
+
+ 
+
+
+
+
+
+--========================================
+Cube: In cube when I have changed the script of the table, it will process the data. Here I got error like after loading the data it didn’t commit the data, it went into the loop.
+Solution: In between the load I put the system in the sleep mode. I have close the visual studio and opened it. Now process it one more time. 
+SSIS APOLLO package loading data to MonthlyReportSnapshot table. When the hard coded dates automated the following error occurred. 
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+ 
+
+
+ 
+
+
+ 
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+++++++++++++++++++++++++++++++++++++++++
+Manual Dialer reports cube need to process full.
+When deploying the Metadata to uat server in Azure I got error. Then I removed the roles and deployed the metadata. Then it got succeded. 
+In Azure cube when I try to process the tables, to avoid the error I change the impersonation 
+Credentials as mine windows credentials.
+
+
+
+
+8/21/19
+XMLA operation failed. You are either using an older version of Analysis Services client libraries or SQL Server Management Studio. Please upgrade to the latest version. More information can be found here: https://go.microsoft.com/fwlink/?linkid=860248
+
+
+Analysis Services utilize three client libraries, also known as data providers. ADOMD.NET and Analysis Services Management Objects (AMO) are managed client libraries. The Analysis Services OLE DB Provider (MSOLAP DLL) is a native client library. Typically, all three are installed at the same time. Azure Analysis Services requires the latest versions of all three libraries.
+
