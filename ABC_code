@@ -1,0 +1,1304 @@
+
+SELECT  
+IMDLCD 
+,IMITEM
+,IMDESC
+,IMRITM
+,IMWGT
+,IMUM
+,IMADVT
+,IMPRCD
+,IMLGTH
+,IMWDTH
+,IMHGHT
+,IMPGRP
+,IMHZMT
+,IMVNDR
+,IMVPN
+,IMSOIT
+,IMSOIU
+,IMKIT
+,IMSYSTEM
+,IMADDSTMP
+,IMADDUSR
+,IMADDPGM
+,IMCHGSTMP
+,IMCHGUSR
+,IBDLCD
+,IBITEM
+,IBWHSE
+,IBAUC
+,IBQOH
+,IBCHGSTMP
+,IBCHGUSR
+,BranchNumber    
+,BranchName      
+,BranchCity      
+,BranchState     
+,BackOrderQty    
+,PriceGroupDesc  
+,ProductCodeDesc 
+,HazmatCodeDesc1
+,HazmatCodeDesc2 
+,HazmatCodeDesc3 
+,BrandLine       
+,BrandLineDesc
+,ColorCode
+,ColorCodeDesc
+,VendorName     
+
+      
+  FROM MDCPROD.MDCINVQOHAVGCOSTABC
+ WHERE  DATEPART(year, IMADDSTMP) in(2019,2020,2021) and 
+ BRANCHNUMBER IN ("+  @[User::ABC_Branch_Numbers]  +" )
+GROUP BY
+IMDLCD 
+,IMITEM
+,IMDESC
+,IMRITM
+,IMWGT
+,IMUM
+,IMADVT
+,IMPRCD
+,IMLGTH
+,IMWDTH
+,IMHGHT
+,IMPGRP
+,IMHZMT
+,IMVNDR
+,IMVPN
+,IMSOIT
+,IMSOIU
+,IMKIT
+,IMSYSTEM
+,IMADDSTMP
+,IMADDUSR
+,IMADDPGM
+,IMCHGSTMP
+,IMCHGUSR
+,IBDLCD
+,IBITEM
+,IBWHSE
+,IBAUC
+,IBQOH
+,IBCHGSTMP
+,IBCHGUSR
+,BranchNumber    
+,BranchName      
+,BranchCity      
+,BranchState     
+,BackOrderQty    
+,PriceGroupDesc  
+,ProductCodeDesc 
+,HazmatCodeDesc1
+,HazmatCodeDesc2 
+,HazmatCodeDesc3 
+,BrandLine       
+,BrandLineDesc
+,ColorCode
+,ColorCodeDesc
+,VendorName    order by imaddstmp desc  
+
+
+
+------------------------------
+
+Branch_830:
+5,30,63,64,93,202,218,268,275,294,316,333,401,406,575,581,616,690
+
+Branch_831:
+7,16,17,18,22,92,126,138,139,204,205,266,329,383,601,644,646,693,1207
+
+branch_832:
+1,2,68,155,195,197,199,214,219,259,273,283,321,368,389,390,391,473,606,622,698
+
+District_833:
+8,10,95,105,111,112,140,157,194,196,210,216,338,353,354,387,392,474,551,590,615,626,640,647,657,669,688,697
+
+District_834:
+4,15,67,130,156,200,334,335,336,339,366,385,404,533,538,559,579,634,642,670,687
+
+District_835:
+
+9,14,107,108,372,373,374,375,377,402,536,537,543,544,545,547,548,549,553,1200
+
+
+District_837:
+31,85,89,121,261,342,364,365,370,381,382,396,408,410,411,413,417,419,424,427,429,528,529,530,593,600,629
+
+District_838:
+86,376,443,446,448,449,451,452,453,454,455,456,457,531,532,584
+
+District_839:
+27,28,82,84,245,250,357,358,422,511,512,513,554,558,661,667,679,686
+
+District_840:
+13,77,87,120,191,193,301,362,367,567,591,597,623,624,649,678,1201
+
+District_841:
+134,144,145,147,148,198,221,317,431,432,435,436,437,440,442,552,574,682,1202,1211
+
+
+Districts_842:
+19,20,29,83,181,233,240,241,242,244,379,395,409,416,560,578,589,636,675,695
+
+Districts_843:
+69,70,106,190,231,249,282,296,297,332,359,393,562,577,608,625,630,632,643,645,662,668,699,1203,1206
+
+Districts_844:
+23,149,150,151,209,215,276,289,309,341,347,378,399,445,447,458,599,665,671,1204
+
+Districts_845:
+72,141,142,143,146,234,430,433,434,438,441,561,566,585,602
+
+Districts_846:
+49,52,61,101,114,115,128,253,363,388,481,482,571,617,689,1210
+
+Districts_847:
+37,173,174,175,176,177,180,278,300,310,344,633
+
+Districts_848:
+11,36,40,41,127,136,183,203,225,305,312,459,460,462,464,576
+
+Districts_849:
+6,34,35,97,113,152,171,304,326,331,348,472,475,592,637,684
+
+Districts_860:
+79,81,119,123,170,222,286,470,476,477,596,635,673,677,692
+
+Districts_861:
+12,38,39,60,65,66,133,182,232,461,465,676,683
+
+Districts_862:
+45,46,211,212,228,483,485,486,487,490,492,501,502,504,509,595
+
+Districts_863:
+50,131,153,274,287,306,349,361,495,496,497,506,507,508,510,672
+
+Districts_864:
+26,43,58,104,110,207,220,226,255,256,264,281,292,384,478,522,651,654,660,680,681
+
+Districts_865:
+24,32,78,158,187,235,252,265,270,284,291,515,518,521,525,610,611,628,1208
+
+Districts_866:
+47,48,135,217,313,484,488,489,491,493,494,499,500,503,505,564
+
+Districts_867:
+42,57,100,103,184,185,325,327,337,351,394,516,519,586,612
+
+Districts_868:
+21,44,54,109,129,154,186,223,288,514,517,520,555,609,618,620,621,638,664,691
+
+Districts_869:
+25,59,117,124,132,192,213,263,280,293,314,343,563,565,568,1205
+
+Districts_870:
+33,73,74,91,96,118,201,254,303,320,323,340,386,527,550,556,557,569,587,1209
+
+Districts_871:
+53,75,94,161,162,163,165,169,208,247,572,580,583
+
+Districts_872:
+62,90,160,166,167,168,229,236,238,239,257,269,271,277,397,570
+
+Districts_873:
+51,71,80,98,102,137,159,172,188,189,230,246,302,324,398,573,582,588
+
+Districts_874:
+116,125,206,227
+
+Districts_919:
+55
+
++++++++++++++++++++++++++++++
+
+import os
+import sys
+import re
+import string
+
+
+def main():
+    # Create a variable for the file name
+    filename = "C://Users//XAJ94702//Desktop//full_text.txt"
+    out_file = filename + "_out"
+    infile = open(filename, 'r')
+    outfile = open(out_file, 'w')
+
+    lines = infile.readlines()
+    future_string1 = ""
+
+    for line in lines[19:]:  # Removing the 19 header lines
+        #Preparing a list of strings to discard the not considering rows
+        exlst = ['INVENTORY  VALUE  REPORT','ABC SUPPLY CO','DATE:','TIME:','AVERAGE','DESCRIPTION','--','BRANCH','TOTALS ON','=====']
+        a = 0
+        for item in exlst:
+            if item not in line:
+                a = a+1
+        if a >= 10:
+            string1 = line[:6]
+            string2 = line[6:18]
+            string3 = line[18:54]
+            string4 = line[54:57]
+            string5 = line[57:61]
+            string6 = line[61:75]
+            string7 = line[75:83]
+            string8 = line[83:92]
+            string9 = line[92:101]
+            string10 = line[101:114]
+            string11 = line[114:123]
+            string12 = line[123:133]
+            if len(string1.strip()) != 0:  # if the string1 is not null
+                future_string1 = string1
+            else:
+                string1 = future_string1
+
+            match = re.search(',', string3)
+            if match:
+                my_new_string = re.sub(',', ' ', string3)
+                string3 = my_new_string
+
+            match = re.search('-', string5)
+            if match:
+                my_new_string = re.sub('-', '', string5)
+                string12 = '-' + my_new_string.strip()
+            match = re.search('-', string6)
+            if match:
+                my_new_string = re.sub('-', '', string6)
+                string6 = '-' + my_new_string.strip()
+            match = re.search('-', string7)
+            if match:
+                my_new_string = re.sub('-', '', string7)
+                string7 = '-' + my_new_string.strip()
+            match = re.search('-', string8)
+            if match:
+                my_new_string = re.sub('-', '', string8)
+                string8 = '-' + my_new_string.strip()
+            match = re.search('-', string9)
+            if match:
+                my_new_string = re.sub('-', '', string9)
+                string9 = '-' + my_new_string.strip()
+            match = re.search('-', string10)
+            if match:
+                my_new_string = re.sub('-', '', string10)
+                string10 = '-' + my_new_string.strip()
+            match = re.search('-', string11)
+            if match:
+                my_new_string = re.sub('-', '', string11)
+                string11 = '-' + my_new_string.strip()
+
+            match = re.search('-', string12)
+            if match:
+                my_new_string = re.sub('-', '', string12)
+                string12 = '-' + my_new_string.strip()
+
+            line_o = (string1) + ',' +  (string2.strip()) + ', "' + (string3.strip()) + '",' + (string4.strip()) + ',' +(string5.strip()) + ',' + (string6.strip()) + ',' + (string7.strip()) + ',' + (string8.strip()) + ',' + (string9.strip()) + ',' + (string10.strip()) + ',' + (string11.strip()) + ',' + (string12.strip() + '\n')
+            if not len(string2.strip()) == 0:
+                print(line_o)  # print lines for control condition
+                outfile.write(line_o)
+    infile.close()  # close the file when you're done!
+    outfile.close()
+if __name__ == "__main__":
+   main()
+   
+   +++++++++++++++++++======
+   
+   USE [AGLConversion]
+GO
+
+/****** Object:  View [dbo].[vw_XXWS_Item_Onhand_Load]    Script Date: 10/16/2020 12:59:03 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+--select * from [dbo].[vw_XXWS_Item_Onhand_Load] where Agility_Item=''
+
+--V1.6
+--Madhubabu
+--Changes: Modified [dbo].[xxws_branch_mapping_lookup] join condition
+--5/8/2020 Modified Agility Item Mapping Condition -- Swarna
+--5/13/2020 added alt_item_cd,alt_item_ind as per art's input -swarna/firdaus
+CREATE View [dbo].[vw_XXWS_Item_Onhand_Load]
+as
+SELECT top 100000000
+i.company_number,
+i.location_number,
+--L.pcid,
+--L.Agility_Branch_ID,
+i.product_line, 
+i.item_number as [part_number],
+m.stocking_uom_cd,
+m.selling_uom_cd,
+m.selling_unit_factor AS selling_factor,
+try_convert(int,i.quantity_on_hand) ITDTL_QOH,
+m.item_size_vol,
+try_convert(int,i.quantity_on_hand) * m.item_size_vol [Units],
+m.pricing_uom_cd,
+try_convert(float,i.average_cost) Average_Cost,
+     --ROUND((try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol)),0) AS Agility_Avg_Value,
+     --(try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol)) AS Agility_Avg_Value,
+
+CASE WHEN M.pricing_uom_cd <> M.STOCKING_UOM_CD and M.pricing_uom_cd IN ('ML','MS')
+     THEN ((try_convert(float,i.average_cost)*try_convert(int,i.quantity_on_hand))/ai.default_uom_conv_factor) 
+     ELSE (try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol))
+     END AS Agility_Avg_Value,
+     ---(Average Cost * QOH * Selling_Unit_Factor) / 1000; rounded off to 2 decimal places
+
+ROUND((try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol)),0) AS WS_Avg_Value,
+
+     --ISNULL(NULLIF(ISNULL(NULLIF(wi.branch_ws_to_agility_item_mapping,''),wi.Default_Agility_Item),''),'Item Mapping Missing') Agility_Item,
+CASE WHEN wi.item is NULL AND  ISNULL(NULLIF(ISNULL(NULLIF(wi.branch_ws_to_agility_item_mapping,''),wi.Agility_Item_Manual),''),'')='' THEN 'WoodStock Item Not available in Quick Base'
+     WHEN wi.item IS not NULL THEN  ISNULL(NULLIF(ISNULL(NULLIF(wi.branch_ws_to_agility_item_mapping,''),wi.Agility_Item_Manual),''),'Item Mapping Missing') END Agility_Item,
+ai.item,
+ai.item_ptr,
+ai.[description],
+ai.size_,
+ai.[type],
+ai.length_uom,
+ai.width_uom,
+ai.depth,
+ai.thickness_uom,
+ai.costing_uom,
+ai.stocking_uom,
+ai.default_uom_conv_factor,
+ai.stock_to_pc_calc,
+((try_convert(float,i.average_cost)*try_convert(int,i.quantity_on_hand))/ai.default_uom_conv_factor)  as Attribute1
+,alt_vendor_packing_factor
+, case when item_number='CM209CT60' then 'CM209PC60'
+      when item_number='CM209PC60' then 'CM209CT60'
+      else  m.alt_item_cd end as alt_item_cd 
+,case when item_number='CM209PC60' then 'Y' else m.alt_item_ind end as alt_item_ind
+,l.Deployment
+FROM [pos].[xxabc_Item_onhand]i 
+INNER JOIN (Select a.* from (select item_cd,prod_line_cd,alt_item_cd
+                              ,alt_item_ind
+                              ,item_size_vol
+                              ,STOCKING_UOM_CD 
+                              ,pricing_uom_cd
+                              ,selling_unit_factor
+                              ,selling_uom_cd,alt_vendor_packing_factor
+                              ,ROW_NUMBER() OVER (PARTITION BY item_cd,PROD_LINE_CD,ITEM_SIZE_VOL,STOCKING_UOM_CD,
+                                                               PRICING_UOM_CD,SELLING_UNIT_FACTOR,selling_uom_cd,alt_vendor_packing_factor
+                                                  ORDER BY item_cd,PROD_LINE_CD,ITEM_SIZE_VOL,STOCKING_UOM_CD,PRICING_UOM_CD,
+                                                            SELLING_UNIT_FACTOR) AS RNUM
+                 from [DWH].[item_mstr] mstr
+                 inner join [pos].[xxabc_Item_onhand]i  itd on mstr.item_cd=itd.item_number and mstr.prod_line_cd=itd.product_line
+                            Where rec_cur_ind = 'Y'  AND itd.QUANTITY_ON_HAND <>' 0000000')a where RNUM=1)  m 
+	                        ON i.ITEM_NUMBER = m.item_cd AND m.prod_line_cd=i.product_line
+LEFT JOIN [DWH].[Agility_Wsdk_item_by_Branch] wi on i.ITEM_NUMBER=wi.item AND i.company_number=wi.company_id and i.LOCATION_NUMBER = wi.Branch_ID
+--INNER JOIN [dbo].[xxws_branch_mapping_lookup] L 
+        --    ON try_convert(int,i.company_number)=try_convert(int,l.company) and try_convert(int,i.LOCATION_NUMBER) = try_convert(int,l.LOCATION)
+LEFT JOIN Agility.item ai on ai.item= i.item
+WHERE 
+     --m.rec_cur_ind = 'Y' 
+     --AND LTRIM(RTRIM(i.item_number)) NOT IN ('#7FWS34','1000SJ1012U','358TD1020L3')
+     --AND 
+i.QUANTITY_ON_HAND <>' 0000000' 
+--and l.Deployment in ('R1','R2') 
+order by i.item_number
+
+     --select * from [dbo].[xxws_branch_mapping_lookup]
+
+
+
+GO
+
+
+============================
+
+Price_reset_file_views:
+
+1.
+create view [da].[vw_item_exclusion_list]
+as 
+select i.prod_group_cd,i.prod_group_desc,i.prod_line_Cd,i.prod_line_desc,i.item_cd,i.item_desc
+from lwdim.dbo.item_mstr i
+where 1=1
+and (item_desc like '%special%'
+--and i.shipped_extended_price_amt>0
+or i.item_desc like '% charge %'
+or i.item_desc  like '%freight%'
+or i.item_desc like '%restock%'
+or i.item_desc  like '% stocking%'
+or i.item_desc  like '% chg %'
+or i.item_desc  like '%drawing%'
+or i.item_desc  like 'METAL ENGINEER%')
+and i.prod_line_cd not in ('XY','ZZ')
+and i.prod_group_cd <'80'
+GO
+
+desc: By using some key words of desc column filtering rows
+=================
+2.
+--step 1 define min price exlude override price include master quoted price
+CREATE view [da].[vw_YTD_P2_Item_Min_Price]
+
+as 
+
+select price_group_id,prod_group_cd,prod_group_desc,prod_line_cd,prod_line_desc,item_key,min(unit_price_amt*conv_factor) as min_unit_price_amt
+from [da].[p2_invoice_0915_bkp]
+where 1=1
+and price_cd not in ('V','R')
+and price_cd not in ('O')
+--and item_cd not in (select item_cd from da.item_exclusion_list)
+	--and item_desc not like '% charge %'
+	--and item_desc not like '%freight%'
+	--and item_desc not like '%restock%'
+	--and item_desc not like '% stocking%'
+	--and item_desc not like '% chg %'
+	--and item_desc not like '%drawing%'
+	--and item_desc not like 'METAL ENGINEER%'
+and (price_cd not in ('W') or master_quote_cd=1)
+and [price_warning_ind]=0
+and unit_price_amt>0
+--and order_date_key>20200300
+and order_date_key>20200700
+group by price_group_id,prod_group_cd,prod_group_desc,prod_line_cd,prod_line_desc,item_key
+
+ques: Why they are eliminating the prize group 'V','R','O', master_qote_cd =1
+
+=============================
+
+3.USE [LWMASTER]
+GO
+
+/****** Object:  View [da].[vw_YTD_item_sales_rank_by_market]    Script Date: 1/25/2021 10:43:34 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+
+CREATE view [da].[vw_YTD_item_sales_rank_by_market]
+as
+USE [LWMASTER]
+GO
+
+/****** Object:  View [da].[vw_YTD_item_sales_rank_by_market]    Script Date: 1/25/2021 10:43:34 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+
+
+
+
+--CREATE view [da].[vw_YTD_item_sales_rank_by_market] as
+ select *
+   ,running_total_sales_by_market / total_sales_by_market*100 as cum_sales_pct
+   ,running_group_sales_by_market / group_sales_by_market*100 as cum_group_sales_pct
+from (
+       select *,sum(shipped_extended_price_amt) over (partition by price_group_id order by overall_sales_rank) as running_total_sales_by_market
+       ,sum(shipped_extended_price_amt) over (partition by price_group_id,prod_group_cd order by pg_sales_rank) as running_group_sales_by_market
+
+      from (
+                        select i.price_group_id,i.price_group_desc,i.prod_group_cd,i.prod_group_desc,i.prod_line_Cd,i.prod_line_desc,i.item_key
+                        --,max(item_desc) as item_desc
+                        ,it.item_desc
+                        ,count(*) as trans_count
+                        ,sum(shipped_vol) as shipped_vol
+                        ,sum(shipped_extended_price_amt) as shipped_extended_price_amt
+                        ,sum(shipped_extended_cost_amt) as shipped_extended_cost_amt
+                        ,sum(shipped_gross_margin_amt) as shipped_gross_margin_amt
+                        ,m.total_sales_by_market
+						,g.group_sales_by_market
+                        ,rank() over (partition by i.price_group_id order by sum(shipped_extended_price_amt) desc) as overall_sales_rank
+                        ,rank() over (partition by i.price_group_id,i.prod_group_cd order by sum(shipped_extended_price_amt) desc) as pg_sales_rank
+                        ,rank() over (partition by i.price_group_id,i.prod_group_cd,i.prod_line_cd order by sum(shipped_extended_price_amt) desc) as pl_sales_rank
+                        ,sum(shipped_extended_price_amt)/m.total_sales_by_market * 100.000 as overall_market_sales_pct
+                        ,sum(shipped_extended_price_amt)/g.group_sales_by_market * 100.000 as group_market_sales_pct
+                         from [da].[p2_invoice_0915_bkp] i 
+						 
+                  join (select price_group_id,price_group_desc,sum(shipped_extended_price_amt) as total_sales_by_market
+	                    from [da].[p2_invoice_0915_bkp]
+	                    where order_date_key between 20200100 and 20201231
+	                    and [price_warning_ind]=0
+	                    and shipped_extended_price_amt>0
+                        	--and item_cd not in (select item_cd from da.item_exclusion_list)
+                        --and i.item_desc not like '% charge %'
+                        --and i.item_desc not like '%freight%'
+                        --and i.item_desc not like '%restock%'
+                        --and i.item_desc not like '% stocking%'
+                        --and i.item_desc not like '% chg %'
+                        --and i.item_desc not like '%drawing%'
+                        --and i.item_desc not like 'METAL ENGINEER%'
+                        	and prod_line_cd not in ('XY','ZZ')
+                        	and prod_group_cd <'80'
+                        	group by price_group_id,price_group_desc
+	                   ) m on i.price_group_id=m.price_group_id
+                 join   (select price_group_id,prod_group_cd, sum(shipped_extended_price_amt) as group_sales_by_market
+	                      from [da].[p2_invoice_0915_bkp]
+	                      where order_date_key between 20200100 and 20201231
+	                      and [price_warning_ind]=0
+	                      and shipped_extended_price_amt>0
+	                    --and item_cd not in (select item_cd from da.item_exclusion_list)
+                        --and i.item_desc not like '% charge %'
+                        --and i.item_desc not like '%freight%'
+                        --and i.item_desc not like '%restock%'
+                        --and i.item_desc not like '% stocking%'
+                        --and i.item_desc not like '% chg %'
+                        --and i.item_desc not like '%drawing%'
+                        --and i.item_desc not like 'METAL ENGINEER%'
+	                      and prod_line_cd not in ('XY','ZZ')	
+	                      and prod_group_cd <'80'
+	                      group by price_group_id,prod_group_cd
+	                    ) g on i.price_group_id=g.price_group_id and i.prod_group_cd=g.prod_group_cd
+                  join (
+                        select price_group_id,price_group_desc,prod_group_cd,prod_group_desc,prod_line_Cd,prod_line_desc,item_key,item_cd,item_desc,shipped_vol_uom_cd,item_cd_rank
+                        from (
+                              select price_group_id,price_group_desc,prod_group_cd,prod_group_desc,prod_line_Cd,prod_line_desc,item_key,item_cd,item_desc,shipped_vol_uom_cd,rank() over (partition by price_group_id,item_key order by sum(shipped_extended_price_amt) desc,item_cd) as item_cd_rank
+                              from [da].[p2_invoice_0915_bkp] i 
+                              where 1=1
+                              and order_date_key between 20200100 and 20201231
+                              and i.[price_warning_ind]=0
+                              --and i.item_cd not in (select item_cd from da.item_exclusion_list)
+                              --and i.item_desc not like '% charge %'
+                              --and i.item_desc not like '%freight%'
+                              --and i.item_desc not like '%restock%'
+                              --and i.item_desc not like '% stocking%'
+                              --and i.item_desc not like '% chg %'
+                              --and i.item_desc not like '%drawing%'
+                              --and i.item_desc not like 'METAL ENGINEER%'
+                              and prod_line_cd not in ('XY','ZZ')
+                              and prod_group_cd <'80'
+                              group by i.price_group_id,i.price_group_desc,prod_group_cd,prod_group_desc,prod_line_Cd,prod_line_desc,item_key,item_cd,item_desc,shipped_vol_uom_cd
+                       ) x
+                          where item_cd_rank=1
+	                     ) it on i.price_group_id=it.price_group_id and i.prod_group_cd=it.prod_group_cd and i.item_key=it.item_key	  	  
+                          where order_date_key between 20200100 and 20201231
+                          and i.shipped_extended_price_amt>0
+                          and i.[price_warning_ind]=0
+                          --and i.item_cd not in (select item_cd from da.item_exclusion_list)
+                          --and i.item_desc not like '% charge %'
+                          --and i.item_desc not like '%freight%'
+                          --and i.item_desc not like '%restock%'
+                          --and i.item_desc not like '% stocking%'
+                          --and i.item_desc not like '% chg %'
+                          --and i.item_desc not like '%drawing%'
+                          --and i.item_desc not like 'METAL ENGINEER%'
+                          and i.prod_line_cd not in ('XY','ZZ')
+                          and i.prod_group_cd <'80'
+                         group by i.price_group_id,i.price_group_desc,i.prod_group_cd,i.prod_group_desc,i.prod_line_Cd,i.prod_line_desc,i.item_key,it.item_desc,m.total_sales_by_market,g.group_sales_by_market
+		     ) x
+	) y
+--having sum(shipped_extended_price_amt)>0
+-- Replace [da].[p2_invoice_0915_bkp] to use [da].[p2_invoice] as rollback --09/15
+
+GO
+
+=================
+4.
+USE [LWMASTER]
+GO
+
+/****** Object:  View [da].[vw_test_level_price_by_unit_price_L4_mode2]    Script Date: 1/25/2021 12:29:15 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE view [da].[vw_test_level_price_by_unit_price_L4_mode2]
+as
+select price_group_id,prod_group_cd,prod_group_desc,prod_line_cd,prod_line_desc,item_key,test_level,test_level_price,unit_price_amt as suggested_level_price
+,rank() over (partition by price_group_id,prod_group_cd,prod_line_cd,item_key,test_level order by sum(shipped_extended_price_amt)  desc ) as mode_price_freq
+--select *
+from (
+       select i.price_group_id
+	   ,i.prod_group_cd
+	   ,i.prod_group_desc
+	   ,i.prod_line_cd
+	   ,i.prod_line_desc
+	   ,i.item_key
+	   ,i.unit_price_amt
+       ,count(*) as trans_count
+       ,sum(i.shipped_vol) as shipped_vol
+       ,sum(i.shipped_gross_margin_amt) as shipped_gross_margin_amt
+       ,sum(i.shipped_extended_price_amt) as shipped_extended_price_amt
+       ,sum(i.shipped_extended_cost_amt) as shipped_extended_cost_amt
+       --,convert (decimal(9,2) , sum(i.shipped_gross_margin_amt)/sum(i.shipped_extended_price_amt))  as gm_pct_group
+       ,case when unit_price_amt>lvl1_price then 1
+       	  when unit_price_amt>lvl2_price then 2
+       	  when unit_price_amt>lvl3_price then 3
+       	  else 4 end as test_level
+       ,case when unit_price_amt>lvl1_price then lvl1_price
+       	  when unit_price_amt>lvl2_price then lvl2_price
+       	  when unit_price_amt>lvl3_price then lvl3_price
+       	  else lvl4_price end as test_level_price
+       --,case when sum(i.shipped_gross_margin_amt)/sum(i.shipped_extended_price_amt)>lvl1_gm then 1
+       --	  when sum(i.shipped_gross_margin_amt)/sum(i.shipped_extended_price_amt)>lvl2_gm then 2
+       --	  when sum(i.shipped_gross_margin_amt)/sum(i.shipped_extended_price_amt)>lvl3_gm then 3
+       --	  else 4 end as test_level_gm
+       from [da].[p2_invoice_0915_bkp] i 
+	   left join
+       	(select *
+       --,median_gm+lv1_factor*std_gm as lvl1_gm
+       --,median_gm+lv2_factor*std_gm as lvl2_gm
+       --,median_gm+lv3_factor*std_gm as lvl3_gm
+       --,median_gm+lv4_factor*std_gm as lvl4_gm
+       --,median_gm+lv5_factor*std_gm as lvl5_gm
+       --,median_gm+lv6_factor*std_gm as lvl6_gm
+       ,median_price+lv1_factor*std_unit_price as lvl1_price
+       ,median_price+lv2_factor*std_unit_price as lvl2_price
+       ,median_price+lv3_factor*std_unit_price as lvl3_price
+       ,median_price+lv4_factor*std_unit_price as lvl4_price
+       ,median_price+lv5_factor*std_unit_price as lvl5_price
+       ,median_price+lv6_factor*std_unit_price as lvl6_price
+        from da.vw_P2_prior_3mo_sales_history_statistics st cross apply (select * from [da].[Pricing_TestParameters] where mode=2 and levels=4) par) t
+		on i.price_group_id=t.price_group_id and i.item_key=t.item_key
+        where 1=1
+        and i.price_warning_ind=0
+        --and price_group_id=16
+        and i.prod_line_cd not in ('XY','ZZ')
+        and i.price_cd not in ('V','R')
+        and i.prod_group_cd<'80'
+        and i.shipped_extended_price_amt>0
+        --and i.order_date_key between 20200200 and 20200500
+        and i.order_date_key between 20200700 and 20210100
+        group by i.price_group_id,i.prod_group_cd,i.prod_group_desc,i.prod_line_cd,i.prod_line_desc,i.item_key,i.unit_price_amt,t.lvl1_price,t.lvl2_price,t.lvl3_price,t.lvl4_price--,t.lvl1_gm,t.lvl2_gm,t.lvl3_gm,t.lvl4_gm
+       ) x
+group by price_group_id,prod_group_cd,prod_group_desc,prod_line_cd,prod_line_desc,item_key,test_level,test_level_price,unit_price_amt
+--order by price_group_id,prod_group_cd,prod_line_cd,item_key,test_level,mode_price_freq
+
+
+GO
+
+
+=========================
+
+USE LWMASTER
+
+drop table ##QOHdata 
+
+declare @price_zone as int
+set @price_zone=54
+
+drop table #Itemsdata
+
+Select distinct 
+p.price_group_id,
+p.price_group_desc,
+i.prod_group_cd,
+i.prod_group_desc,
+i.prod_line_cd,
+i.prod_line_desc,
+case when i.ppg_cd is null then i.prod_line_cd+'_'+i.item_cd else i.prod_line_cd+'_'+i.ppg_cd end as item_key,
+i.item_desc
+,max(lim.std_a_price_amt) as std_a_price_amt
+,max(lim.std_b_price_amt) as std_b_price_amt
+,max(lim.std_c_price_amt) as std_c_price_amt
+,max(lim.std_d_price_amt) as std_d_price_amt
+,max(lim.replace_cost_amt) as replace_cost_amt
+,Row_number() over (partition by price_group_id,case when i.ppg_cd is null then i.prod_line_cd+'_'+i.item_cd else i.prod_line_cd+'_'+i.ppg_cd end order by max(lim.replace_cost_amt) desc ) as RNum
+
+--cast(l.quantity_on_hand as int) as quantity_on_hand,
+--coalesce(quote_ind,0) as quote_ind,
+--coalesce(po_ind,0) as po_ind
+
+into #Itemsdata
+from [LWSTAGING].dbo.lw_itdtl l
+join esite.dbo.local_item_mstr lim on l.item_number=lim.item_cd and l.company_number=lim.company_id and l.location_number=lim.center_id
+join [LWSTAGING].[dbo].[sqdb07_lwdw_item_mstr] i on i.prod_line_cd = l.PRODUCT_LINE and i.ITEM_cd =l.ITEM_NUMBER 
+--join [LWSteel].[agility].[steel_branch] b on l.company_number=b.company_id and l.location_number=b.location_id
+--join esite.dbo.price_group_mstr p on try_cast(p.company_id  as int )=try_cast(l.COMPANY_NUMBER as int) and try_cast(p.center_id as int)=try_cast(l.LOCATION_NUMBER as int)
+join esite.dbo.price_group_mstr_0915_bkp p on try_cast(p.company_id  as int )=try_cast(l.COMPANY_NUMBER as int) and try_cast(p.center_id as int)=try_cast(l.LOCATION_NUMBER as int)
+where 1=1
+and cast(quantity_on_hand as int)>0
+and l.delete_code='A'
+and i.prod_group_cd<80---excluding trucking and delivery
+and i.prod_line_cd not in ('XY','ZZ')-- Excluding Misc
+and price_group_id =@price_zone
+-- Change Price Group id
+group by 
+p.price_group_id,
+p.price_group_desc,
+i.prod_group_cd,
+i.prod_group_desc,
+i.prod_line_cd,
+i.prod_line_desc,
+case when i.ppg_cd is null then i.prod_line_cd+'_'+i.item_cd else i.prod_line_cd+'_'+i.ppg_cd end,i.item_desc
+
+
+Select   
+price_group_id,price_group_desc,prod_group_cd,prod_group_desc,prod_line_cd,prod_line_desc,item_key,item_desc
+,'' as trans_count,'' as overall_sales_rank,'' as pg_sales_rank,'' as pl_sales_rank,'' as group_market_sales_pct
+,std_a_price_amt,std_b_price_amt,std_c_price_amt,std_d_price_amt,replace_cost_amt
+,'' as suggest_lvl1_price_amt,'' as suggest_lvl2_price_amt,'' as suggest_lvl3_price_amt,'' as suggest_lvl4_price_amt
+,'' as d_lv1_amt,'' as d_lv2_amt,'' as d_lv3_amt,'' as d_lv4_amt
+,RNum
+
+INTO ##QOHdata
+from #Itemsdata
+where 1=1
+and item_key not in (Select item_key from [da].[P2_test_level_price_Final_L4] where price_group_id =@price_zone)--Change Price Group id
+
+
+--select * from #Itemsdata where item_key='03_5I'
+--select price_group_id from  [da].[P2_test_level_price_Final_L4]
+
+Select 
+price_group_id,price_group_desc,prod_group_cd,prod_group_desc,prod_line_cd,prod_line_desc,item_key,item_desc
+,'' as trans_count,'' as overall_sales_rank,'' as pg_sales_rank,'' as pl_sales_rank,'' as group_market_sales_pct
+,std_a_price_amt,std_b_price_amt,std_c_price_amt,std_d_price_amt,replace_cost_amt
+,'' as suggest_lvl1_price_amt,'' as suggest_lvl2_price_amt,'' as suggest_lvl3_price_amt,'' as suggest_lvl4_price_amt
+,'' as d_lv1_amt,'' as d_lv2_amt,'' as d_lv3_amt,'' as d_lv4_amt
+from ##QOHdata where RNum=1
+
+
+--Select * from [da].[P2_test_level_price_Final_L4] where item_key='DL_DL'
+
+--Select * from #Items
+
+---------------------------
+
+create procedure [pos].[Quickbase_p1_load_xxabc_next_wave_itembybranch]
+as
+/******************************************************************************************
+
+Description: pos.abc_Quickbase_Item_by_branch_test table daily load
+
+-- EXEC [pos].[Quickbase_p1_load_xxabc_next_wave_itembybranch]
+
+****************
+Change History
+****************
+Date			Author				Description 
+--------		-------------		------------------------------------
+02/25/2021		Aruna jyothi		Initial Version
+
+*******************************************************************************************/
+Merge pos.abc_Quickbase_Item_by_branch_test t
+	Using (
+		select 
+		      
+			  Name
+             ,[IVM_Item Number]
+             ,[Current Balance]
+	         --POS_Qty_on_PO
+             -- POS_Qty_on_Reserve	         
+             ,[Back Order Count]
+             ,[Average Unit Cost]
+              --Quote_Indicator
+              --Quote_Date
+              --POS_Item_Code___Record_ID_
+              --POS_Item_Code___POS_Item_Long_Description
+             ,[IVM_Description]
+              --POS_Item_Code___Product_Group_Major_Code
+              --POS_Item_Code___Product_Group_Major_Name
+              --POS_Item_Code___Product_Group_Minor_Code
+              --POS_Item_Code___Product_Group_Minor_Name
+              --POS_Item_Code___Price_Group_Major_Code
+              --POS_Item_Code___Price_Group_Major_Name
+              --POS_Item_Code___Price_Group_Minor_Code
+              --POS_Item_Code___Product_Group_Minor_Name2
+              --POS_Item_Code___Agility_POS_Item_Manual
+
+		 from [dbo].[XXABC_QOH_RAW_STG_1] 
+		 
+			)s 
+	       ON S.[Name] = t.[Branch_Name] and s.[IVM_Item Number]=t.[POS_Item_Code]
+When not matched then
+	  Insert 
+	  (
+	         --Date_Created	
+             --,Date_Modified	
+             --,Record_ID_	
+             --,Record_Owner	
+             --,Last_Modified_By	
+            Branch_Name	
+            ,POS_Item_Code	
+            ,POS_Qty_on_Hand	
+             --   ,POS_Qty_on_PO	
+             --  ,POS_Qty_on_Reserve	
+            ,POS_Qty_on_BO	
+            ,Avg_Cost	
+             --,Quote_Indicator	
+             --,Quote_Date	
+             --,POS_Item_Code___Record_ID_	
+             --,POS_Item_Code___POS_Item_Long_Description	
+            ,POS_Item_Code___POS_Item_Description	
+             --,POS_Item_Code___Product_Group_Major_Code	
+             --,POS_Item_Code___Product_Group_Major_Name	
+             --,POS_Item_Code___Product_Group_Minor_Code	
+             --,POS_Item_Code___Product_Group_Minor_Name	
+             --,POS_Item_Code___Price_Group_Major_Code	
+             --,POS_Item_Code___Price_Group_Major_Name	
+             --,POS_Item_Code___Price_Group_Minor_Code	
+             --,POS_Item_Code___Product_Group_Minor_Name2	
+             --,POS_Item_Code___Agility_POS_Item_Manual	
+)
+	Values (  
+	          [Name]
+             ,[IVM_Item Number]
+             ,[Current Balance]
+	         --POS_Qty_on_PO
+             -- POS_Qty_on_Reserve	         
+             ,[Back Order Count]
+             ,[Average Unit Cost]
+              --Quote_Indicator
+              --Quote_Date
+              --POS_Item_Code___Record_ID_
+              --POS_Item_Code___POS_Item_Long_Description
+             ,[IVM_Description]
+              --POS_Item_Code___Product_Group_Major_Code
+              --POS_Item_Code___Product_Group_Major_Name
+              --POS_Item_Code___Product_Group_Minor_Code
+              --POS_Item_Code___Product_Group_Minor_Name
+              --POS_Item_Code___Price_Group_Major_Code
+              --POS_Item_Code___Price_Group_Major_Name
+              --POS_Item_Code___Price_Group_Minor_Code
+              --POS_Item_Code___Product_Group_Minor_Name2
+              --POS_Item_Code___Agility_POS_Item_Manual
+)
+	When matched and 
+	          (
+		   --  ISNULL(t.Date_Created,'') <>	
+           --  ISNULL(t.Date_Modified	,'') <>
+           --  ISNULL(t.Record_ID_,'') <>	
+           --  ISNULL(t.Record_Owner	,'') <>
+           --  ISNULL(t.Last_Modified_By	,'') <>
+             ISNULL(t.Branch_Name,'') <> ISNULL(s. Name,'') OR	
+             ISNULL(t.POS_Item_Code	,'') <>  ISNULL(s.[IVM_Item Number],'') OR
+             ISNULL(t.POS_Qty_on_Hand,'') <>  ISNULL(s.[Current Balance],'') OR	
+           --  ISNULL(t.POS_Qty_on_PO	,'') <> ISNULL(s.POS_Qty_on_PO,'') OR
+           --   ISNULL(t.POS_Qty_on_Reserve,'') <>ISNULL(s.POS_Qty_on_Reserve,'') OR	 
+             ISNULL(t.POS_Qty_on_BO	,'') <>    ISNULL(s.[Back Order Count],'') OR
+             ISNULL(t.Avg_Cost	,'') <>     ISNULL(s.[Average Unit Cost],'') OR
+          --   ISNULL(t.Quote_Indicator	,'') <> ISNULL(s.Quote_Indicator,'') OR
+          --   ISNULL(t.Quote_Date	,'') <> ISNULL(s.Quote_Date,'') OR
+          --  ISNULL(t.POS_Item_Code___Record_ID_,'') <>	 ISNULL(s.POS_Item_Code___Record_ID_,'') OR
+          --   ISNULL(t.POS_Item_Code___POS_Item_Long_Description	,'') <>  ISNULL(s.POS_Item_Code___POS_Item_Long_Description,'') OR
+             ISNULL(t.POS_Item_Code___POS_Item_Description	,'') <> ISNULL(s.[IVM_Description],'') OR
+           --  ISNULL(t.POS_Item_Code___Product_Group_Major_Code,'') <>ISNULL(s.POS_Item_Code___Product_Group_Major_Code,'') OR	
+           --  ISNULL(t.POS_Item_Code___Product_Group_Major_Name,'') <>ISNULL(s.POS_Item_Code___Product_Group_Major_Name,'') OR	
+           --  ISNULL(t.POS_Item_Code___Product_Group_Minor_Code,'') <>ISNULL(s.POS_Item_Code___Product_Group_Minor_Code,'') OR	
+           --  ISNULL(t.POS_Item_Code___Product_Group_Minor_Name,'') <>ISNULL(s.POS_Item_Code___Product_Group_Minor_Name,'') OR	
+           --  ISNULL(t.POS_Item_Code___Price_Group_Major_Code,'') <>	ISNULL(s.POS_Item_Code___Price_Group_Major_Code,'') OR
+           --  ISNULL(t.POS_Item_Code___Price_Group_Major_Name,'') <>	ISNULL(s.POS_Item_Code___Price_Group_Major_Name,'') OR
+           --  ISNULL(t.POS_Item_Code___Price_Group_Minor_Code,'') <>	ISNULL(s.POS_Item_Code___Price_Group_Minor_Code,'') OR
+           --  ISNULL(t.POS_Item_Code___Product_Group_Minor_Name2	,'') <> ISNULL(s.POS_Item_Code___Product_Group_Minor_Name2,'') OR
+           --  ISNULL(t.POS_Item_Code___Agility_POS_Item_Manual,'') <> ISNULL(s.POS_Item_Code___Agility_POS_Item_Manual,'') OR
+		   )
+	Then Update
+		Set  -- t.Date_Created = ''
+             --,t.Date_Modified=''
+             --,t.Record_ID_ =''
+             --,t.Record_Owner=''
+             --,t.Last_Modified_By=''	
+             t.Branch_Name = s.	Name
+            ,t.POS_Item_Code=s.	[IVM_Item Number]
+            ,t.POS_Qty_on_Hand	=s.s.[Current Balance]
+             --   ,POS_Qty_on_PO=s.POS_Qty_on_PO	
+             --  ,POS_Qty_on_Reserve=s.POS_Qty_on_Reserve	
+            ,t.POS_Qty_on_BO= s.[Back Order Count]
+            ,t.Avg_Cost	= s.[Average Unit Cost]
+             --,t.Quote_Indicator =	s.Quote_Indicator
+             --,t.Quote_Date	=s.Quote_Date
+             --,t.POS_Item_Code___Record_ID_ =s. POS_Item_Code___Record_ID_	
+             --,t.POS_Item_Code___POS_Item_Long_Description	= s.POS_Item_Code___POS_Item_Long_Description
+            ,t.POS_Item_Code___POS_Item_Description= s.IVM_Description
+             --,t.POS_Item_Code___Product_Group_Major_Code=s.POS_Item_Code___Product_Group_Major_Code
+             --,t.POS_Item_Code___Product_Group_Major_Name =s.POS_Item_Code___Product_Group_Major_Name
+             --,t.POS_Item_Code___Product_Group_Minor_Code =s.POS_Item_Code___Product_Group_Minor_Code
+             --,t.POS_Item_Code___Product_Group_Minor_Name=s.POS_Item_Code___Product_Group_Minor_Name
+             --,t.POS_Item_Code___Price_Group_Major_Code=s.POS_Item_Code___Price_Group_Major_Code
+             --,t.POS_Item_Code___Price_Group_Major_Name=s.	POS_Item_Code___Price_Group_Major_Name
+             --,t.POS_Item_Code___Price_Group_Minor_Code=s.POS_Item_Code___Price_Group_Minor_Code	
+             --,t.POS_Item_Code___Product_Group_Minor_Name2=s.POS_Item_Code___Product_Group_Minor_Name2
+             --,t.POS_Item_Code___Agility_POS_Item_Manual=s.POS_Item_Code___Agility_POS_Item_Manual	
+--	WHEN NOT MATCHED BY SOURCE AND t.PrimaryHierarchy <> 1 AND t.StandardHierarchy <> 1 THEN
+	--	Delete;
+  
+  ---------------------------------------
+  
+  USE ABC_Staging
+GO
+
+/****** Object:  StoredProcedure [dbo].[usp_abc_Item_OnhandLoad_Merge]    Script Date: 10/5/2020 1:41:16 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+--EXEC [dbo].[usp_XXWS_Item_OnhandLoad_Merge] 
+CREATE PROCEDURE [dbo].[usp_abc_Item_OnhandLoad_Merge]
+as
+BEGIN
+DECLARE @Process_Date datetime=getdate()
+
+with cte as
+(MERGE dbo.abc_Item_Onhand AS TARGET
+USING (
+SELECT [company_number]
+      ,[location_number]
+      ,[pcid]
+      ,[product_code]
+      ,[product_line]
+      ,[part_number]
+      ,[stocking_uom_cd]
+      ,[selling_uom_cd]
+      ,[selling_factor]
+      ,[QOH]
+      ,[item_size_vol]
+      ,[Units]
+      ,[pricing_uom_cd]
+      ,[AVERAGE_COST]
+      ,[AGILITY_AVG_VALUE]
+      ,[AGILITY_ITEM]
+      ,[AG_ITEM]
+      ,[AG_ITEM_PTR]
+      ,[AG_BRANCH_ID]
+      ,[AG_ITEM_DESCRIPTION]
+      ,[AG_SIZE_]
+      ,[AG_TYPE]
+      ,[AG_LENGTH_UOM]
+      ,[AG_WIDTH_UOM]
+      ,[AG_DEPTH]
+      ,[AG_THICKNESS_UOM]
+      ,[AG_COSTING_UOM]
+      ,[AG_STOCKING_UOM]
+      ,[AG_DEFAULT_UOM_CONV_FACTOR]
+      ,[AG_STOCK_TO_PC_CALC]
+      ,[AG_LENGTH]
+      ,[AG_WIDTH]
+      ,[AG_THICKNESS]
+      ,[AG_LOG_MESSAGE]
+      ,[RowInsertdate]
+      ,[RowUpdatedate]
+      ,[IsDimension]
+      ,[Attribute1]
+      ,[alt_vendor_packing_factor]
+      ,[agility_QOH]
+      ,[agility_avg_cost]
+      ,[RecordID]
+      ,[ProcessStatusCode]
+      ,[Ag_contentcode]
+      ,[alt_item_cd]
+      ,[alt_item_ind]
+      ,[AVERAGE_COST_PRIMARY]
+      ,[Ws_Product_group]
+      ,[replacement_cost_primary]
+      ,[alt_vendor_packing_factor_primary]
+      ,[Deployment]
+      ,[Status]
+  FROM [dbo].[vw_xxabc_Item_Onhand_Load]
+
+	) SOURCE
+ON (
+try_convert(int,LTRIM(RTRIM(target.Company_number)))=try_convert(int,SOURCE.Company_number)
+and try_convert(int,LTRIM(RTRIM(target.Location_number)))=try_convert(int,SOURCE.Location_number)
+and try_convert(varchar,LTRIM(RTRIM(target.[part_number])))=try_convert(varchar,SOURCE.PART_NUMBER)
+
+
+)
+
+WHEN MATCHED AND 
+
+( ISNULL(Target.[pcid],0)<>ISNULL(Source.[pcid],0)
+OR ISNULL(Target.[Ag_Branch_ID],0)<>ISNULL(Source.[Agility_Branch_ID],0)
+OR ISNULL(Target.[product_line],'')<>ISNULL(Source.[product_line],'')
+OR ISNULL(Target.[stocking_uom_cd],'')<>ISNULL(Source.[stocking_uom_cd],'')
+OR ISNULL(Target.[selling_uom_cd],'')<>ISNULL(Source.[selling_uom_cd],'')
+OR ISNULL(Target.[selling_factor],0.0)<>ISNULL(Source.[selling_factor],0.0)
+OR ISNULL(Target.[ITDTL_QOH],0)<>ISNULL(Source.[ITDTL_QOH],0)
+OR ISNULL(Target.[item_size_vol],0.0)<>ISNULL(Source.[item_size_vol],0.0)
+OR ISNULL(Target.[Units],0.0)<>ISNULL(Source.[Units],0.0)
+OR ISNULL(Target.[pricing_uom_cd],'')<>ISNULL(Source.[pricing_uom_cd],'')
+OR ISNULL(Target.[Average_Cost],0.0)<>ISNULL(Source.[Average_Cost],0.0)
+OR ISNULL(Target.[Agility_Avg_Value],0.0)<>ISNULL(Source.[Agility_Avg_Value],0.0)
+OR ISNULL(Target.[WS_Avg_Value],0)<>ISNULL(Source.[WS_Avg_Value],0)
+OR ISNULL(Target.[Agility_Item],'')<>ISNULL(Source.[Agility_Item],'')
+OR ISNULL(Target.[AG_item],'')<>ISNULL(Source.[item],'')
+OR ISNULL(Target.[AG_item_ptr],0)<>ISNULL(Source.[item_ptr],0)
+OR ISNULL(Target.[AG_ITEM_description],'')<>ISNULL(Source.[description],'')
+OR ISNULL(Target.[AG_size_],'')<>ISNULL(Source.[size_],'')
+OR ISNULL(Target.[AG_type],'')<>ISNULL(Source.[type],'')
+OR ISNULL(Target.[AG_length_uom],'')<>ISNULL(Source.[length_uom],'')
+OR ISNULL(Target.[AG_width_uom],'')<>ISNULL(Source.[width_uom],'')
+OR ISNULL(Target.[AG_depth],0)<>ISNULL(Source.[depth],0)
+OR ISNULL(Target.[AG_thickness_uom],'')<>ISNULL(Source.[thickness_uom],'')
+OR ISNULL(Target.[AG_costing_uom],'')<>ISNULL(Source.[costing_uom],'')
+OR ISNULL(Target.[AG_stocking_uom],'')<>ISNULL(Source.[stocking_uom],'')
+OR ISNULL(Target.[AG_default_uom_conv_factor],0.0)<>ISNULL(Source.[default_uom_conv_factor],0.0)
+OR ISNULL(Target.[AG_stock_to_pc_calc],'')<>ISNULL(Source.[stock_to_pc_calc],'')
+OR ISNULL(Target.[Attribute1],0.0)<>ISNULL(Source.[Attribute1],0.0)
+OR ISNULL(Target.alt_vendor_packing_factor,'')<>ISNULL(Source.alt_vendor_packing_factor,'')
+OR ISNULL(Target.alt_item_cd,'')<>ISNULL(Source.alt_item_cd,'')
+OR ISNULL(Target.Alt_item_ind,'')<>ISNULL(Source.Alt_item_ind,'')
+					)
+   THEN UPDATE SET 
+				Target.[pcid]=Source.[pcid]
+				,Target.[Ag_Branch_ID]=Source.[Agility_Branch_ID]
+				,Target.[product_line]=Source.[product_line]
+				,Target.[stocking_uom_cd]=Source.[stocking_uom_cd]
+				,Target.[selling_uom_cd]=Source.[selling_uom_cd]
+				,Target.[selling_factor]=Source.[selling_factor]
+				,Target.[ITDTL_QOH]=Source.[ITDTL_QOH]
+				,Target.[item_size_vol]=Source.[item_size_vol]
+				,Target.[Units]=Source.[Units]
+				,Target.[pricing_uom_cd]=Source.[pricing_uom_cd]
+				,Target.[Average_Cost]=Source.[Average_Cost]
+				,Target.[Agility_Avg_Value]=Source.[Agility_Avg_Value]
+				,Target.[WS_Avg_Value]=Source.[WS_Avg_Value]
+				,Target.[Agility_Item]=Source.[Agility_Item]
+				,Target.[AG_item]=Source.[item]
+				,Target.[AG_item_ptr]=Source.[item_ptr]
+				,Target.[AG_ITEM_description]=Source.[description]
+				,Target.[AG_size_]=Source.[size_]
+				,Target.[AG_type]=Source.[type]
+				,Target.[AG_length_uom]=Source.[length_uom]
+				,Target.[AG_width_uom]=Source.[width_uom]
+				,Target.[AG_depth]=Source.[depth]
+				,Target.[AG_thickness_uom]=Source.[thickness_uom]
+				,Target.[AG_costing_uom]=Source.[costing_uom]
+				,Target.[AG_stocking_uom]=Source.[stocking_uom]
+				,Target.[AG_default_uom_conv_factor]=Source.[default_uom_conv_factor]
+				,Target.[AG_stock_to_pc_calc]=Source.[stock_to_pc_calc]
+				,Target.[Attribute1]=Source.[Attribute1]
+				,Target.alt_vendor_packing_factor=Source.alt_vendor_packing_factor
+				,Target.AG_LENGTH=null	
+				,Target.AG_WIDTH=null		
+				,Target.AG_THICKNESS=null		
+				,Target.AG_LOG_MESSAGE=null	
+				,Target.ProcessStatusCode='MR'
+				,TARGET.ROWUPDATEDATE=@Process_Date
+				,TARGET.alt_item_cd=SOURCE.alt_item_cd
+				,TARGET.Alt_item_ind=SOURCE.Alt_item_ind
+				,Target.Deployment = Source.Deployment
+WHEN NOT MATCHED BY TARGET
+   THEN INSERT ([company_number]
+      ,[location_number]
+      ,[pcid]
+      ,[product_code]
+      ,[product_line]
+      ,[part_number]
+      ,[stocking_uom_cd]
+      ,[selling_uom_cd]
+      ,[selling_factor]
+      ,[QOH]
+      ,[item_size_vol]
+      ,[Units]
+      ,[pricing_uom_cd]
+      ,[AVERAGE_COST]
+      ,[AGILITY_AVG_VALUE]
+      ,[AGILITY_ITEM]
+      ,[AG_ITEM]
+      ,[AG_ITEM_PTR]
+      ,[AG_BRANCH_ID]
+      ,[AG_ITEM_DESCRIPTION]
+      ,[AG_SIZE_]
+      ,[AG_TYPE]
+      ,[AG_LENGTH_UOM]
+      ,[AG_WIDTH_UOM]
+      ,[AG_DEPTH]
+      ,[AG_THICKNESS_UOM]
+      ,[AG_COSTING_UOM]
+      ,[AG_STOCKING_UOM]
+      ,[AG_DEFAULT_UOM_CONV_FACTOR]
+      ,[AG_STOCK_TO_PC_CALC]
+      ,[AG_LENGTH]
+      ,[AG_WIDTH]
+      ,[AG_THICKNESS]
+      ,[AG_LOG_MESSAGE]
+      ,[RowInsertdate]
+      ,[RowUpdatedate]
+      ,[IsDimension]
+      ,[Attribute1]
+      ,[alt_vendor_packing_factor]
+      ,[agility_QOH]
+      ,[agility_avg_cost]
+      ,[RecordID]
+      ,[ProcessStatusCode]
+      ,[Ag_contentcode]
+      ,[alt_item_cd]
+      ,[alt_item_ind]
+      ,[AVERAGE_COST_PRIMARY]
+      ,[Ws_Product_group]
+      ,[replacement_cost_primary]
+      ,[alt_vendor_packing_factor_primary]
+      ,[Deployment]
+      ,[Status])
+   VALUES(       Source.Company_number=''
+                ,Source.location_number
+                ,Source.product_code
+                ,Source.[pcid]
+                ,Source.[Agility_Branch_ID]=''
+                ,Source.[product_line]=''
+                ,Source.[stocking_uom_cd]=''
+                ,Source.[selling_uom_cd]=''
+                ,Source.[selling_factor]=''
+                ,Source.[QOH]
+                ,Source.[item_size_vol]=''
+                ,Source.[Units]=''
+                ,Source.[pricing_uom_cd]=''
+                ,Source.[Average_Cost]
+                ,Source.[Agility_Avg_Value]=''
+                ,Source.[WS_Avg_Value]=''
+                ,Source.[Agility_Item]=''
+                ,Source.[item]
+                ,Source.[item_ptr]=''
+                ,Source.[description]
+                ,Source.[size_]=''
+                ,Source.[type]=''
+                ,Source.[length_uom]=''
+                ,Source.[width_uom]=''
+                ,Source.[depth]
+                ,Source.[thickness_uom]=''
+                ,Source.[costing_uom]=''
+                ,Source.[stocking_uom]=''
+                ,Source.[default_uom_conv_factor]
+                ,Source.[stock_to_pc_calc]=''
+			    ,Source.[AG_LENGTH]
+                ,Source.[AG_WIDTH]
+                ,NULL ---Source.[AG_THICKNESS]
+                ,NULL --Source.[AG_LOG_MESSAGE]
+			    ,@Process_Date 
+                ,@Process_Date
+			    ,NULL ---Source.[IsDimension]
+                ,Source.[Attribute1]=''
+                ,Source.alt_vendor_packing_factor=''
+			    ,NULL ---Source.[agility_QOH]
+                ,NULL ---Source.[agility_avg_cost]
+                ,NULL ---Source.[RecordID]
+                ,'MR'
+                ,SOURCE.alt_item_cd=''
+                ,SOURCE.Alt_item_ind=''
+                ,Source.Deployment=''
+                          
+				 );    
+
+
+
+
+
+END
+
+
+GO)
+
+
+
+------------------------------
+
+USE [ABC_Staging]
+GO
+
+/****** Object:  View [dbo].[vw_ABC_Item_Onhand]   Script Date: 10/1/2020 5:06:02 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+Aruna Jyothi
+Changes: Modified [dbo].[xxws_branch_mapping_lookup] join condition --WS
+CREATE View [dbo].[vw_xxabc_Item_Onhand]
+as
+select  [company_number]
+      ,[location_number]
+      ,[pcid]
+      ,[Agility_Branch_ID]
+      ,[product_line]
+      ,[part_number]
+      ,[stocking_uom_cd]
+      ,[selling_uom_cd]
+      ,[selling_factor]
+      ,[ITDTL_QOH]
+      ,[item_size_vol]
+      ,[Units]
+      ,[pricing_uom_cd]
+      ,[Average_Cost]
+      ,[Agility_Avg_Value]
+      ,[WS_Avg_Value]
+      ,[Agility_Item]
+      ,[item]
+      ,[item_ptr]
+      ,[description]
+      ,[size_]
+      ,[type]
+      ,[length_uom]
+      ,[width_uom]
+      ,[depth]
+      ,[thickness_uom]
+      ,[costing_uom]
+      ,[stocking_uom]
+      ,[default_uom_conv_factor]
+      ,[stock_to_pc_calc]
+      ,[Attribute1]
+
+ from [pos].[Ivmast] a 
+    inner join  [pos].[Ivbal] b on where a.imitem = b.ibitem 
+    left join [xxabc_branch_mapping_lookup]
+	left join  Agility.item
+       
+-- where a.imitem = b.ibitem 
+--i.company_number,
+--i.location_number,
+--L.pcid,
+--L.Agility_Branch_ID,
+--i.product_line, 
+--i.item_number as [part_number],
+--m.stocking_uom_cd,
+--m.selling_uom_cd,
+--m.selling_unit_factor AS selling_factor,
+--try_convert(int,i.quantity_on_hand) ITDTL_QOH,
+--m.item_size_vol,
+--try_convert(int,i.quantity_on_hand) * m.item_size_vol [Units],
+--m.pricing_uom_cd,
+--try_convert(float,i.average_cost) Average_Cost,
+----ROUND((try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol)),0) AS Agility_Avg_Value,
+----(try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol)) AS Agility_Avg_Value,
+
+--CASE WHEN M.pricing_uom_cd <> M.STOCKING_UOM_CD and M.pricing_uom_cd IN ('ML','MS')
+--THEN ((try_convert(float,i.average_cost)*try_convert(int,i.quantity_on_hand))/ai.default_uom_conv_factor) 
+--ELSE (try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol))
+--END AS Agility_Avg_Value,
+-----(Average Cost * QOH * Selling_Unit_Factor) / 1000; rounded off to 2 decimal places
+
+--ROUND((try_convert(float,i.average_cost) * (try_convert(int,i.quantity_on_hand) * m.item_size_vol)),0) AS WS_Avg_Value,
+
+--ISNULL(ISNULL(NULLIF(wi.branch_ws_to_agility_item_mapping,''),wi.Default_Agility_Item),'Item Mapping Missing') Agility_Item,
+--ai.item, ai.item_ptr,ai.[description],ai.size_,ai.[type],ai.length_uom,ai.width_uom,ai.depth,ai.thickness_uom,
+--ai.costing_uom,ai.stocking_uom,ai.default_uom_conv_factor,ai.stock_to_pc_calc,
+--((try_convert(float,i.average_cost)*try_convert(int,i.quantity_on_hand))/ai.default_uom_conv_factor)  as Attribute1
+--FROM [DWH].[LW_ITDTL] i 
+--INNER JOIN [DWH].[item_mstr] m ON i.ITEM_NUMBER = m.item_cd AND m.prod_line_cd=i.product_line
+--LEFT JOIN [DWH].[Agility_Wsdk_item_by_Branch] wi on i.ITEM_NUMBER=wi.item AND i.company_number=wi.company_id and i.LOCATION_NUMBER = wi.Branch_ID
+--LEFT JOIN [dbo].[xxws_branch_mapping_lookup] L 
+--ON try_convert(int,i.company_number)=try_convert(int,l.company) and try_convert(int,i.LOCATION_NUMBER) = try_convert(int,l.LOCATION)
+--LEFT JOIN Agility.item ai on ai.item=ISNULL(NULLIF(wi.branch_ws_to_agility_item_mapping,''),wi.Default_Agility_Item)
+--WHERE 
+--m.rec_cur_ind = 'Y' AND LTRIM(RTRIM(i.item_number)) NOT IN ('#7FWS34','1000SJ1012U','358TD1020L3')
+-- AND i.QUANTITY_ON_HAND <>' 0000000'
+-- ---and ISNULL(NULLIF(wi.branch_ws_to_agility_item_mapping,''),wi.Default_Agility_Item)='150150RA.30'
+--order by i.item_number
+
+--select * from [dbo].[xxws_branch_mapping_lookup]
+--GO
+
+
+--------------------
+
